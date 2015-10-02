@@ -57,41 +57,10 @@ $(function() {
 			});
 
 			promise.then(function(data) {
-	    		var parser = new DOMParser();
-	    		xmlDoc = parser.parseFromString(data, "text/xml");
+	    		var servicoParser = new ServicoParser();
+	    		var servicoDocument = servicoParser.parseXml(data);
 
-	    		var nome = xmlDoc.getElementsByTagName("nome")[0].childNodes[0].nodeValue;
-				var descricao = xmlDoc.getElementsByTagName("descricao")[0].childNodes[0].nodeValue;
-				//var segmentosDaSociedade = xmlDoc.getElementsByTagName('segmentos-da-sociedade')[0].childNodes[1].childNodes[0].nodeValue;
-				var segmentosDaSociedade = '';
-				var areasDeInteresse = xmlDoc.getElementsByTagName('areas-de-interesse')[0].childNodes[1].childNodes[0].nodeValue;
-	            var canalDePrestacao = xmlDoc.getElementsByTagName('canais-de-prestacao')[0].childNodes[1].childNodes[1].childNodes[1].childNodes[0].nodeValue;
-	            var tipoCanalDePrestacao = xmlDoc.getElementsByTagName('canais-de-prestacao')[0].childNodes[1].childNodes[1].getAttribute('tipo');
-	            var orgao = xmlDoc.getElementsByTagName('orgao')[0].getAttribute('id');
-
-				docDefinition.content.push({ text: nome, style: 'header'});
-				docDefinition.content.push('\n');
-				docDefinition.content.push({ text: descricao, style: 'paragraph' });
-				docDefinition.content.push('\n');
-				docDefinition.content.push({ text: 'Etapas para a realização deste serviço', style: 'subheader' });
-				docDefinition.content.push('\n');
-				docDefinition.content.push({ text: 'Etapa 1', style: 'subheader' });
-				docDefinition.content.push('\n');
-				docDefinition.content.push({ text: 'Canais de Prestação', style: 'subheader'});
-				docDefinition.content.push('\n');
-				docDefinition.content.push({ text: tipoCanalDePrestacao + ' - ' + canalDePrestacao, style: 'list' });
-				docDefinition.content.push('\n');
-				docDefinition.content.push({ text: 'Segmentos da Sociedade', style: 'subheader'});
-				docDefinition.content.push('\n');
-				docDefinition.content.push({ ul: [ segmentosDaSociedade ], style: 'list' });
-				docDefinition.content.push('\n');
-				docDefinition.content.push({ text: 'Áreas de Interesse', style: 'subheader'});
-				docDefinition.content.push('\n');
-				docDefinition.content.push({ ul: [ areasDeInteresse ], style: 'list' });
-				docDefinition.content.push('\n');
-				docDefinition.content.push({ text: 'Orgão responsável', style: 'subheader'});
-				docDefinition.content.push('\n');
-				docDefinition.content.push({ ul: [ orgao ], style: 'paragraph', pageBreak: 'after' });
+	    		docDefinition.content = docDefinition.content.concat(servicoDocument);
 			});
 
 			promises.push(promise);
