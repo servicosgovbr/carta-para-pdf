@@ -1,0 +1,22 @@
+{
+  "name": "carta-para-pdf",
+  "version": "1.0.0",
+  "description": "Repositório para converter a carta de um orgão em PDF ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/servicosgovbr/carta-para-pdf.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/servicosgovbr/carta-para-pdf/issues"
+  },
+  "homepage": "https://github.com/servicosgovbr/carta-para-pdf#readme",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}
