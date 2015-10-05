@@ -1,31 +1,38 @@
 var ServicoParser = function() {
-	var nome, descricao, segmentosDaSociedade, areasDeInteresse, canalDePrestacao, tipoCanalDePrestacao, orgao;
-	var parser = new DOMParser();
+	var nome, descricao, segmentosDaSociedade, areasDeInteresse, canaisDePrestacao, orgao;
 	var xmlDoc;
 	var docContent = [];
 
 	function parseNome() {
-		return xmlDoc.getElementsByTagName("nome")[0].childNodes[0].nodeValue;
+		return $(xmlDoc).find("nome").html();
 	}
 
 	function parseDescricao() {
-		return xmlDoc.getElementsByTagName("descricao")[0].childNodes[0].nodeValue;
+		return $(xmlDoc).find("descricao").html();
 	}
 
 	function parseAreasDeInteresse() {
-		return xmlDoc.getElementsByTagName('areas-de-interesse')[0].childNodes[1].childNodes[0].nodeValue;
+		var values = [];
+
+		$(xmlDoc).find("areas-de-interesse item").each(function(index, item) {
+			values.push($(item).html());
+		});
+
+		return values;
 	}
 
 	function parseCanalDePrestacao() {
-		return xmlDoc.getElementsByTagName('canais-de-prestacao')[0].childNodes[1].childNodes[1].childNodes[1].childNodes[0].nodeValue;
-	}
+		var values = [];
 
-	function parseTipoCanalDePrestacao() {
-		return xmlDoc.getElementsByTagName('canais-de-prestacao')[0].childNodes[1].childNodes[1].getAttribute('tipo');
+		$(xmlDoc).find("canal-de-prestacao").each(function(index, item) {
+			values.push($(item).attr('tipo') +  ' - ' + $(item).find('descricao').html());
+		});
+
+		return values;
 	}
 
 	function parseOrgao() {
-		return xmlDoc.getElementsByTagName('orgao')[0].getAttribute('id');
+		return $(xmlDoc).find("orgao").attr('id');
 	}
 
 	function addNewLine() {
@@ -43,7 +50,7 @@ var ServicoParser = function() {
 		addNewLine();
 		docContent.push({ text: 'Canais de Prestação', style: 'subheader'});
 		addNewLine();
-		docContent.push({ text: tipoCanalDePrestacao + ' - ' + canalDePrestacao, style: 'list' });
+		docContent.push({ ul: canaisDePrestacao, style: 'list' });
 		addNewLine();
 		docContent.push({ text: 'Segmentos da Sociedade', style: 'subheader'});
 		addNewLine();
@@ -51,7 +58,7 @@ var ServicoParser = function() {
 		addNewLine();
 		docContent.push({ text: 'Áreas de Interesse', style: 'subheader'});
 		addNewLine();
-		docContent.push({ ul: [ areasDeInteresse ], style: 'list' });
+		docContent.push({ ul: areasDeInteresse, style: 'list' });
 		addNewLine();
 		docContent.push({ text: 'Orgão responsável', style: 'subheader'});
 		addNewLine();
@@ -59,14 +66,13 @@ var ServicoParser = function() {
 	}
 
 	function parseXml(data) {
-		xmlDoc = parser.parseFromString(data, "text/xml");
+		xmlDoc = $.parseXML(data);
 
 		nome = parseNome();
 		descricao = parseDescricao();
 		segmentosDaSociedade = '';
 		areasDeInteresse = parseAreasDeInteresse();
-        canalDePrestacao = parseCanalDePrestacao();
-        tipoCanalDePrestacao = parseTipoCanalDePrestacao();
+        canaisDePrestacao = parseCanalDePrestacao();
         orgao = parseOrgao();
 
         addValuesIntoDocument();
