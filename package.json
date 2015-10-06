@@ -17,6 +17,11 @@
   },
   "homepage": "https://github.com/servicosgovbr/carta-para-pdf#readme",
   "dependencies": {
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "github": "^0.2.4",
+    "jquery": "^2.1.4",
+    "pdfmake": "^0.1.18",
+    "q": "^1.4.1",
+    "request-promise": "^0.4.3"
   }
 }

@@ -1,8 +1,10 @@
+var pdfMaker = require('./pdfMaker.js');
 var express = require('express');
 var app = express();
+var GitHubApi = require("github");
 
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  	pdfMaker.generatePdf();
 });
 
 var server = app.listen(3000, function () {
