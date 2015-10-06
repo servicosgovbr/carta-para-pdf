@@ -74,23 +74,28 @@ exports.generatePdf = function() {
 	}, function(err, data) {
 	    var promises = [];
 
-	    console.log('caiu aqui ');
 		for (var index in data) {
-			console.log("cartas-servico/v3/servicos/" + data[index].name);
+			function getFileContent(param) {
+			    var d = Q.defer();
 
-			github.repos.getContent({
-			    user: "servicosgovbr",
-			    repo: "cartas-de-servico",
-			    path: "cartas-servico/v3/servicos/" + data[index].name
-			}, function(error, data) {
-				var content = new Buffer(data.content, 'base64').toString("ascii");
-				console.log(content);
-			});
+			    github.repos.getContent({
+				    user: "servicosgovbr",
+				    repo: "cartas-de-servico",
+				    path: "cartas-servico/v3/servicos/" + param
+				}, function(error, data) {
+					d.resolve(data);
+				});
+			    
+			    return d.promise;   
+			};
 
-			promise.then(function(error, data) {
-				var content = new Buffer(data.content, 'base64').toString("ascii");
+			var promise = getFileContent(data[index].name);
 
-				console.log(content);
+			promise.then(function(data) {
+				if(data.content) {
+					var content = new Buffer(data.content, 'base64').toString("ascii");
+					console.log(content);
+				}
 
 	    		xmlDoc = $.parseXML(content);
 
