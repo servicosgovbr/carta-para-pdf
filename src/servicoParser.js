@@ -20,6 +20,17 @@ var ServicoParser = function() {
 
 		return values;
 	}
+	function parseEtapas(xmlDoc) {
+		var etapas = [];
+
+		$(xmlDoc).find("etapa").each(function(index, item) {
+			etapas.push({'titulo': $(item).find('titulo').html(),
+				'descricao': $(item).find('descricao').html()
+			});
+		});
+
+		return etapas;
+	}
 
 	function parseCanaisDePrestacao(xmlDoc) {
 		var values = [];
@@ -85,6 +96,7 @@ var ServicoParser = function() {
 		parseXml: parseXml,
 		parseNome: parseNome,
 		parseDescricao: parseDescricao,
-		parseCanaisDePrestacao: parseCanaisDePrestacao
+		parseCanaisDePrestacao: parseCanaisDePrestacao,
+		parseEtapas: parseEtapas
 	}
 };
