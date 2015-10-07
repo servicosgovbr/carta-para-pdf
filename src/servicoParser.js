@@ -1,13 +1,13 @@
 var ServicoParser = function() {
-	var nome, descricao, segmentosDaSociedade, areasDeInteresse, canaisDePrestacao, orgao, xmlDoc;
+	var segmentosDaSociedade, areasDeInteresse, canaisDePrestacao, orgao, xmlDoc;
 	var docContent = [];
 	var returnObject = {};
 
-	function parseNome() {
+	function parseNome(xmlDoc) {
 		return $(xmlDoc).find("nome").html();
 	}
 
-	function parseDescricao() {
+	function parseDescricao(xmlDoc) {
 		return $(xmlDoc).find("descricao").html();
 	}
 
@@ -21,11 +21,11 @@ var ServicoParser = function() {
 		return values;
 	}
 
-	function parseCanalDePrestacao() {
+	function parseCanaisDePrestacao(xmlDoc) {
 		var values = [];
 
 		$(xmlDoc).find("canal-de-prestacao").each(function(index, item) {
-			values.push($(item).attr('tipo') +  ' - ' + $(item).find('descricao').html());
+			values.push({ 'tipo': $(item).attr('tipo'), 'descricao': $(item).find('descricao').html() });
 		});
 
 		return values;
@@ -65,26 +65,26 @@ var ServicoParser = function() {
 		docContent.push({ ul: [ orgao ], style: 'paragraph', pageBreak: 'after' });
 	}
 
-	function createReturnObject() {
-		returnObject.nome = nome;
-	}
-
 	function parseXml(data) {
 		xmlDoc = $.parseXML(data);
 
-		nome = parseNome();
-		// descricao = parseDescricao();
+	  returnObject.nome = parseNome(xmlDoc);
+		returnObject.descricao = parseDescricao(xmlDoc);
+		returnObject.canaisDePrestacao = parseCanaisDePrestacao(xmlDoc);
+
 		// segmentosDaSociedade = '';
 		// areasDeInteresse = parseAreasDeInteresse();
 	 //  canaisDePrestacao = parseCanalDePrestacao();
 	 //  orgao = parseOrgao();
 
-	  createReturnObject();
-
+	  console.log(returnObject);
 	  return returnObject;
 	}
 
 	return {
-		parseXml: parseXml
+		parseXml: parseXml,
+		parseNome: parseNome,
+		parseDescricao: parseDescricao,
+		parseCanaisDePrestacao: parseCanaisDePrestacao
 	}
 };
