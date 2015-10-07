@@ -1,19 +1,21 @@
+var xmlParser = require('xmldoc');
+
 var nome, descricao, segmentosDaSociedade, areasDeInteresse, canaisDePrestacao, orgao, xmlDoc;
 var docContent = [];
 
 function parseNome() {
-	return $(xmlDoc).find("nome").html();
+	return xmlDoc.childNamed('nome').val;
 }
 
 function parseDescricao() {
-	return $(xmlDoc).find("descricao").html();
+	return xmlDoc.childNamed('descricao').val;
 }
 
 function parseAreasDeInteresse() {
 	var values = [];
 
-	$(xmlDoc).find("areas-de-interesse item").each(function(index, item) {
-		values.push($(item).html());
+	xmlDoc.childNamed('areas-de-interesse').childrenNamed('item').forEach(function(item) {
+		values.push(item.val);
 	});
 
 	return values;
@@ -22,15 +24,15 @@ function parseAreasDeInteresse() {
 function parseCanalDePrestacao() {
 	var values = [];
 
-	$(xmlDoc).find("canal-de-prestacao").each(function(index, item) {
-		values.push($(item).attr('tipo') +  ' - ' + $(item).find('descricao').html());
+	xmlDoc.childrenNamed('canal-de-prestacao').forEach(function(item) {
+		values.push(item.attr.tipo +  ' - ' + item.childNamed('descricao').val);
 	});
 
 	return values;
 }
 
 function parseOrgao() {
-	return $(xmlDoc).find("orgao").attr('id');
+	return xmlDoc.childNamed('orgao').attr.id;
 }
 
 function addNewLine() {
@@ -64,7 +66,7 @@ function addValuesIntoDocument() {
 }
 
 exports.parseXml = function(data) {
-	xmlDoc = $.parseXML(data);
+	xmlDoc = new xmlParser.XmlDocument(data);
 
 	nome = parseNome();
 	descricao = parseDescricao();
