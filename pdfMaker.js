@@ -1,14 +1,3 @@
-var servicoParser = require("./servicoParser.js");
-var Q = require('q');
-var pdfMake = require('pdfmake');
-var request = require('request-promise');
-var $ = require('jquery');
-var GitHubApi = require("github");
-
-
-var xmlDoc;
-var servicos = {};
-
 var docDefinition = {
 	content: [],
 	styles: {
@@ -44,81 +33,10 @@ var initialDocDefinition = function() {
 	docDefinition.content.push({ text: 'Ministério da educação MEC', style: 'header', pageBreak: 'after', alignment: 'center'});
 }
 
-exports.generatePdf = function() {
-	servicos = {};
+function generatePdf(orgao) {
 	initialDocDefinition();
+	servicoParser.parseXml(xmlServico);
 
-	var urlServico = 'http://estruturaorganizacional.dados.gov.br/id/unidade-organizacional/1930';
-
-	var github = new GitHubApi({
-	    version: "3.0.0",
-	    debug: true,
-	    protocol: "https",
-	    host: "api.github.com",
-	    timeout: 5000,
-	    headers: {
-	        "user-agent": "carta-para-pdf"
-	    }
-	});
-
-	// github.authenticate({
-	//     type: "basic",
-	//     username: '',
-	//     password: ''
-	// });
-
-	github.repos.getContent({
-	    user: "servicosgovbr",
-	    repo: "cartas-de-servico",
-	    path: "cartas-servico/v3/servicos"
-	}, function(err, data) {
-	    var promises = [];
-
-		for (var index in data) {
-			function getFileContent(param) {
-			    var d = Q.defer();
-
-			    github.repos.getContent({
-				    user: "servicosgovbr",
-				    repo: "cartas-de-servico",
-				    path: "cartas-servico/v3/servicos/" + param
-				}, function(error, data) {
-					d.resolve(data);
-				});
-			    
-			    return d.promise;   
-			};
-
-			var promise = getFileContent(data[index].name);
-
-			promise.then(function(data) {
-				if(data.content) {
-					var content = new Buffer(data.content, 'base64').toString("ascii");
-					console.log(content);
-				}
-
-	    		xmlDoc = $.parseXML(content);
-
-	    		var orgaoId = $(xmlDoc).find("orgao").attr('id');
-
-	    		if (servicos[orgaoId]) {
-	    			servicos[orgaoId].push(content);
-	    		} else {
-	    			servicos[orgaoId] = [content];
-	    		};
-			});
-
-			promises.push(promise);
-		};
-
-		Q.all(promises).then(function() {
-			$(servicos[urlServico]).each(function(index, xmlServico) {
-				servicoParser.parseXml(xmlServico);
-
-				docDefinition.content = docDefinition.content.concat(servicoDocument);
-			});
-			
-			//pdfMake.createPdf(docDefinition).open();
-		});
-	});
+	docDefinition.content = docDefinition.content.concat(servicoDocument);	
+	//pdfMake.createPdf(docDefinition).open();
 };
