@@ -45,6 +45,10 @@ describe("Servico Parser", function () {
             expect(servicoParser.parseSolicitantes(xml)).toEqual(solicitantes);
         });
 
+        it("should return tempo total estimado do servico", function () {
+            expect(servicoParser.parseTempoTotalEstimado(xml)).toEqual({ max: '40', unidade: 'dias-uteis', descricao: '' });
+        });
+
       describe("etapa", function () {
         it("should return nome primeira etapa", function () {
             expect(servicoParser.parseEtapas(xml)[0].titulo).toEqual('Agendamento');

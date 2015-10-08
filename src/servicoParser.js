@@ -35,6 +35,10 @@ var ServicoParser = function() {
 		return solicitantes;
 	}
 
+	function parseTempoTotalEstimado(xmlDoc) {
+		return { max: $(xmlDoc).find('tempo-total-estimado ate').attr('max'), unidade: $(xmlDoc).find('tempo-total-estimado ate').attr('unidade'), descricao: $(xmlDoc).find('tempo-total-estimado descricao').html() }
+	}
+
 	function parseGratuito(xmlDoc) {
 		return $(xmlDoc).find("gratuito").html() !== 'false';
 	}
@@ -177,6 +181,7 @@ var ServicoParser = function() {
 	  	returnObject.areasDeInteresse = parseAreasDeInteresse(xmlDoc);
 		returnObject.descricao = parseDescricao(xmlDoc);
 		returnObject.canaisDePrestacao = parseCanaisDePrestacao(xmlDoc);
+		returnObject.tempoTotalEstimado = parseTempoTotalEstimado(xmlDoc);
 
 		return returnObject;
 	}
@@ -190,6 +195,7 @@ var ServicoParser = function() {
 		parseSolicitantes: parseSolicitantes,
 		parseCanaisDePrestacao: parseCanaisDePrestacao,
 		parseEtapas: parseEtapas,
-		parseGratuito: parseGratuito
+		parseGratuito: parseGratuito,
+		parseTempoTotalEstimado: parseTempoTotalEstimado
 	}
 };
