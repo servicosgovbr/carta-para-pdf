@@ -25,6 +25,18 @@ describe("Servico Parser", function () {
             expect(servicoParser.parseNomesPopulares(xml)).toEqual(['Serviço para teste', 'Testando a interface']);
         });
 
+        it("should return gratuidade do servico", function () {
+            expect(servicoParser.parseGratuito(xml)).toEqual(false);
+        });
+
+        it("should return gratuidade positiva do servico", function () {
+            expect(servicoParser.parseGratuito('<servico><gratuito/></servico>')).toEqual(true);
+        });
+
+        it("should return gratuidade negativa do servico", function () {
+            expect(servicoParser.parseGratuito('<servico><gratuito>false</gratuito></servico>')).toEqual(false);
+        });
+
       describe("etapa", function () {
         it("should return nome primeira etapa", function () {
             expect(servicoParser.parseEtapas(xml)[0].titulo).toEqual('Agendamento');

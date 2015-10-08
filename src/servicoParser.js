@@ -25,6 +25,10 @@ var ServicoParser = function() {
 		return nomesPopulares;
 	}
 
+	function parseGratuito(xmlDoc) {
+		return $(xmlDoc).find("gratuito").html() !== 'false';
+	}
+
 	function parseAreasDeInteresse() {
 		var values = [];
 
@@ -160,13 +164,7 @@ var ServicoParser = function() {
 		returnObject.descricao = parseDescricao(xmlDoc);
 		returnObject.canaisDePrestacao = parseCanaisDePrestacao(xmlDoc);
 
-		// segmentosDaSociedade = '';
-		// areasDeInteresse = parseAreasDeInteresse();
-	 //  canaisDePrestacao = parseCanalDePrestacao();
-	 //  orgao = parseOrgao();
-
-	  console.log(returnObject);
-	  return returnObject;
+		return returnObject;
 	}
 
 	return {
@@ -176,6 +174,7 @@ var ServicoParser = function() {
 		parseNome: parseNome,
 		parseDescricao: parseDescricao,
 		parseCanaisDePrestacao: parseCanaisDePrestacao,
-		parseEtapas: parseEtapas
+		parseEtapas: parseEtapas,
+		parseGratuito: parseGratuito
 	}
 };
