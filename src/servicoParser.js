@@ -23,10 +23,11 @@ var ServicoParser = function() {
 	function parseEtapas(xmlDoc) {
 		var etapas = [];
 
-		$(xmlDoc).find("etapa").each(function(index, item) {
-			etapas.push({'titulo': $(item).find('titulo').html(),
-				'descricao': $(item).find('descricao').html(),
-				'documentos': parseDocumentos(item)
+		$(xmlDoc).find("etapa").each(function(index, etapa) {
+			etapas.push({'titulo': $(etapa).find('titulo').html(),
+				'descricao': $(etapa).find('descricao').html(),
+				'documentos': parseDocumentos(etapa),
+				'custos': parseCustos(etapa)
 			});
 		});
 
@@ -53,6 +54,31 @@ var ServicoParser = function() {
 		});
 
 		return documentos;
+	}
+
+	function parseCustos(etapa) {
+		var custos = {};
+		custos.items = [];
+		custos.casos = [];
+
+		$(etapa).find('custos default custo').each(function(index, item) {
+			var custo = {descricao: $(item).find('descricao').html(), valor: $(item).find('valor').html() };
+			custos.items.push(custo);
+		});
+
+		$(etapa).find('custos caso').each(function(index, caso) {
+			var custo = { descricao: $(caso).attr('descricao'), items: [] };
+
+			$(caso).find('custo').each(function(index, item) {
+				var custoObj = {descricao: $(item).find('descricao').html(), valor: $(item).find('valor').html() }
+				custo.items.push(custoObj);
+				custos.casos.push(custo);
+			});
+		});
+
+		console.log(custos);
+
+		return custos;
 	}
 
 	function parseCanaisDePrestacao(xmlDoc) {

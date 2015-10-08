@@ -31,6 +31,11 @@ describe("Servico Parser", function () {
             var documentos = { items: ['CPF', 'RG', 'Comprovante de renda'], casos: [ { descricao: 'Professores', items: [ 'Comprovante do exercício do magistério' ] } ] };
             expect(servicoParser.parseEtapas(xml)[0].documentos).toEqual(documentos);
         });
+
+         it("should return custo primeira etapa", function () {
+            var documentos = { items: [{descricao: 'Taxa de inscrição', valor: '90,00'}], casos: [ { descricao: 'Estudantes da rede pública de ensino', items: [ {descricao: 'Taxa de inscrição', valor: '0,00'} ] } ] };
+            expect(servicoParser.parseEtapas(xml)[0].custos).toEqual(documentos);
+        });
       });
     });
 });
