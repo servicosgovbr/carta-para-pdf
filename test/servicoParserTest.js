@@ -37,6 +37,14 @@ describe("Servico Parser", function () {
             expect(servicoParser.parseGratuito('<servico><gratuito>false</gratuito></servico>')).toEqual(false);
         });
 
+        it("should return solicitante do servico", function () {
+            var solicitantes = [{tipo: "Estudantes egressos do ensino médio da rede pública", requisitos: "Na condição de bolsistas integrais: * Com renda familiar per capita máxima de três salários mínimos. * Tenha participado do Exame Nacional do Ensino Médio - Enem, a partir da edição de 2010, e obtido, em uma mesma edição do referido exame, média das notas nas provas igual ou superior a 450 pontos e nota superior a zero na redação." }, 
+            {tipo: "Estudantes egressos do ensino médio da rede particular", requisitos: "Na condição de bolsistas parciais: * Com renda familiar per capita máxima de seis salários mínimos. * Tenha participado do Exame Nacional do Ensino Médio - Enem, a partir da edição de 2010, e obtido, em uma mesma edição do referido exame, média das notas nas provas igual ou superior a 450 pontos e nota superior a zero na redação." }, 
+            {tipo: "Pessoa com deficiência", requisitos: ""},
+            {tipo: "Professor da rede pública de ensino", requisitos: "No efetivo exercício do magistério da educação básica e integrando o quadro de pessoal permanente da instituição pública e concorrer a bolsas exclusivamente nos cursos de licenciatura." }];
+            expect(servicoParser.parseSolicitantes(xml)).toEqual(solicitantes);
+        });
+
       describe("etapa", function () {
         it("should return nome primeira etapa", function () {
             expect(servicoParser.parseEtapas(xml)[0].titulo).toEqual('Agendamento');

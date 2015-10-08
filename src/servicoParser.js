@@ -25,6 +25,16 @@ var ServicoParser = function() {
 		return nomesPopulares;
 	}
 
+	function parseSolicitantes(xmlDoc) {
+		var solicitantes = [];
+
+		$(xmlDoc).find("solicitantes solicitante").each(function(index, item) {
+			solicitantes.push({tipo: $(item).find("tipo").html(), requisitos: $(item).find("requisitos").html()});
+		});
+
+		return solicitantes;
+	}
+
 	function parseGratuito(xmlDoc) {
 		return $(xmlDoc).find("gratuito").html() !== 'false';
 	}
@@ -161,6 +171,10 @@ var ServicoParser = function() {
 
 	  	returnObject.nome = parseNome(xmlDoc);
 	  	returnObject.sigla = parseSigla(xmlDoc);
+	  	returnObject.gratuito = parseGratuito(xmlDoc);
+	  	returnObject.nomesPopulares = parseNomesPopulares(xmlDoc);
+	  	returnObject.solicitantes = parseSolicitantes(xmlDoc);
+	  	returnObject.areasDeInteresse = parseAreasDeInteresse(xmlDoc);
 		returnObject.descricao = parseDescricao(xmlDoc);
 		returnObject.canaisDePrestacao = parseCanaisDePrestacao(xmlDoc);
 
@@ -173,6 +187,7 @@ var ServicoParser = function() {
 		parseNomesPopulares: parseNomesPopulares,
 		parseNome: parseNome,
 		parseDescricao: parseDescricao,
+		parseSolicitantes: parseSolicitantes,
 		parseCanaisDePrestacao: parseCanaisDePrestacao,
 		parseEtapas: parseEtapas,
 		parseGratuito: parseGratuito
