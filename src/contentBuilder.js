@@ -57,14 +57,94 @@ var ContentBuilder = function(servicoObject) {
 		addNewLine();
 		docContent.push({ text: 'Quais legislações?', style: 'subheader' });
 		addNewLine();
-		docContent.push({ ul: servicoObject.legislacoes, style: 'list' });
+		docContent.push({ ul: servicoObject.legislacoes, style: 'list', pageBreak: 'after' });
+	}
+
+	function buildEtapa(index, etapa) {
+		docContent.push({ text: 'Etapa ' + (index + 1) + ' - ' + etapa.titulo, style: 'subheader' });
 		addNewLine();
+		docContent.push({ text: etapa.descricao, style: 'paragraph' });
+		addNewLine();
+		
+		buildDocumentos(etapa.documentos);
+		buildCustos(etapa.custos);
+		buildCanais(etapa.canaisDePrestacao)
+	}
+
+	function buildDocumentos(documentos) {
+		docContent.push({ text: 'Quais são os documentos necessários?', style: 'subheader' });
+		addNewLine();
+		docContent.push({ ul: documentos.items, style: 'list' });
+		addNewLine();
+
+		$(documentos.casos).each(function(index, caso) {
+			docContent.push({ text: 'Caso ' + (index + 1), style: 'subheader' });
+			addNewLine();
+			docContent.push({ text: caso.descricao, style: 'paragraph' });
+			addNewLine();
+			docContent.push({ text: 'Quais são os documentos necessários para este caso?', style: 'subheader' });
+			addNewLine();
+			docContent.push({ ul: caso.items, style: 'list' });
+			addNewLine();
+		});
+	}
+
+	function buildCustos(custos) {
+		docContent.push({ text: 'Quais são os custos?', style: 'subheader' });
+		addNewLine();
+		$(custos.items).each(function(index, custo) {
+			docContent.push({ text: custo.descricao, style: 'paragraph' });
+			docContent.push({ text: custo.valor, style: 'paragraph' });
+			addNewLine();
+		});
+
+		$(custos.casos).each(function(index, caso) {
+			docContent.push({ text: 'Caso ' + (index + 1), style: 'subheader' });
+			addNewLine();
+			docContent.push({ text: caso.descricao, style: 'paragraph' });
+			addNewLine();
+			docContent.push({ text: 'Quais são os custos para este caso?', style: 'subheader' });
+			addNewLine();
+			$(caso.items).each(function(index, custo) {
+				docContent.push({ text: custo.descricao, style: 'paragraph' });
+				docContent.push({ text: custo.valor, style: 'paragraph' });
+				addNewLine();
+			});
+		});
+	}
+
+	function buildCanais(canais) {
+		docContent.push({ text: 'Quais são os canais de prestação?', style: 'subheader' });
+		addNewLine();
+		$(canais.items).each(function(index, canal) {
+			docContent.push({ text: canal.tipo, style: 'paragraph' });
+			docContent.push({ text: canal.descricao, style: 'paragraph' });
+			addNewLine();
+		});
+
+		$(canais.casos).each(function(index, caso) {
+			docContent.push({ text: 'Caso ' + (index + 1), style: 'subheader' });
+			addNewLine();
+			docContent.push({ text: caso.descricao, style: 'paragraph' });
+			addNewLine();
+			docContent.push({ text: 'Quais são os canais de prestação para este caso?', style: 'subheader' });
+			addNewLine();
+			$(caso.items).each(function(index, canal) {
+				docContent.push({ text: canal.tipo, style: 'paragraph' });
+				docContent.push({ text: canal.descricao, style: 'paragraph' });
+				addNewLine();
+			});
+		});
 	}
 
 	function buildContent() {
 		buildCapaServico();
 		buildPrimeiraPagina();
 		buildSegundaPagina();
+
+		$(servico.etapas).each(function(index, etapa){
+			buildEtapa(index, etapa);
+		});
 
 		return docContent;
 	}
