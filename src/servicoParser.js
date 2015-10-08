@@ -81,7 +81,7 @@ var ServicoParser = function() {
 
 		return values;
 	}
-	
+
 	function parseEtapas(xmlDoc) {
 		var etapas = [];
 
