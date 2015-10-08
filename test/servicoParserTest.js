@@ -32,9 +32,14 @@ describe("Servico Parser", function () {
             expect(servicoParser.parseEtapas(xml)[0].documentos).toEqual(documentos);
         });
 
-         it("should return custo primeira etapa", function () {
-            var documentos = { items: [{descricao: 'Taxa de inscrição', valor: '90,00'}], casos: [ { descricao: 'Estudantes da rede pública de ensino', items: [ {descricao: 'Taxa de inscrição', valor: '0,00'} ] } ] };
-            expect(servicoParser.parseEtapas(xml)[0].custos).toEqual(documentos);
+        it("should return custo primeira etapa", function () {
+            var custos = { items: [{descricao: 'Taxa de inscrição', valor: '90,00'}], casos: [ { descricao: 'Estudantes da rede pública de ensino', items: [ {descricao: 'Taxa de inscrição', valor: '0,00'} ] } ] };
+            expect(servicoParser.parseEtapas(xml)[0].custos).toEqual(custos);
+        });
+
+        it("should return canais de prestacao primeira etapa", function () {
+            var canaisDePrestacao = [{tipo: 'postal', descricao: 'Av. Ipiranga 6681 - Prédio 99A - sala 218 – 2º andar. Porto Alegre - RS - Brasil. CEP 90619-900'}, {tipo: 'e-mail', descricao: 'brasil@gov.br'}, {tipo: 'web-agendar', descricao: 'http://siteprouni.mec.gov.br/'}];
+            expect(servicoParser.parseEtapas(xml)[0].canaisDePrestacao).toEqual(canaisDePrestacao);
         });
       });
     });

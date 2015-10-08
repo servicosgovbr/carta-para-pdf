@@ -27,7 +27,8 @@ var ServicoParser = function() {
 			etapas.push({'titulo': $(etapa).find('titulo').html(),
 				'descricao': $(etapa).find('descricao').html(),
 				'documentos': parseDocumentos(etapa),
-				'custos': parseCustos(etapa)
+				'custos': parseCustos(etapa),
+				'canaisDePrestacao': parseCanaisDePrestacao(etapa)
 			});
 		});
 
@@ -82,14 +83,14 @@ var ServicoParser = function() {
 		return custos;
 	}
 
-	function parseCanaisDePrestacao(xmlDoc) {
-		var values = [];
+	function parseCanaisDePrestacao(etapa) {
+		var canaisDePrestacao = [];
 
-		$(xmlDoc).find("canal-de-prestacao").each(function(index, item) {
-			values.push({ 'tipo': $(item).attr('tipo'), 'descricao': $(item).find('descricao').html() });
+		$(etapa).find("canal-de-prestacao").each(function(index, item) {
+			canaisDePrestacao.push({ 'tipo': $(item).attr('tipo'), 'descricao': $(item).find('descricao').html() });
 		});
 
-		return values;
+		return canaisDePrestacao;
 	}
 
 	function parseOrgao() {
