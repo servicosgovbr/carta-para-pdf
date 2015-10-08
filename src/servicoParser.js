@@ -6,6 +6,16 @@ var ServicoParser = function() {
 		return $(xmlDoc).find("nome").html();
 	}
 
+	function parseArray(xmlDoc, selector) {
+		var values = [];
+
+		$(xmlDoc).find(selector).each(function(index, item) {
+			values.push($(item).html());
+		});
+
+		return values;
+	}
+
 	function parseSigla(xmlDoc) {
 		return $(xmlDoc).find('sigla').html();
 	}
@@ -15,34 +25,24 @@ var ServicoParser = function() {
 	}
 
 	function parseNomesPopulares(xmlDoc) {
-		var nomesPopulares = [];
-
-		$(xmlDoc).find("nomes-populares item").each(function(index, item) {
-			nomesPopulares.push($(item).html());
-		});
-
-		return nomesPopulares;
+		return parseArray(xmlDoc, "nomes-populares item");
 	}
 
 	function parseSegmentos(xmlDoc) {
-		var segmentos = [];
-
-		$(xmlDoc).find("segmentos-da-sociedade item").each(function(index, item) {
-			segmentos.push($(item).html());
-		});
-
-		return segmentos;	
+		return parseArray(xmlDoc, "segmentos-da-sociedade item");
 	} 
 
 	function parsePalavrasChave(xmlDoc) {
-		var palavras = [];
-
-		$(xmlDoc).find("palavras-chave item").each(function(index, item) {
-			palavras.push($(item).html());
-		});
-
-		return palavras;	
+		return parseArray(xmlDoc, "palavras-chave item");
 	} 
+
+	function parseLegislacoes(xmlDoc) {
+		return parseArray(xmlDoc, "legislacoes item");
+	}
+
+	function parseAreasDeInteresse(xmlDoc) {
+		return parseArray(xmlDoc, "areas-de-interesse item");
+	}
 
 	function parseSolicitantes(xmlDoc) {
 		var solicitantes = [];
@@ -54,32 +54,12 @@ var ServicoParser = function() {
 		return solicitantes;
 	}
 
-	function parseLegislacoes(xmlDoc) {
-		var legislacoes = [];
-
-		$(xmlDoc).find("legislacoes item").each(function(index, item) {
-			legislacoes.push($(item).html());
-		});
-
-		return legislacoes;
-	}
-
 	function parseTempoTotalEstimado(xmlDoc) {
 		return { max: $(xmlDoc).find('tempo-total-estimado ate').attr('max'), unidade: $(xmlDoc).find('tempo-total-estimado ate').attr('unidade'), descricao: $(xmlDoc).find('tempo-total-estimado descricao').html() }
 	}
 
 	function parseGratuito(xmlDoc) {
 		return $(xmlDoc).find("gratuito").html() !== 'false';
-	}
-
-	function parseAreasDeInteresse(xmlDoc) {
-		var values = [];
-
-		$(xmlDoc).find("areas-de-interesse item").each(function(index, item) {
-			values.push($(item).html());
-		});
-
-		return values;
 	}
 
 	function parseEtapas(xmlDoc) {
