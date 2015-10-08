@@ -30,11 +30,41 @@ var ContentBuilder = function(servicoObject) {
 			docContent.push({ text: solicitante.requisitos , style: 'paragraph' });
 			addNewLine();
 		});
+
+		docContent.push({ text: '', style: 'paragraph', pageBreak: 'after'});
+	}
+
+	function buildSegundaPagina() {
+		docContent.push({ text: 'Qual a sigla?', style: 'subheader' });
+		addNewLine();
+		docContent.push({ text: servicoObject.sigla, style: 'paragraph' });
+		addNewLine();
+		docContent.push({ text: 'Quanto tempo demora esse serviço?', style: 'subheader' });
+		addNewLine();
+		docContent.push({ text: servicoObject.tempoTotalEstimado.max + ' ' + servicoObject.tempoTotalEstimado.unidade, style: 'paragraph' });
+		addNewLine();
+		docContent.push({ text: 'Para quais segmentos da sociedade esse serviço serve?', style: 'subheader' });
+		addNewLine();
+		docContent.push({ ul: servicoObject.segmentos, style: 'list' });
+		addNewLine();
+		docContent.push({ text: 'Quais áreas de interesse?', style: 'subheader' });
+		addNewLine();
+		docContent.push({ ul: servicoObject.areasDeInteresse, style: 'list' });
+		addNewLine();
+		docContent.push({ text: 'Quais palavras chaves?', style: 'subheader' });
+		addNewLine();
+		docContent.push({ ul: servicoObject.palavrasChave, style: 'list' });
+		addNewLine();
+		docContent.push({ text: 'Quais legislações?', style: 'subheader' });
+		addNewLine();
+		docContent.push({ ul: servicoObject.legislacoes, style: 'list' });
+		addNewLine();
 	}
 
 	function buildContent() {
 		buildCapaServico();
 		buildPrimeiraPagina();
+		buildSegundaPagina();
 
 		return docContent;
 	}
