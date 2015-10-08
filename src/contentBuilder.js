@@ -7,14 +7,23 @@ var ContentBuilder = function(servicoObject) {
 	}
 
 	function buildCapaServico() {
-		return { text: servico.nome, style: 'header', pageBreak: 'after'};
+		docContent.push({ text: servico.nome, style: 'header', pageBreak: 'after'});
+	}
+
+	function buildPrimeiraPagina() {
+		docContent.push({ text: 'O que é?', style: 'subheader' });
+		addNewLine();
+		docContent.push({ text: servicoObject.descricao, style: 'paragraph' });
+		addNewLine();
+		docContent.push({ text: 'Este serviço é gratuito?', style: 'subheader' });
+		addNewLine();
+		docContent.push({ text: servicoObject.gratuito ? 'Sim' : 'Não', style: 'paragraph' });
+		addNewLine();
+		docContent.push({ text: 'Quem pode utilizar este serviço?', style: 'subheader' });
+
 	}
 
 	// function addValuesIntoDocument() {
-	// 	docContent.push({ text: nome, style: 'header'});
-	// 	addNewLine();
-	// 	docContent.push({ text: descricao, style: 'paragraph' });
-	// 	addNewLine();
 	// 	docContent.push({ text: 'Etapas para a realização deste serviço', style: 'subheader' });
 	// 	addNewLine();
 	// 	docContent.push({ text: 'Etapa 1', style: 'subheader' });
@@ -37,13 +46,15 @@ var ContentBuilder = function(servicoObject) {
 	// }
 
 	function buildContent() {
-		docContent.push(buildCapaServico());
+		buildCapaServico();
+		buildPrimeiraPagina();
 
 		return docContent;
 	}
 
 	return {
 		buildContent: buildContent,
-		buildCapaServico: buildCapaServico
+		buildCapaServico: buildCapaServico,
+		documentContent: docContent
 	}
 };

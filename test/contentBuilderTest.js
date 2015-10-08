@@ -9,7 +9,8 @@ describe("Content Builderr", function () {
 
     describe("Build servico dados", function () {
         it("should return capa do servico", function () {
-            expect(contentBuilder.buildCapaServico()).toEqual({ text: 'Serviço teste', style: 'header', pageBreak: 'after'});
+            contentBuilder.buildCapaServico()
+            expect(contentBuilder.documentContent).toEqual([{ text: 'Serviço teste', style: 'header', pageBreak: 'after'}]);
         });
     });
 });
