@@ -41,6 +41,16 @@ describe("Servico Parser", function () {
             expect(servicoParser.parseGratuito('<servico><gratuito>false</gratuito></servico>')).toEqual(false);
         });
 
+        it("should return segmentos do servico", function () {
+            var segmentos = ["Cidadãos"];
+            expect(servicoParser.parseSegmentos(xml)).toEqual(segmentos);
+        });
+
+        it("should return palavras chave do servico", function () {
+            var palavras = ["Teste", "Prouni", "Bolsa de estudos"];
+            expect(servicoParser.parsePalavrasChave(xml)).toEqual(palavras);
+        });
+
         it("should return solicitante do servico", function () {
             var solicitantes = [{tipo: "Estudantes egressos do ensino médio da rede pública", requisitos: "Na condição de bolsistas integrais: * Com renda familiar per capita máxima de três salários mínimos. * Tenha participado do Exame Nacional do Ensino Médio - Enem, a partir da edição de 2010, e obtido, em uma mesma edição do referido exame, média das notas nas provas igual ou superior a 450 pontos e nota superior a zero na redação." }, 
             {tipo: "Estudantes egressos do ensino médio da rede particular", requisitos: "Na condição de bolsistas parciais: * Com renda familiar per capita máxima de seis salários mínimos. * Tenha participado do Exame Nacional do Ensino Médio - Enem, a partir da edição de 2010, e obtido, em uma mesma edição do referido exame, média das notas nas provas igual ou superior a 450 pontos e nota superior a zero na redação." }, 
