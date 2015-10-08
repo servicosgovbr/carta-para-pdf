@@ -67,13 +67,14 @@ var ServicoParser = function() {
 		});
 
 		$(etapa).find('custos caso').each(function(index, caso) {
-			var custo = { descricao: $(caso).attr('descricao'), items: [] };
+			var casoObj = { descricao: $(caso).attr('descricao'), items: [] };
 
 			$(caso).find('custo').each(function(index, item) {
 				var custoObj = {descricao: $(item).find('descricao').html(), valor: $(item).find('valor').html() }
-				custo.items.push(custoObj);
-				custos.casos.push(custo);
+				casoObj.items.push(custoObj);
 			});
+
+			custos.casos.push(casoObj);
 		});
 
 		console.log(custos);
