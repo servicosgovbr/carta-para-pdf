@@ -20,7 +20,12 @@ var ContentBuilder = function(servicoObject) {
 		docContent.push({ text: servicoObject.gratuito ? 'Sim' : 'Não', style: 'paragraph' });
 		addNewLine();
 		docContent.push({ text: 'Quem pode utilizar este serviço?', style: 'subheader' });
-
+		addNewLine();
+		$(servicoObject.solicitantes).each(function(index, solicitante) {
+			docContent.push({ text: solicitante.tipo , style: 'subheader' });
+			docContent.push({ text: solicitante.requisitos , style: 'paragraph' });
+			addNewLine();
+		});
 	}
 
 	// function addValuesIntoDocument() {
