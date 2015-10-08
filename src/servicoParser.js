@@ -73,7 +73,7 @@ var ServicoParser = function() {
 		return $(xmlDoc).find("gratuito").html() !== 'false';
 	}
 
-	function parseAreasDeInteresse() {
+	function parseAreasDeInteresse(xmlDoc) {
 		var values = [];
 
 		$(xmlDoc).find("areas-de-interesse item").each(function(index, item) {
@@ -204,6 +204,7 @@ var ServicoParser = function() {
 		xmlDoc = $.parseXML(data);
 
 	  	returnObject.nome = parseNome(xmlDoc);
+	  	returnObject.descricao = parseDescricao(xmlDoc);
 	  	returnObject.sigla = parseSigla(xmlDoc);
 	  	returnObject.gratuito = parseGratuito(xmlDoc);
 	  	returnObject.nomesPopulares = parseNomesPopulares(xmlDoc);
@@ -211,28 +212,30 @@ var ServicoParser = function() {
 	  	returnObject.palavrasChave = parsePalavrasChave(xmlDoc);
 	  	returnObject.solicitantes = parseSolicitantes(xmlDoc);
 	  	returnObject.areasDeInteresse = parseAreasDeInteresse(xmlDoc);
-		returnObject.descricao = parseDescricao(xmlDoc);
 		returnObject.canaisDePrestacao = parseCanaisDePrestacao(xmlDoc);
 		returnObject.tempoTotalEstimado = parseTempoTotalEstimado(xmlDoc);
 		returnObject.legislacoes = parseLegislacoes(xmlDoc);
+		returnObject.etapas = parseEtapas(xmlDoc);
+		returnObject.orgao = parseOrgao(xmlDoc);
 
 		return returnObject;
 	}
 
 	return {
 		parseXml: parseXml,
+		parseNome: parseNome,
+		parseDescricao: parseDescricao,
 		parseSigla: parseSigla,
-		parseOrgao: parseOrgao,
+		parseGratuito: parseGratuito,
 		parseNomesPopulares: parseNomesPopulares,
 		parseSegmentos: parseSegmentos,
 		parsePalavrasChave: parsePalavrasChave,
-		parseNome: parseNome,
-		parseDescricao: parseDescricao,
 		parseSolicitantes: parseSolicitantes,
+		parseAreasDeInteresse: parseAreasDeInteresse,
 		parseCanaisDePrestacao: parseCanaisDePrestacao,
-		parseEtapas: parseEtapas,
-		parseGratuito: parseGratuito,
+		parseTempoTotalEstimado: parseTempoTotalEstimado,
 		parseLegislacoes: parseLegislacoes,
-		parseTempoTotalEstimado: parseTempoTotalEstimado
+		parseEtapas: parseEtapas,
+		parseOrgao: parseOrgao
 	}
 };
