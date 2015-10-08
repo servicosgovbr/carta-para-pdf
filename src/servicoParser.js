@@ -25,11 +25,34 @@ var ServicoParser = function() {
 
 		$(xmlDoc).find("etapa").each(function(index, item) {
 			etapas.push({'titulo': $(item).find('titulo').html(),
-				'descricao': $(item).find('descricao').html()
+				'descricao': $(item).find('descricao').html(),
+				'documentos': parseDocumentos(item)
 			});
 		});
 
 		return etapas;
+	}
+
+	function parseDocumentos(etapa) {
+		var documentos = {};
+		documentos.items = [];
+		documentos.casos = [];
+
+		$(etapa).find('documentos default item').each(function(index, item) {
+			documentos.items.push($(item).html());
+		});
+
+		$(etapa).find('documentos caso').each(function(index, caso) {
+			var casoObj = { descricao: $(caso).attr('descricao'), items: [] };
+
+			$(caso).find('item').each(function(index, item) {
+				casoObj.items.push($(item).html());
+			});
+
+			documentos.casos.push(casoObj);
+		});
+
+		return documentos;
 	}
 
 	function parseCanaisDePrestacao(xmlDoc) {

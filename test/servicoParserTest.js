@@ -26,6 +26,11 @@ describe("Servico Parser", function () {
             var descricao = 'Inscrições abertas a partir de 11/08 até 31/08, o prazo final para inscrição de candidato ainda não matriculado na instituição de educação superior em que deseja se inscrever.';
             expect(servicoParser.parseEtapas(xml)[0].descricao).toEqual(descricao);
         });
+
+        it("should return documentos primeira etapa", function () {
+            var documentos = { items: ['CPF', 'RG', 'Comprovante de renda'], casos: [ { descricao: 'Professores', items: [ 'Comprovante do exercício do magistério' ] } ] };
+            expect(servicoParser.parseEtapas(xml)[0].documentos).toEqual(documentos);
+        });
       });
     });
 });
