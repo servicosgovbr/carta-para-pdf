@@ -136,8 +136,8 @@ var ServicoParser = function() {
 		return canaisDePrestacao;
 	}
 
-	function parseOrgao() {
-		return $(xmlDoc).find("orgao").attr('id');
+	function parseOrgao(xmlDoc) {
+		return { id: $(xmlDoc).find("orgao").attr('id'), contato: $(xmlDoc).find("orgao contato").html() };
 	}
 
 	function addNewLine() {
@@ -189,6 +189,7 @@ var ServicoParser = function() {
 	return {
 		parseXml: parseXml,
 		parseSigla: parseSigla,
+		parseOrgao: parseOrgao,
 		parseNomesPopulares: parseNomesPopulares,
 		parseNome: parseNome,
 		parseDescricao: parseDescricao,

@@ -16,6 +16,10 @@ describe("Servico Parser", function () {
             expect(servicoParser.parseSigla(xml)).toEqual('STST');
         });
 
+         it("should return servico orgao", function () {
+            expect(servicoParser.parseOrgao(xml)).toEqual({ id: 'http://estruturaorganizacional.dados.gov.br/id/unidade-organizacional/61283', contato: 'Em caso de dúvidas sobre o Prouni, ligue para 156.' });
+        });
+
         it("should return servico descricao", function () {
             var descricao = 'O Programa Universidade para Todos - Prouni tem como finalidade a concessão de bolsas de estudo integrais e parciais em cursos de graduação e sequenciais de formação específica, em instituições de ensino superior privadas. Criado pelo Governo Federal em 2004 e institucionalizado pela Lei nº 11.096, em 13 de janeiro de 2005 oferece, em contrapartida, isenção de tributos àquelas instituições que aderem ao Programa.';
             expect(servicoParser.parseDescricao(xml)).toEqual(descricao);
