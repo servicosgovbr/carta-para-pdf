@@ -15,6 +15,10 @@ var ContentBuilder = function(servicoObject) {
 		addNewLine();
 		docContent.push({ text: servicoObject.descricao, style: 'paragraph' });
 		addNewLine();
+		docContent.push({ text: 'Como esse serviço é chamado?', style: 'subheader' });
+		addNewLine();
+		docContent.push({ ul: servicoObject.nomesPopulares, style: 'list' });
+		addNewLine();
 		docContent.push({ text: 'Este serviço é gratuito?', style: 'subheader' });
 		addNewLine();
 		docContent.push({ text: servicoObject.gratuito ? 'Sim' : 'Não', style: 'paragraph' });
