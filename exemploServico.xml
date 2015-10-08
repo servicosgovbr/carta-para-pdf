@@ -76,6 +76,11 @@
                         <descricao>http://siteprouni.mec.gov.br/</descricao>
                     </canal-de-prestacao>
                 </default>
+                <caso descricao="Estudantes da rede pública de ensino">
+                    <canal-de-prestacao tipo="postal">
+                        <descricao>Av. Ipiranga 6681 - Prédio 99A - sala 218 – 2º andar. Porto Alegre - RS - Brasil. CEP 90619-900</descricao>
+                    </canal-de-prestacao>
+                </caso>
             </canais-de-prestacao>
         </etapa>
         <etapa>

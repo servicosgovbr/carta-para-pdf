@@ -78,16 +78,27 @@ var ServicoParser = function() {
 			custos.casos.push(casoObj);
 		});
 
-		console.log(custos);
-
 		return custos;
 	}
 
 	function parseCanaisDePrestacao(etapa) {
-		var canaisDePrestacao = [];
+		var canaisDePrestacao = {};
+		canaisDePrestacao.items = [];
+		canaisDePrestacao.casos = [];
 
-		$(etapa).find("canal-de-prestacao").each(function(index, item) {
-			canaisDePrestacao.push({ 'tipo': $(item).attr('tipo'), 'descricao': $(item).find('descricao').html() });
+		$(etapa).find("canais-de-prestacao default canal-de-prestacao").each(function(index, item) {
+			canaisDePrestacao.items.push({ 'tipo': $(item).attr('tipo'), 'descricao': $(item).find('descricao').html() });
+		});
+
+		$(etapa).find('canais-de-prestacao caso').each(function(index, caso) {
+			var casoObj = { descricao: $(caso).attr('descricao'), items: [] };
+
+			$(caso).find('canal-de-prestacao').each(function(index, item) {
+				var canalDePrestacaoObj = {tipo: $(item).attr('tipo'), descricao: $(item).find('descricao').html() }
+				casoObj.items.push(canalDePrestacaoObj);
+			});
+
+			canaisDePrestacao.casos.push(casoObj);
 		});
 
 		return canaisDePrestacao;
