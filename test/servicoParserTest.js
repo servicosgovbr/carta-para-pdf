@@ -63,6 +63,11 @@ describe("Servico Parser", function () {
             expect(servicoParser.parseTempoTotalEstimado(xml)).toEqual({ max: '40', unidade: 'dias-uteis', descricao: '' });
         });
 
+         it("should return legislacoes do servico", function () {
+            var legislacoes = ["[TítuloLei nº 6.766, de 19 de Dezembro de 1979](http://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1979-12-19;6766)"];
+            expect(servicoParser.parseLegislacoes(xml)).toEqual(legislacoes);
+        });
+
       describe("etapa", function () {
         it("should return nome primeira etapa", function () {
             expect(servicoParser.parseEtapas(xml)[0].titulo).toEqual('Agendamento');

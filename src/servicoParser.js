@@ -55,6 +55,16 @@ var ServicoParser = function() {
 		return solicitantes;
 	}
 
+	function parseLegislacoes(xmlDoc) {
+		var legislacoes = [];
+
+		$(xmlDoc).find("legislacoes item").each(function(index, item) {
+			legislacoes.push($(item).html());
+		});
+
+		return legislacoes;
+	}
+
 	function parseTempoTotalEstimado(xmlDoc) {
 		return { max: $(xmlDoc).find('tempo-total-estimado ate').attr('max'), unidade: $(xmlDoc).find('tempo-total-estimado ate').attr('unidade'), descricao: $(xmlDoc).find('tempo-total-estimado descricao').html() }
 	}
@@ -204,6 +214,7 @@ var ServicoParser = function() {
 		returnObject.descricao = parseDescricao(xmlDoc);
 		returnObject.canaisDePrestacao = parseCanaisDePrestacao(xmlDoc);
 		returnObject.tempoTotalEstimado = parseTempoTotalEstimado(xmlDoc);
+		returnObject.legislacoes = parseLegislacoes(xmlDoc);
 
 		return returnObject;
 	}
@@ -221,6 +232,7 @@ var ServicoParser = function() {
 		parseCanaisDePrestacao: parseCanaisDePrestacao,
 		parseEtapas: parseEtapas,
 		parseGratuito: parseGratuito,
+		parseLegislacoes: parseLegislacoes,
 		parseTempoTotalEstimado: parseTempoTotalEstimado
 	}
 };
