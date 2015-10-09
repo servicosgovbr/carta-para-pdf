@@ -38,7 +38,6 @@ var ContentBuilder = function(servicoObject) {
 		var simpleHtm = markdown.toHTML(servicoObject.legislacoes[0]);
 
 		parseHtml.parseHtml(content, simpleHtm);
-
 		docContent = docContent.concat(content);
 
 		addNewLine();
@@ -53,7 +52,7 @@ var ContentBuilder = function(servicoObject) {
 	}
 
 	function buildEtapa(index, etapa) {
-		docContent.push({ text: (index + 1) + ' ' + etapa.titulo, style: 'thirdheader' });
+		docContent.push({ text: 'Etapa ' + (index + 1) + ' - ' + etapa.titulo, style: 'thirdheader' });
 		addNewLine();
 		docContent.push({ text: etapa.descricao, style: 'paragraph' });
 		addNewLine();

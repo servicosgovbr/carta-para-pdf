@@ -68,21 +68,16 @@ var ParseHtml = function() {
 	            break;
 	        }
 	        case "b":case "strong": {
-	            //styles.push("font-weight:bold");
 	            ParseContainer(cnt, e, p, styles.concat(["font-weight:bold"]));
 	            break;
 	        }
 	        case "u": {
-	            //styles.push("text-decoration:underline");
 	            ParseContainer(cnt, e, p, styles.concat(["text-decoration:underline"]));
 	            break;
 	        }
 	        case "i": {
-	            //styles.push("font-style:italic");
 	            ParseContainer(cnt, e, p, styles.concat(["font-style:italic"]));
-	            //styles.pop();
 	            break;
-	            //cnt.push({ text: e.innerText, bold: false });
 	        }
 	        case "span": {
 	            ParseContainer(cnt, e, p, styles);
@@ -121,7 +116,6 @@ var ParseHtml = function() {
 	            }
 	        case "tbody": {
 	            ParseContainer(cnt, e, p, styles);
-	            //p = CreateParagraph();
 	            break;
 	        }
 	        case "tr": {
