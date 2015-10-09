@@ -63,23 +63,19 @@ var ContentBuilder = function(servicoObject) {
 		docContent.push({ text: etapa.descricao, style: 'paragraph' });
 		addNewLine();
 
-		buildDocumentos(etapa.documentos);
-		buildCustos(etapa.custos);
-		buildCanais(etapa.canaisDePrestacao);
+		if(etapa.documentos.items.length > 0) { buildDocumentos(etapa.documentos) };
+		if(etapa.custos.items.length > 0) { buildCustos(etapa.custos) };
+		if(etapa.canaisDePrestacao.items.length > 0) { buildCanais(etapa.canaisDePrestacao) };
 	}
 
 	function buildDocumentos(documentos) {
-		docContent.push({ text: 'Quais são os documentos necessários?', style: 'subheader' });
+		docContent.push({ text: 'Documentos necessários para esta etapa:', style: 'thirdheader' });
 		addNewLine();
 		docContent.push({ ul: documentos.items, style: 'list' });
 		addNewLine();
 
 		$(documentos.casos).each(function(index, caso) {
-			docContent.push({ text: 'Caso ' + (index + 1), style: 'subheader' });
-			addNewLine();
-			docContent.push({ text: caso.descricao, style: 'paragraph' });
-			addNewLine();
-			docContent.push({ text: 'Quais são os documentos necessários para este caso?', style: 'subheader' });
+			docContent.push({ text: 'Caso ' + (index + 1) + ' - ' + caso.descricao, style: 'thirdheader' });
 			addNewLine();
 			docContent.push({ ul: caso.items, style: 'list' });
 			addNewLine();
@@ -87,31 +83,25 @@ var ContentBuilder = function(servicoObject) {
 	}
 
 	function buildCustos(custos) {
-		docContent.push({ text: 'Quais são os custos?', style: 'subheader' });
+		docContent.push({ text: 'Custos para esta etapa:', style: 'thirdheader' });
 		addNewLine();
 		$(custos.items).each(function(index, custo) {
-			docContent.push({ text: custo.descricao, style: 'paragraph' });
-			docContent.push({ text: custo.valor, style: 'paragraph' });
+			docContent.push({ text: custo.descricao + ': ' + custo.valor, style: 'paragraph' });
 			addNewLine();
 		});
 
 		$(custos.casos).each(function(index, caso) {
-			docContent.push({ text: 'Caso ' + (index + 1), style: 'subheader' });
-			addNewLine();
-			docContent.push({ text: caso.descricao, style: 'paragraph' });
-			addNewLine();
-			docContent.push({ text: 'Quais são os custos para este caso?', style: 'subheader' });
+			docContent.push({ text: 'Caso ' + (index + 1) + ' - ' + caso.descricao, style: 'thirdheader' });
 			addNewLine();
 			$(caso.items).each(function(index, custo) {
-				docContent.push({ text: custo.descricao, style: 'paragraph' });
-				docContent.push({ text: custo.valor, style: 'paragraph' });
+				docContent.push({ text: custo.descricao + ': ' + custo.valor, style: 'paragraph' });
 				addNewLine();
 			});
 		});
 	}
 
 	function buildCanais(canais) {
-		docContent.push({ text: 'Quais são os canais de prestação?', style: 'subheader' });
+		docContent.push({ text: 'Canais de comunicação com este serviço:', style: 'thirdheader' });
 		addNewLine();
 		$(canais.items).each(function(index, canal) {
 			docContent.push({ text: canal.tipo, style: 'paragraph' });
@@ -120,11 +110,7 @@ var ContentBuilder = function(servicoObject) {
 		});
 
 		$(canais.casos).each(function(index, caso) {
-			docContent.push({ text: 'Caso ' + (index + 1), style: 'subheader' });
-			addNewLine();
-			docContent.push({ text: caso.descricao, style: 'paragraph' });
-			addNewLine();
-			docContent.push({ text: 'Quais são os canais de prestação para este caso?', style: 'subheader' });
+			docContent.push({ text: 'Caso ' + (index + 1) + ' - ' + caso.descricao, style: 'thirdheader' });
 			addNewLine();
 			$(caso.items).each(function(index, canal) {
 				docContent.push({ text: canal.tipo, style: 'paragraph' });
