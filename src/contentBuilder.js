@@ -63,7 +63,7 @@ var ContentBuilder = function(servicoObject) {
 	}
 
 	function buildEtapa(index, etapa) {
-		docContent.push({ text: 'Etapa ' + (index + 1) + ' - ' + etapa.titulo, style: 'subheader' });
+		docContent.push({ text: (index + 1) + ' ' + etapa.titulo, style: 'thirdheader' });
 		addNewLine();
 		docContent.push({ text: etapa.descricao, style: 'paragraph' });
 		addNewLine();
@@ -144,6 +144,8 @@ var ContentBuilder = function(servicoObject) {
 		buildPrimeiraPagina();
 		buildSegundaPagina();
 
+		docContent.push({ text: 'Etapas para a realização desse serviço', style: 'subheader' });
+		addNewLine();
 		$(servico.etapas).each(function(index, etapa){
 			buildEtapa(index, etapa);
 		});

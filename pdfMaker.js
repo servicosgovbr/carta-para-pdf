@@ -16,12 +16,16 @@ var docDefinition = {
        fontSize: 18,
        bold: true
      },
+     thirdheader: {
+       fontSize: 14,
+       bold: true
+     },
      list: {
       fontSize: 14,
       blod: true
      },
      paragraph: {
-      fontSize: 16
+      fontSize: 14
      }
    }
 };
@@ -35,7 +39,7 @@ $(function() {
     docDefinition.content.push('\n');
     docDefinition.content.push('\n');
     docDefinition.content.push({ text: 'Ministério da educação MEC', style: 'header', pageBreak: 'after', alignment: 'center'});
-  }
+  };
 
   function generatePdf() {
     initialDocDefinition();
