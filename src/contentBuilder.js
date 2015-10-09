@@ -40,7 +40,6 @@ var ContentBuilder = function(servicoObject) {
 		docContent.push({ text: 'Você também pode conhecer este serviço como: ' + servicoObject.nomesPopulares.join(', ') + '.', style: 'paragraph' });
 		addNewLine();
 		docContent.push({ text: servicoObject.gratuito ? 'Este serviço é gratuito para o cidadão.' : '', style: 'paragraph' });
-		addNewLine();
 	}
 
 	function buildEtapa(index, etapa) {
