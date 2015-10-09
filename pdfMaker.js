@@ -7,20 +7,25 @@ var docDefinition = {
   },
   styles: {
     title: {
-       fontSize: 38,
-       bold: true
+       fontSize: 80,
+       bold: true,
+       color: '#3069CB',
+       lineHeight: 0.7
      },
      header: {
-       fontSize: 28,
-       bold: true
+       fontSize: 33,
+       bold: true,
+       color: '#606060'
      },
      subheader: {
        fontSize: 16,
-       bold: true
+       bold: true,
+       color: '#606060'
      },
      thirdheader: {
        fontSize: 12,
-       bold: true
+       bold: true,
+       color: '#606060'
      },
      tableExample: {
       margin: [0, 5, 0, 15]
@@ -30,7 +35,8 @@ var docDefinition = {
       blod: true
      },
      paragraph: {
-      fontSize: 12
+      fontSize: 12,
+      color: '#606060'
      }
    }
 };
@@ -48,10 +54,10 @@ $(function() {
     docDefinition.content = [];
     docDefinition.content.push('\n');
     docDefinition.content.push('\n');
-    docDefinition.content.push({ text: 'Carta de serviços', style: 'title', alignment: 'center'});
+    docDefinition.content.push({ text: 'Carta de serviços', style: 'title' });
     docDefinition.content.push('\n');
     docDefinition.content.push('\n');
-    docDefinition.content.push({ text: 'Ministério da educação MEC', style: 'header', pageBreak: 'after', alignment: 'center'});
+    docDefinition.content.push({ text: 'Ministério da educação MEC', style: 'header', pageBreak: 'after' });
   };
 
   function generatePdf() {
