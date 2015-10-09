@@ -22,6 +22,9 @@ var docDefinition = {
        fontSize: 12,
        bold: true
      },
+     tableExample: {
+      margin: [0, 5, 0, 15]
+     },
      list: {
       fontSize: 12,
       blod: true

@@ -21,6 +21,8 @@ var ContentBuilder = function(servicoObject) {
 			docContent.push({ text: solicitante.requisitos , style: 'paragraph' });
 			addNewLine();
 		});
+
+		docContent.push({ text: '', style: 'paragraph', pageBreak: 'after' });
 	}
 
 	function buildFooter() {
@@ -56,14 +58,31 @@ var ContentBuilder = function(servicoObject) {
 	function buildDocumentos(documentos) {
 		docContent.push({ text: 'Documentos necessários para esta etapa:', style: 'thirdheader' });
 		addNewLine();
-		docContent.push({ ul: documentos.items, style: 'list' });
-		addNewLine();
+
+		var documentosDoc = [];
+
+		documentosDoc.push({ text: 'Documentação comum para todos', style: 'thirdheader' });
+		documentosDoc.push({ ul: documentos.items, style: 'list' });
+		documentosDoc.push('\n');
 
 		$(documentos.casos).each(function(index, caso) {
-			docContent.push({ text: 'Caso ' + (index + 1) + ' - ' + caso.descricao, style: 'thirdheader' });
-			addNewLine();
-			docContent.push({ ul: caso.items, style: 'list' });
-			addNewLine();
+			documentosDoc.push({ text: caso.descricao, style: 'thirdheader' });
+			documentosDoc.push({ ul: caso.items, style: 'list' });
+		});
+
+		docContent.push({
+			style: 'tableExample',
+			table: {
+				body: [
+					[{ stack: documentosDoc}]
+				]
+			},
+			layout: {
+                paddingLeft: function(i, node) { return 10; },
+                paddingRight: function(i, node) { return 10; },
+                paddingTop: function(i, node) { return 10; },
+                paddingBottom: function(i, node) { return 10; }
+            }
 		});
 	}
 
