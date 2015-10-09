@@ -1,6 +1,7 @@
 var ContentBuilder = function(servicoObject) {
 	var docContent = [],
-		servico = servicoObject;
+		servico = servicoObject,
+		parseHtml = new ParseHtml();
 
 	function addNewLine() {
 		docContent.push('\n');
@@ -32,7 +33,14 @@ var ContentBuilder = function(servicoObject) {
 		addNewLine();
 		docContent.push({ text: 'Legislação', style: 'subheader' });
 		addNewLine();
-		docContent.push({ ul: servicoObject.legislacoes, style: 'list' });
+
+		var content = [];
+		var simpleHtm = markdown.toHTML(servicoObject.legislacoes[0]);
+
+		parseHtml.parseHtml(content, simpleHtm);
+
+		docContent = docContent.concat(content);
+
 		addNewLine();
 	}
 
