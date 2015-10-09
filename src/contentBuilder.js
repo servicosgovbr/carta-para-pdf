@@ -48,9 +48,9 @@ var ContentBuilder = function(servicoObject) {
 		docContent.push({ text: etapa.descricao, style: 'paragraph' });
 		addNewLine();
 
-		if(etapa.documentos.items.length > 0) { buildDocumentos(etapa.documentos) };
-		if(etapa.custos.items.length > 0) { buildCustos(etapa.custos) };
-		if(etapa.canaisDePrestacao.items.length > 0) { buildCanais(etapa.canaisDePrestacao) };
+		if(etapa.documentos.items.length > 0) { buildDocumentos(etapa.documentos); }
+		if(etapa.custos.items.length > 0) { buildCustos(etapa.custos); }
+		if(etapa.canaisDePrestacao.items.length > 0) { buildCanais(etapa.canaisDePrestacao); }
 	}
 
 	function buildDocumentos(documentos) {
