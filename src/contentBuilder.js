@@ -6,11 +6,9 @@ var ContentBuilder = function(servicoObject) {
 		docContent.push('\n');
 	}
 
-	function buildCapaServico() {
-		docContent.push({ text: servico.nome + ' (' + servicoObject.sigla + ')' , style: 'header', pageBreak: 'after'});
-	}
-
 	function buildServicoInfo() {
+		docContent.push({ text: servico.nome + ' (' + servicoObject.sigla + ')' , style: 'header' });
+		addNewLine();
 		docContent.push({ text: 'O que é?', style: 'subheader' });
 		addNewLine();
 		docContent.push({ text: servicoObject.descricao, style: 'paragraph' });
@@ -108,7 +106,6 @@ var ContentBuilder = function(servicoObject) {
 	}
 
 	function buildContent() {
-		buildCapaServico();
 		buildServicoInfo();
 
 		docContent.push({ text: 'Etapas para a realização desse serviço', style: 'subheader' });
@@ -126,7 +123,6 @@ var ContentBuilder = function(servicoObject) {
 
 	return {
 		buildContent: buildContent,
-		buildCapaServico: buildCapaServico,
 		documentContent: docContent
 	};
 };
