@@ -1,3 +1,5 @@
+'use strict';
+
 var docDefinition = {
   content: [],
   styles: {
