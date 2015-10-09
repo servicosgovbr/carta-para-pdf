@@ -1,5 +1,3 @@
-'use strict';
-
 var ServicoParser = function() {
 	var xmlDoc;
 	var returnObject = {};
@@ -32,11 +30,11 @@ var ServicoParser = function() {
 
 	function parseSegmentos(xmlDoc) {
 		return parseArray(xmlDoc, 'segmentos-da-sociedade item');
-	} 
+	}
 
 	function parsePalavrasChave(xmlDoc) {
 		return parseArray(xmlDoc, 'palavras-chave item');
-	} 
+	}
 
 	function parseLegislacoes(xmlDoc) {
 		return parseArray(xmlDoc, 'legislacoes item');
@@ -57,7 +55,7 @@ var ServicoParser = function() {
 	}
 
 	function parseTempoTotalEstimado(xmlDoc) {
-		return { max: $(xmlDoc).find('tempo-total-estimado ate').attr('max'), unidade: $(xmlDoc).find('tempo-total-estimado ate').attr('unidade'), descricao: $(xmlDoc).find('tempo-total-estimado descricao').html() }
+		return { max: $(xmlDoc).find('tempo-total-estimado ate').attr('max'), unidade: $(xmlDoc).find('tempo-total-estimado ate').attr('unidade'), descricao: $(xmlDoc).find('tempo-total-estimado descricao').html() };
 	}
 
 	function parseGratuito(xmlDoc) {
@@ -115,7 +113,7 @@ var ServicoParser = function() {
 			var casoObj = { descricao: $(caso).attr('descricao'), items: [] };
 
 			$(caso).find('custo').each(function(index, item) {
-				var custoObj = {descricao: $(item).find('descricao').html(), valor: $(item).find('valor').html() }
+				var custoObj = {descricao: $(item).find('descricao').html(), valor: $(item).find('valor').html() };
 				casoObj.items.push(custoObj);
 			});
 
@@ -138,7 +136,7 @@ var ServicoParser = function() {
 			var casoObj = { descricao: $(caso).attr('descricao'), items: [] };
 
 			$(caso).find('canal-de-prestacao').each(function(index, item) {
-				var canalDePrestacaoObj = {tipo: $(item).attr('tipo'), descricao: $(item).find('descricao').html() }
+				var canalDePrestacaoObj = {tipo: $(item).attr('tipo'), descricao: $(item).find('descricao').html() };
 				casoObj.items.push(canalDePrestacaoObj);
 			});
 
@@ -189,5 +187,5 @@ var ServicoParser = function() {
 		parseLegislacoes: parseLegislacoes,
 		parseEtapas: parseEtapas,
 		parseOrgao: parseOrgao
-	}
+	};
 };

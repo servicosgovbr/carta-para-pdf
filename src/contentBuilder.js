@@ -1,5 +1,3 @@
-'use strict';
-
 var ContentBuilder = function(servicoObject) {
 	var docContent = [],
 		servico = servicoObject;
@@ -67,10 +65,10 @@ var ContentBuilder = function(servicoObject) {
 		addNewLine();
 		docContent.push({ text: etapa.descricao, style: 'paragraph' });
 		addNewLine();
-		
+
 		buildDocumentos(etapa.documentos);
 		buildCustos(etapa.custos);
-		buildCanais(etapa.canaisDePrestacao)
+		buildCanais(etapa.canaisDePrestacao);
 	}
 
 	function buildDocumentos(documentos) {
@@ -157,5 +155,5 @@ var ContentBuilder = function(servicoObject) {
 		buildContent: buildContent,
 		buildCapaServico: buildCapaServico,
 		documentContent: docContent
-	}
+	};
 };
