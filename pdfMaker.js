@@ -7,28 +7,27 @@ var docDefinition = {
   },
   styles: {
     title: {
-       fontSize: 30,
-       bold: true,
-       color: '#2c66ce'
+       fontSize: 38,
+       bold: true
      },
      header: {
-       fontSize: 30,
+       fontSize: 28,
        bold: true
      },
      subheader: {
-       fontSize: 18,
+       fontSize: 16,
        bold: true
      },
      thirdheader: {
-       fontSize: 14,
+       fontSize: 12,
        bold: true
      },
      list: {
-      fontSize: 14,
+      fontSize: 12,
       blod: true
      },
      paragraph: {
-      fontSize: 14
+      fontSize: 12
      }
    }
 };
