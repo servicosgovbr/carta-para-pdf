@@ -1,0 +1,26 @@
+{
+  "name": "carta-para-pdf",
+  "version": "0.0.1",
+  "description": "Gerador de PDF de cartas de serviço",
+  "main": "gulpfile.js",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-jshint": "^1.11.2"
+  },
+  "scripts": {
+    "lint": "gulp lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/servicosgovbr/carta-para-pdf.git"
+  },
+  "keywords": [
+    "pdf"
+  ],
+  "author": "ThoughtWorks",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/servicosgovbr/carta-para-pdf/issues"
+  },
+  "homepage": "https://github.com/servicosgovbr/carta-para-pdf#readme"
+}
