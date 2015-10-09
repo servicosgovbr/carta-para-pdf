@@ -1,9 +1,11 @@
+'use strict';
+
 var ServicoParser = function() {
 	var xmlDoc;
 	var returnObject = {};
 
 	function parseNome(xmlDoc) {
-		return $(xmlDoc).find("nome").html();
+		return $(xmlDoc).find('nome').html();
 	}
 
 	function parseArray(xmlDoc, selector) {
@@ -21,34 +23,34 @@ var ServicoParser = function() {
 	}
 
 	function parseDescricao(xmlDoc) {
-		return $(xmlDoc).find("descricao").html();
+		return $(xmlDoc).find('descricao').html();
 	}
 
 	function parseNomesPopulares(xmlDoc) {
-		return parseArray(xmlDoc, "nomes-populares item");
+		return parseArray(xmlDoc, 'nomes-populares item');
 	}
 
 	function parseSegmentos(xmlDoc) {
-		return parseArray(xmlDoc, "segmentos-da-sociedade item");
+		return parseArray(xmlDoc, 'segmentos-da-sociedade item');
 	} 
 
 	function parsePalavrasChave(xmlDoc) {
-		return parseArray(xmlDoc, "palavras-chave item");
+		return parseArray(xmlDoc, 'palavras-chave item');
 	} 
 
 	function parseLegislacoes(xmlDoc) {
-		return parseArray(xmlDoc, "legislacoes item");
+		return parseArray(xmlDoc, 'legislacoes item');
 	}
 
 	function parseAreasDeInteresse(xmlDoc) {
-		return parseArray(xmlDoc, "areas-de-interesse item");
+		return parseArray(xmlDoc, 'areas-de-interesse item');
 	}
 
 	function parseSolicitantes(xmlDoc) {
 		var solicitantes = [];
 
-		$(xmlDoc).find("solicitantes solicitante").each(function(index, item) {
-			solicitantes.push({tipo: $(item).find("tipo").html(), requisitos: $(item).find("requisitos").html()});
+		$(xmlDoc).find('solicitantes solicitante').each(function(index, item) {
+			solicitantes.push({tipo: $(item).find('tipo').html(), requisitos: $(item).find('requisitos').html()});
 		});
 
 		return solicitantes;
@@ -59,13 +61,13 @@ var ServicoParser = function() {
 	}
 
 	function parseGratuito(xmlDoc) {
-		return $(xmlDoc).find("gratuito").html() !== 'false';
+		return $(xmlDoc).find('gratuito').html() !== 'false';
 	}
 
 	function parseEtapas(xmlDoc) {
 		var etapas = [];
 
-		$(xmlDoc).find("etapa").each(function(index, etapa) {
+		$(xmlDoc).find('etapa').each(function(index, etapa) {
 			etapas.push({'titulo': $(etapa).find('titulo').html(),
 				'descricao': $(etapa).find('descricao').html(),
 				'documentos': parseDocumentos(etapa),
@@ -128,7 +130,7 @@ var ServicoParser = function() {
 		canaisDePrestacao.items = [];
 		canaisDePrestacao.casos = [];
 
-		$(etapa).find("canais-de-prestacao default canal-de-prestacao").each(function(index, item) {
+		$(etapa).find('canais-de-prestacao default canal-de-prestacao').each(function(index, item) {
 			canaisDePrestacao.items.push({ 'tipo': $(item).attr('tipo'), 'descricao': $(item).find('descricao').html() });
 		});
 
@@ -147,7 +149,7 @@ var ServicoParser = function() {
 	}
 
 	function parseOrgao(xmlDoc) {
-		return { id: $(xmlDoc).find("orgao").attr('id'), contato: $(xmlDoc).find("orgao contato").html() };
+		return { id: $(xmlDoc).find('orgao').attr('id'), contato: $(xmlDoc).find('orgao contato').html() };
 	}
 
 	function parseXml(data) {
