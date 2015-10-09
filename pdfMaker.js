@@ -2,6 +2,9 @@
 
 var docDefinition = {
   content: [],
+  defaultStyle: {
+    font: 'OpenSans'
+  },
   styles: {
     title: {
        fontSize: 30,
@@ -9,7 +12,7 @@ var docDefinition = {
        color: '#2c66ce'
      },
      header: {
-       fontSize: 22,
+       fontSize: 30,
        bold: true
      },
      subheader: {
@@ -27,6 +30,14 @@ var docDefinition = {
      paragraph: {
       fontSize: 14
      }
+   }
+};
+
+pdfMake.fonts = {
+   OpenSans: {
+     normal: 'OpenSans-Regular.ttf',
+     italics: 'OpenSans-Semibold.ttf',
+     bold: 'OpenSans-Bold.ttf'
    }
 };
 
