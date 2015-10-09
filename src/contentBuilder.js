@@ -1,3 +1,5 @@
+'use strict';
+
 var ContentBuilder = function(servicoObject) {
 	var docContent = [],
 		servico = servicoObject;
