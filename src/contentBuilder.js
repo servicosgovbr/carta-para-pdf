@@ -10,7 +10,7 @@ var ContentBuilder = function(servicoObject) {
 		docContent.push({ text: servico.nome, style: 'header', pageBreak: 'after'});
 	}
 
-	function buildPrimeiraPagina() {
+	function buildServicoInfo() {
 		docContent.push({ text: 'O que é?', style: 'subheader' });
 		addNewLine();
 		docContent.push({ text: servicoObject.descricao, style: 'paragraph' });
@@ -31,10 +31,7 @@ var ContentBuilder = function(servicoObject) {
 			addNewLine();
 		});
 
-		docContent.push({ text: '', style: 'paragraph', pageBreak: 'after'});
-	}
-
-	function buildSegundaPagina() {
+		docContent.push({ text: '', style: 'paragraph'});
 		docContent.push({ text: 'Qual a sigla?', style: 'subheader' });
 		addNewLine();
 		docContent.push({ text: servicoObject.sigla, style: 'paragraph' });
@@ -139,8 +136,7 @@ var ContentBuilder = function(servicoObject) {
 
 	function buildContent() {
 		buildCapaServico();
-		buildPrimeiraPagina();
-		buildSegundaPagina();
+		buildServicoInfo();
 
 		docContent.push({ text: 'Etapas para a realização desse serviço', style: 'subheader' });
 		addNewLine();
