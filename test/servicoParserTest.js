@@ -108,4 +108,25 @@ describe("O parse do xml do serviço", function () {
         expect(servicoParser.parseEtapas(xml)[1].descricao).toEqual(descricao);
     });
   });
+
+  it("deve chamar todos os subparsers", function () {
+      var xmlData = $.parseXML(xml),
+        each,
+        parsers = [
+            'parseNome', 'parseDescricao', 'parseSigla', 'parseGratuito', 'parseNomesPopulares',
+            'parseSegmentos', 'parsePalavrasChave', 'parseSolicitantes',
+            'parseAreasDeInteresse', 'parseCanaisDePrestacao', 'parseTempoTotalEstimado',
+            'parseLegislacoes', 'parseEtapas', 'parseOrgao'
+        ];
+
+      for (each in parsers) {
+            spyOn(servicoParser, parsers[each]);
+      }
+
+      servicoParser.parseXml(xml);
+
+      for (each in parsers) {
+            expect(servicoParser[parsers[each]]).toHaveBeenCalledWith(xmlData);
+      }
+  });
 });
