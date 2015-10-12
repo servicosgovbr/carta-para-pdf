@@ -12,19 +12,23 @@ ContentBuilder.prototype.addNewLine = function () {
 	this.addContent('\n');
 };
 
-ContentBuilder.prototype.buildNomeServico = function () {
+ContentBuilder.prototype.buildNome = function () {
 	this.addContent({ text: this.servico.nome + ' (' + this.servico.sigla + ')', style: 'header' });
+	this.addNewLine();
+};
+
+ContentBuilder.prototype.buildDescricao = function () {
+	this.addContent({ text: 'O que é?', style: 'subheader' });
+	this.addNewLine();
+	this.addContent({ text: this.servico.descricao, style: 'paragraph' });
 	this.addNewLine();
 };
 
 ContentBuilder.prototype.buildServicoInfo = function () {
 	var builder = this;
 
-	this.buildNomeServico();
-	this.addContent({ text: 'O que é?', style: 'subheader' });
-	this.addNewLine();
-	this.addContent({ text: this.servico.descricao, style: 'paragraph' });
-	this.addNewLine();
+	this.buildNome();
+	this.buildDescricao();
 	this.addContent({ text: 'Quem pode utilizar este serviço?', style: 'subheader' });
 	this.addNewLine();
 
