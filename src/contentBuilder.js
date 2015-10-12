@@ -179,12 +179,8 @@ ContentBuilder.prototype.buildCanais = function (canais) {
 	});
 };
 
-ContentBuilder.prototype.buildContent = function () {
+ContentBuilder.prototype.buildEtapas = function () {
 	var builder = this;
-
-	this.buildNome();
-	this.buildDescricao();
-	this.buildSolicitantes();
 
 	this.addContent({ text: 'Etapas para a realização desse serviço', style: 'subheader' });
 	this.addNewLine();
@@ -192,7 +188,13 @@ ContentBuilder.prototype.buildContent = function () {
 	$(this.servico.etapas).each(function(index, etapa){
 		builder.buildEtapa(index, etapa);
 	});
+};
 
+ContentBuilder.prototype.buildContent = function () {
+	this.buildNome();
+	this.buildDescricao();
+	this.buildSolicitantes();
+	this.buildEtapas();
 	this.buildFooter();
 	this.buildOutrasInformacoes();
 
