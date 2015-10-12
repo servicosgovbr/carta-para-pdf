@@ -92,15 +92,15 @@ ServicoParser.prototype.parseDocumentos = function (etapa) {
 
 ServicoParser.prototype.parseEtapas = function (xmlDoc) {
 	var etapas = [],
-		parser = this;
+		self = this;
 
 	$(xmlDoc).find('etapa').each(function(index, etapa) {
 		etapas.push({
 			titulo: $(etapa).find('titulo').html(),
 			descricao: $(etapa).find('descricao').html(),
-			documentos: parser.parseDocumentos(etapa),
-			custos: parser.parseCustos(etapa),
-			canaisDePrestacao: parser.parseCanaisDePrestacao(etapa)
+			documentos: self.parseDocumentos(etapa),
+			custos: self.parseCustos(etapa),
+			canaisDePrestacao: self.parseCanaisDePrestacao(etapa)
 		});
 	});
 
