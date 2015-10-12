@@ -24,11 +24,9 @@ ContentBuilder.prototype.buildDescricao = function () {
 	this.addNewLine();
 };
 
-ContentBuilder.prototype.buildServicoInfo = function () {
+ContentBuilder.prototype.buildSolicitantes = function () {
 	var builder = this;
 
-	this.buildNome();
-	this.buildDescricao();
 	this.addContent({ text: 'Quem pode utilizar este serviço?', style: 'subheader' });
 	this.addNewLine();
 
@@ -183,7 +181,10 @@ ContentBuilder.prototype.buildCanais = function (canais) {
 
 ContentBuilder.prototype.buildContent = function () {
 	var builder = this;
-	this.buildServicoInfo();
+
+	this.buildNome();
+	this.buildDescricao();
+	this.buildSolicitantes();
 
 	this.addContent({ text: 'Etapas para a realização desse serviço', style: 'subheader' });
 	this.addNewLine();

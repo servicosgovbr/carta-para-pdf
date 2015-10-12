@@ -10,12 +10,13 @@ describe('Montar conteúdo do serviço', function () {
     });
 
     it('deve adicionar o nome', function () {
-        var servico = { nome: 'Serviço teste', sigla:'STST' };
+        var servico = { nome: 'Serviço teste', sigla:'STST' },
+            content = [{ text: 'Serviço teste (STST)', style: 'header' }];
         contentBuilder.servico = servico;
 
         contentBuilder.buildNome();
 
-        expect(contentBuilder.docContent).toEqual(aC([{ text: 'Serviço teste (STST)', style: 'header' }]));
+        expect(contentBuilder.docContent).toEqual(aC(content));
     });
 
     it('deve adicionar descrição', function () {
@@ -24,6 +25,25 @@ describe('Montar conteúdo do serviço', function () {
         contentBuilder.servico = servico;
 
         contentBuilder.buildDescricao();
+
+        expect(contentBuilder.docContent).toEqual(aC(content));
+    });
+
+    it('deve adicionar solicitantes', function () {
+        var servico = { solicitantes: [
+            { tipo: 'Com requisito',  requisitos: 'Requisito'},
+            { tipo: 'Sem requisito', requisitos: ''}
+        ]};
+        var content = [
+            { text: 'Com requisito', style: 'thirdheader' },
+            { text: 'Requisito', style: 'paragraph' },
+            { text: 'Sem requisito', style: 'thirdheader' },
+            { text: '', style: 'paragraph' },
+            { text: '', style: 'paragraph', pageBreak: 'after' }
+        ];
+        contentBuilder.servico = servico;
+
+        contentBuilder.buildSolicitantes();
 
         expect(contentBuilder.docContent).toEqual(aC(content));
     });
