@@ -5,28 +5,39 @@ describe('Montar conteúdo do serviço', function () {
         return jasmine.arrayContaining(data);
     }
 
-    beforeEach(function(){
-      contentBuilder = new ContentBuilder({});
-    });
+    function criarContentBuilder (novoServico) {
+        var property,
+            servico = {
+                nome: '',
+                sigla: '',
+                descricao: '',
+                solicitantes: [{ tipo: '', requisitos: '' }],
+                tempoTotalEstimado: { max: '', unidade: '' },
+                legislacoes: [''],
+                nomesPopulares: ['']
+        };
+
+        for (property in novoServico) {
+            servico[property] = novoServico[property];
+        }
+
+        return new ContentBuilder(servico);
+    }
 
     it('deve adicionar o nome', function () {
         var servico = { nome: 'Serviço teste', sigla:'STST' },
             content = [{ text: 'Serviço teste (STST)', style: 'header' }];
-        contentBuilder.servico = servico;
+        contentBuilder = criarContentBuilder(servico);
 
-        contentBuilder.buildNome();
-
-        expect(contentBuilder.docContent).toEqual(aC(content));
+        expect(contentBuilder.buildContent()).toEqual(aC(content));
     });
 
     it('deve adicionar descrição', function () {
         var servico = { descricao: 'Descrição teste'},
             content = [{ text: 'O QUE É?', style: 'subheader' }, { text: 'Descrição teste', style: 'paragraph' }];
-        contentBuilder.servico = servico;
+        contentBuilder = criarContentBuilder(servico);
 
-        contentBuilder.buildDescricao();
-
-        expect(contentBuilder.docContent).toEqual(aC(content));
+        expect(contentBuilder.buildContent()).toEqual(aC(content));
     });
 
     it('deve adicionar solicitantes', function () {
@@ -41,11 +52,9 @@ describe('Montar conteúdo do serviço', function () {
             { text: '', style: 'paragraph' },
             { text: '', style: 'paragraph', pageBreak: 'after' }
         ];
-        contentBuilder.servico = servico;
+        contentBuilder = criarContentBuilder(servico);
 
-        contentBuilder.buildSolicitantes();
-
-        expect(contentBuilder.docContent).toEqual(aC(content));
+        expect(contentBuilder.buildContent()).toEqual(aC(content));
     });
 
     it('deve adicionar tempo estimado', function () {
@@ -56,11 +65,9 @@ describe('Montar conteúdo do serviço', function () {
             { text: 'QUANTO TEMPO LEVA?', style: 'subheader' },
             { text: '40 dias-uteis', style: 'paragraph' },
         ];
-        contentBuilder.servico = servico;
+        contentBuilder = criarContentBuilder(servico);
 
-        contentBuilder.buildTempoTotalEstimado();
-
-        expect(contentBuilder.docContent).toEqual(aC(content));
+        expect(contentBuilder.buildContent()).toEqual(aC(content));
     });
 
     it('deve adicionar legislações', function () {
@@ -70,11 +77,9 @@ describe('Montar conteúdo do serviço', function () {
         var content = [
             { text: 'LEGISLAÇÃO', style: 'subheader' },
         ];
-        contentBuilder.servico = servico;
+        contentBuilder = criarContentBuilder(servico);
 
-        contentBuilder.buildLegislacoes();
-
-        expect(contentBuilder.docContent).toEqual(aC(content));
+        expect(contentBuilder.buildContent()).toEqual(aC(content));
     });
 
     it('deve adicionar nomes populares', function () {
@@ -84,11 +89,9 @@ describe('Montar conteúdo do serviço', function () {
         var content = [
             { text: 'Você também pode conhecer este serviço como: Serviço para teste, Testando a interface.', style: 'paragraph'}
         ];
-        contentBuilder.servico = servico;
+        contentBuilder = criarContentBuilder(servico);
 
-        contentBuilder.buildNomesPopulares();
-
-        expect(contentBuilder.docContent).toEqual(aC(content));
+        expect(contentBuilder.buildContent()).toEqual(aC(content));
     });
 
     it('deve adicionar gratuidade', function () {
@@ -98,11 +101,9 @@ describe('Montar conteúdo do serviço', function () {
         var content = [
             { text: 'Este serviço é gratuito para o cidadão.', style: 'paragraph' }
         ];
-        contentBuilder.servico = servico;
+        contentBuilder = criarContentBuilder(servico);
 
-        contentBuilder.buildGratuidade();
-
-        expect(contentBuilder.docContent).toEqual(aC(content));
+        expect(contentBuilder.buildContent()).toEqual(aC(content));
     });
 
     it('deve adicionar outras informações', function () {
@@ -116,7 +117,7 @@ describe('Montar conteúdo do serviço', function () {
 
         expect(contentBuilder.buildNomesPopulares).toHaveBeenCalledWith();
         expect(contentBuilder.buildGratuidade).toHaveBeenCalledWith();
-        expect(contentBuilder.docContent).toEqual(aC(content));
+        expect(contentBuilder.buildContent()).toEqual(aC(content));
     });
 
     it('deve chamar todos os builders', function () {
