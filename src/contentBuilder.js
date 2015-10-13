@@ -160,7 +160,7 @@ ContentBuilder.prototype.buildCanais = function (canais) {
 
 	var canaisDoc = [];
 
-	this.addContent({ text: 'Canais de prestação padrão', style: 'thirdheader' });
+	canaisDoc.push({ text: 'Canais de prestação padrão', style: 'thirdheader' });
 
 	$(canais.items).each(function(index, canal) {
 		canaisDoc.push({ ul: [ canal.tipo + ': ' + canal.descricao ], style: 'list' });
