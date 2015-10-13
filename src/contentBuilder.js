@@ -59,11 +59,6 @@ ContentBuilder.prototype.buildLegislacoes = function () {
 	this.addNewLine();
 };
 
-ContentBuilder.prototype.buildFooter = function () {
-	this.buildTempoTotalEstimado();
-	this.buildLegislacoes();
-};
-
 ContentBuilder.prototype.buildOutrasInformacoes = function () {
 	this.addContent({ text: 'Outras informações', style: 'subheader' });
 	this.addNewLine();
@@ -189,13 +184,13 @@ ContentBuilder.prototype.buildCanais = function (canais) {
 };
 
 ContentBuilder.prototype.buildEtapas = function () {
-	var builder = this;
+	var self = this;
 
 	this.addContent({ text: 'Etapas para a realização desse serviço', style: 'subheader' });
 	this.addNewLine();
 
 	$(this.servico.etapas).each(function(index, etapa){
-		builder.buildEtapa(index, etapa);
+		self.buildEtapa(index, etapa);
 	});
 };
 
@@ -204,7 +199,8 @@ ContentBuilder.prototype.buildContent = function () {
 	this.buildDescricao();
 	this.buildSolicitantes();
 	this.buildEtapas();
-	this.buildFooter();
+	this.buildTempoTotalEstimado();
+	this.buildLegislacoes();
 	this.buildOutrasInformacoes();
 
 	return this.docContent;
