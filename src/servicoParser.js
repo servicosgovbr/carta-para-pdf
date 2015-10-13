@@ -5,7 +5,7 @@ function ServicoParser() {
 		return $(xmlDoc).find('nome').html();
 	};
 
-	api.parseArray = function (xmlDoc, selector) {
+	function parseArray(xmlDoc, selector) {
 		var values = [];
 
 		$(xmlDoc).find(selector).each(function(index, item) {
@@ -24,23 +24,23 @@ function ServicoParser() {
 	};
 
 	api.parseNomesPopulares = function (xmlDoc) {
-		return api.parseArray(xmlDoc, 'nomes-populares item');
+		return parseArray(xmlDoc, 'nomes-populares item');
 	};
 
 	api.parseSegmentos = function (xmlDoc) {
-		return api.parseArray(xmlDoc, 'segmentos-da-sociedade item');
+		return parseArray(xmlDoc, 'segmentos-da-sociedade item');
 	};
 
 	api.parsePalavrasChave = function (xmlDoc) {
-		return api.parseArray(xmlDoc, 'palavras-chave item');
+		return parseArray(xmlDoc, 'palavras-chave item');
 	};
 
 	api.parseLegislacoes = function (xmlDoc) {
-		return api.parseArray(xmlDoc, 'legislacoes item');
+		return parseArray(xmlDoc, 'legislacoes item');
 	};
 
 	api.parseAreasDeInteresse = function (xmlDoc) {
-		return api.parseArray(xmlDoc, 'areas-de-interesse item');
+		return parseArray(xmlDoc, 'areas-de-interesse item');
 	};
 
 	api.parseSolicitantes = function (xmlDoc) {
