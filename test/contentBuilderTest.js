@@ -77,4 +77,18 @@ describe('Montar conteúdo do serviço', function () {
         expect(contentBuilder.docContent).toEqual(aC(content));
     });
 
+    it('deve adicionar nomes populares', function () {
+        var servico = {
+            nomesPopulares: ['Serviço para teste', 'Testando a interface']
+        };
+        var content = [
+            { text: 'Você também pode conhecer este serviço como: Serviço para teste, Testando a interface.', style: 'paragraph'}
+        ];
+        contentBuilder.servico = servico;
+
+        contentBuilder.buildNomesPopulares();
+
+        expect(contentBuilder.docContent).toEqual(aC(content));
+    });
+
 });

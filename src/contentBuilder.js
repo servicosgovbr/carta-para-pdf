@@ -58,11 +58,15 @@ ContentBuilder.prototype.buildLegislacoes = function () {
 	this.addNewLine();
 };
 
+ContentBuilder.prototype.buildNomesPopulares = function () {
+	this.addContent({ text: 'Você também pode conhecer este serviço como: ' + this.servico.nomesPopulares.join(', ') + '.', style: 'paragraph' });
+	this.addNewLine();
+};
+
 ContentBuilder.prototype.buildOutrasInformacoes = function () {
 	this.addContent({ text: 'Outras informações', style: 'subheader' });
 	this.addNewLine();
-	this.addContent({ text: 'Você também pode conhecer este serviço como: ' + this.servico.nomesPopulares.join(', ') + '.', style: 'paragraph' });
-	this.addNewLine();
+	this.buildNomesPopulares();
 	this.addContent({ text: this.servico.gratuito ? 'Este serviço é gratuito para o cidadão.' : '', style: 'paragraph' });
 };
 
