@@ -48,4 +48,19 @@ describe('Montar conteúdo do serviço', function () {
         expect(contentBuilder.docContent).toEqual(aC(content));
     });
 
+    it('deve adicionar tempo estimado', function () {
+        var servico = {
+            tempoTotalEstimado: { max: '40', unidade: 'dias-uteis'}
+        };
+        var content = [
+            { text: 'Quanto tempo leva?', style: 'subheader' },
+            { text: '40 dias-uteis', style: 'paragraph' },
+        ];
+        contentBuilder.servico = servico;
+
+        contentBuilder.buildTempoTotalEstimado();
+
+        expect(contentBuilder.docContent).toEqual(aC(content));
+    });
+
 });

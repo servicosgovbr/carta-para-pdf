@@ -39,11 +39,15 @@ ContentBuilder.prototype.buildSolicitantes = function () {
 	this.addContent({ text: '', style: 'paragraph', pageBreak: 'after' });
 };
 
-ContentBuilder.prototype.buildFooter = function () {
+ContentBuilder.prototype.buildTempoTotalEstimado = function () {
 	this.addContent({ text: 'Quanto tempo leva?', style: 'subheader' });
 	this.addNewLine();
 	this.addContent({ text: this.servico.tempoTotalEstimado.max + ' ' + this.servico.tempoTotalEstimado.unidade, style: 'paragraph' });
 	this.addNewLine();
+};
+
+ContentBuilder.prototype.buildFooter = function () {
+	this.buildTempoTotalEstimado();
 	this.addContent({ text: 'Legislação', style: 'subheader' });
 	this.addNewLine();
 
