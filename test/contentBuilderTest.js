@@ -105,4 +105,21 @@ describe('Montar conteúdo do serviço', function () {
         expect(contentBuilder.docContent).toEqual(aC(content));
     });
 
+    it('deve chamar todos os builders', function () {
+        var each,
+        builders = [
+            'buildNome', 'buildDescricao', 'buildSolicitantes', 'buildEtapas',
+            'buildTempoTotalEstimado', 'buildLegislacoes', 'buildOutrasInformacoes'
+        ];
+
+      for (each in builders) {
+          spyOn(contentBuilder, builders[each]);
+      }
+
+      contentBuilder.buildContent();
+
+      for (each in builders) {
+          expect(contentBuilder[builders[each]]).toHaveBeenCalledWith();
+      }
+    });
 });
