@@ -1,196 +1,198 @@
 function ServicoParser() {
-}
+	var api = {};
 
-ServicoParser.prototype.parseNome = function (xmlDoc) {
-	return $(xmlDoc).find('nome').html();
-};
-
-ServicoParser.prototype.parseArray = function (xmlDoc, selector) {
-	var values = [];
-
-	$(xmlDoc).find(selector).each(function(index, item) {
-		values.push($(item).html());
-	});
-
-	return values;
-};
-
-ServicoParser.prototype.parseSigla = function (xmlDoc) {
-	return $(xmlDoc).find('sigla').html();
-};
-
-ServicoParser.prototype.parseDescricao = function (xmlDoc) {
-	return $(xmlDoc).find('descricao').html();
-};
-
-ServicoParser.prototype.parseNomesPopulares = function (xmlDoc) {
-	return this.parseArray(xmlDoc, 'nomes-populares item');
-};
-
-ServicoParser.prototype.parseSegmentos = function (xmlDoc) {
-	return this.parseArray(xmlDoc, 'segmentos-da-sociedade item');
-};
-
-ServicoParser.prototype.parsePalavrasChave = function (xmlDoc) {
-	return this.parseArray(xmlDoc, 'palavras-chave item');
-};
-
-ServicoParser.prototype.parseLegislacoes = function (xmlDoc) {
-	return this.parseArray(xmlDoc, 'legislacoes item');
-};
-
-ServicoParser.prototype.parseAreasDeInteresse = function (xmlDoc) {
-	return this.parseArray(xmlDoc, 'areas-de-interesse item');
-};
-
-ServicoParser.prototype.parseSolicitantes = function (xmlDoc) {
-	var solicitantes = [];
-
-	$(xmlDoc).find('solicitantes solicitante').each(function(index, item) {
-		solicitantes.push({
-			tipo: $(item).find('tipo').html(),
-			requisitos: $(item).find('requisitos').html()
-		});
-	});
-
-	return solicitantes;
-};
-
-ServicoParser.prototype.parseTempoTotalEstimado = function (xmlDoc) {
-	return {
-		max: $(xmlDoc).find('tempo-total-estimado ate').attr('max'),
-		unidade: $(xmlDoc).find('tempo-total-estimado ate').attr('unidade'),
-		descricao: $(xmlDoc).find('tempo-total-estimado descricao').html()
+	api.parseNome = function (xmlDoc) {
+		return $(xmlDoc).find('nome').html();
 	};
-};
 
-ServicoParser.prototype.parseGratuito = function (xmlDoc) {
-	return $(xmlDoc).find('gratuito').html() !== 'false';
-};
+	api.parseArray = function (xmlDoc, selector) {
+		var values = [];
 
-ServicoParser.prototype.parseDocumentos = function (etapa) {
-	var documentos = {};
-	documentos.items = [];
-	documentos.casos = [];
-
-	$(etapa).find('documentos default item').each(function(index, item) {
-		documentos.items.push($(item).html());
-	});
-
-	$(etapa).find('documentos caso').each(function(index, caso) {
-		var casoObj = { descricao: $(caso).attr('descricao'), items: [] };
-
-		$(caso).find('item').each(function(index, item) {
-			casoObj.items.push($(item).html());
+		$(xmlDoc).find(selector).each(function(index, item) {
+			values.push($(item).html());
 		});
 
-		documentos.casos.push(casoObj);
-	});
+		return values;
+	};
 
-	return documentos;
-};
+	api.parseSigla = function (xmlDoc) {
+		return $(xmlDoc).find('sigla').html();
+	};
 
-ServicoParser.prototype.parseEtapas = function (xmlDoc) {
-	var etapas = [],
-		self = this;
+	api.parseDescricao = function (xmlDoc) {
+		return $(xmlDoc).find('descricao').html();
+	};
 
-	$(xmlDoc).find('etapa').each(function(index, etapa) {
-		etapas.push({
-			titulo: $(etapa).find('titulo').html(),
-			descricao: $(etapa).find('descricao').html(),
-			documentos: self.parseDocumentos(etapa),
-			custos: self.parseCustos(etapa),
-			canaisDePrestacao: self.parseCanaisDePrestacao(etapa)
+	api.parseNomesPopulares = function (xmlDoc) {
+		return api.parseArray(xmlDoc, 'nomes-populares item');
+	};
+
+	api.parseSegmentos = function (xmlDoc) {
+		return api.parseArray(xmlDoc, 'segmentos-da-sociedade item');
+	};
+
+	api.parsePalavrasChave = function (xmlDoc) {
+		return api.parseArray(xmlDoc, 'palavras-chave item');
+	};
+
+	api.parseLegislacoes = function (xmlDoc) {
+		return api.parseArray(xmlDoc, 'legislacoes item');
+	};
+
+	api.parseAreasDeInteresse = function (xmlDoc) {
+		return api.parseArray(xmlDoc, 'areas-de-interesse item');
+	};
+
+	api.parseSolicitantes = function (xmlDoc) {
+		var solicitantes = [];
+
+		$(xmlDoc).find('solicitantes solicitante').each(function(index, item) {
+			solicitantes.push({
+				tipo: $(item).find('tipo').html(),
+				requisitos: $(item).find('requisitos').html()
+			});
 		});
-	});
 
-	return etapas;
-};
+		return solicitantes;
+	};
 
-ServicoParser.prototype.parseCustos = function (etapa) {
-	var custos = {};
-	custos.items = [];
-	custos.casos = [];
-
-	$(etapa).find('custos default custo').each(function(index, item) {
-		var custo = {
-			descricao: $(item).find('descricao').html(),
-			valor: $(item).find('valor').html()
+	api.parseTempoTotalEstimado = function (xmlDoc) {
+		return {
+			max: $(xmlDoc).find('tempo-total-estimado ate').attr('max'),
+			unidade: $(xmlDoc).find('tempo-total-estimado ate').attr('unidade'),
+			descricao: $(xmlDoc).find('tempo-total-estimado descricao').html()
 		};
-		custos.items.push(custo);
-	});
+	};
 
-	$(etapa).find('custos caso').each(function(index, caso) {
-		var casoObj = { descricao: $(caso).attr('descricao'), items: [] };
+	api.parseGratuito = function (xmlDoc) {
+		return $(xmlDoc).find('gratuito').html() !== 'false';
+	};
 
-		$(caso).find('custo').each(function(index, item) {
-			var custoObj = {
+	api.parseDocumentos = function (etapa) {
+		var documentos = {};
+		documentos.items = [];
+		documentos.casos = [];
+
+		$(etapa).find('documentos default item').each(function(index, item) {
+			documentos.items.push($(item).html());
+		});
+
+		$(etapa).find('documentos caso').each(function(index, caso) {
+			var casoObj = { descricao: $(caso).attr('descricao'), items: [] };
+
+			$(caso).find('item').each(function(index, item) {
+				casoObj.items.push($(item).html());
+			});
+
+			documentos.casos.push(casoObj);
+		});
+
+		return documentos;
+	};
+
+	api.parseEtapas = function (xmlDoc) {
+		var etapas = [];
+
+		$(xmlDoc).find('etapa').each(function(index, etapa) {
+			etapas.push({
+				titulo: $(etapa).find('titulo').html(),
+				descricao: $(etapa).find('descricao').html(),
+				documentos: api.parseDocumentos(etapa),
+				custos: api.parseCustos(etapa),
+				canaisDePrestacao: api.parseCanaisDePrestacao(etapa)
+			});
+		});
+
+		return etapas;
+	};
+
+	api.parseCustos = function (etapa) {
+		var custos = {};
+		custos.items = [];
+		custos.casos = [];
+
+		$(etapa).find('custos default custo').each(function(index, item) {
+			var custo = {
 				descricao: $(item).find('descricao').html(),
 				valor: $(item).find('valor').html()
 			};
-			casoObj.items.push(custoObj);
+			custos.items.push(custo);
 		});
 
-		custos.casos.push(casoObj);
-	});
+		$(etapa).find('custos caso').each(function(index, caso) {
+			var casoObj = { descricao: $(caso).attr('descricao'), items: [] };
 
-	return custos;
-};
+			$(caso).find('custo').each(function(index, item) {
+				var custoObj = {
+					descricao: $(item).find('descricao').html(),
+					valor: $(item).find('valor').html()
+				};
+				casoObj.items.push(custoObj);
+			});
 
-ServicoParser.prototype.parseCanaisDePrestacao = function (etapa) {
-	var canaisDePrestacao = {};
-	canaisDePrestacao.items = [];
-	canaisDePrestacao.casos = [];
-
-	$(etapa).find('canais-de-prestacao default canal-de-prestacao').each(function(index, item) {
-		canaisDePrestacao.items.push({
-			tipo: $(item).attr('tipo'),
-			descricao: $(item).find('descricao').html()
+			custos.casos.push(casoObj);
 		});
-	});
 
-	$(etapa).find('canais-de-prestacao caso').each(function(index, caso) {
-		var casoObj = { descricao: $(caso).attr('descricao'), items: [] };
+		return custos;
+	};
 
-		$(caso).find('canal-de-prestacao').each(function(index, item) {
-			var canalDePrestacaoObj = {
+	api.parseCanaisDePrestacao = function (etapa) {
+		var canaisDePrestacao = {};
+		canaisDePrestacao.items = [];
+		canaisDePrestacao.casos = [];
+
+		$(etapa).find('canais-de-prestacao default canal-de-prestacao').each(function(index, item) {
+			canaisDePrestacao.items.push({
 				tipo: $(item).attr('tipo'),
 				descricao: $(item).find('descricao').html()
-			};
-			casoObj.items.push(canalDePrestacaoObj);
+			});
 		});
 
-		canaisDePrestacao.casos.push(casoObj);
-	});
+		$(etapa).find('canais-de-prestacao caso').each(function(index, caso) {
+			var casoObj = { descricao: $(caso).attr('descricao'), items: [] };
 
-	return canaisDePrestacao;
-};
+			$(caso).find('canal-de-prestacao').each(function(index, item) {
+				var canalDePrestacaoObj = {
+					tipo: $(item).attr('tipo'),
+					descricao: $(item).find('descricao').html()
+				};
+				casoObj.items.push(canalDePrestacaoObj);
+			});
 
-ServicoParser.prototype.parseOrgao = function (xmlDoc) {
-	return {
-		id: $(xmlDoc).find('orgao').attr('id'),
-		contato: $(xmlDoc).find('orgao contato').html()
+			canaisDePrestacao.casos.push(casoObj);
+		});
+
+		return canaisDePrestacao;
 	};
-};
 
-ServicoParser.prototype.parseXml = function (data) {
-	var xmlDoc = $.parseXML(data),
-		servico = {
-	  		nome: this.parseNome(xmlDoc),
-	  		descricao: this.parseDescricao(xmlDoc),
-		  	sigla: this.parseSigla(xmlDoc),
-		  	gratuito: this.parseGratuito(xmlDoc),
-		  	nomesPopulares: this.parseNomesPopulares(xmlDoc),
-		  	segmentos: this.parseSegmentos(xmlDoc),
-		  	palavrasChave: this.parsePalavrasChave(xmlDoc),
-		  	solicitantes: this.parseSolicitantes(xmlDoc),
-		  	areasDeInteresse: this.parseAreasDeInteresse(xmlDoc),
-			canaisDePrestacao: this.parseCanaisDePrestacao(xmlDoc),
-			tempoTotalEstimado: this.parseTempoTotalEstimado(xmlDoc),
-			legislacoes: this.parseLegislacoes(xmlDoc),
-			etapas: this.parseEtapas(xmlDoc),
-			orgao: this.parseOrgao(xmlDoc)
+	api.parseOrgao = function (xmlDoc) {
+		return {
+			id: $(xmlDoc).find('orgao').attr('id'),
+			contato: $(xmlDoc).find('orgao contato').html()
 		};
+	};
 
-	return servico;
-};
+	api.parseXml = function (data) {
+		var xmlDoc = $.parseXML(data),
+			servico = {
+		  		nome: api.parseNome(xmlDoc),
+		  		descricao: api.parseDescricao(xmlDoc),
+			  	sigla: api.parseSigla(xmlDoc),
+			  	gratuito: api.parseGratuito(xmlDoc),
+			  	nomesPopulares: api.parseNomesPopulares(xmlDoc),
+			  	segmentos: api.parseSegmentos(xmlDoc),
+			  	palavrasChave: api.parsePalavrasChave(xmlDoc),
+			  	solicitantes: api.parseSolicitantes(xmlDoc),
+			  	areasDeInteresse: api.parseAreasDeInteresse(xmlDoc),
+				canaisDePrestacao: api.parseCanaisDePrestacao(xmlDoc),
+				tempoTotalEstimado: api.parseTempoTotalEstimado(xmlDoc),
+				legislacoes: api.parseLegislacoes(xmlDoc),
+				etapas: api.parseEtapas(xmlDoc),
+				orgao: api.parseOrgao(xmlDoc)
+			};
+
+		return servico;
+	};
+
+	return api;
+}
