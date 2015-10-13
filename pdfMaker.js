@@ -5,27 +5,47 @@ var docDefinition = {
   defaultStyle: {
     font: 'OpenSans'
   },
+  pageSize: 'A4',
+  pageOrientation: 'portrait',
   styles: {
     title: {
-       fontSize: 80,
+       fontSize: 72,
        bold: true,
-       color: '#3069CB',
-       lineHeight: 0.7
+       color: '#2C66CE',
+       lineHeight: 0.64,
+       margin: [ 70, 150, 90, 0 ]
+     },
+     border: {
+       fontSize: 72,
+       bold: true,
+       color: '#606060',
+       lineHeight: 0.64
+     },
+     subtitle: {
+       fontSize: 25,
+       bold: true,
+       color: '#606060',
+       lineHeight: 0.8
      },
      header: {
-       fontSize: 33,
+       fontSize: 32,
        bold: true,
-       color: '#606060'
+       color: '#2C66CE',
+       lineHeight: 0.8,
+       margin: [ 40, 220, 40, 30 ]
      },
      subheader: {
-       fontSize: 16,
+       fontSize: 22,
        bold: true,
-       color: '#606060'
+       color: '#2C66CE',
+       margin: [ 40, 0, 40, 0 ],
+       lineHeight: 0.5
      },
      thirdheader: {
        fontSize: 12,
        bold: true,
-       color: '#606060'
+       color: '#606060',
+       margin: [ 40, 0, 40, 0 ]
      },
      tableExample: {
       margin: [0, 5, 0, 15]
@@ -36,7 +56,8 @@ var docDefinition = {
      },
      paragraph: {
       fontSize: 12,
-      color: '#606060'
+      color: '#606060',
+      margin: [ 40, 0, 40, 30 ]
      }
    }
 };
@@ -44,20 +65,19 @@ var docDefinition = {
 pdfMake.fonts = {
    OpenSans: {
      normal: 'OpenSans-Regular.ttf',
-     italics: 'OpenSans-Semibold.ttf',
-     bold: 'OpenSans-Bold.ttf'
+     italics: 'OpenSans-BoldItalic.ttf',
+     bold: 'OpenSans-ExtraBold.ttf'
    }
 };
 
 $(function() {
   var initialDocDefinition = function() { 
     docDefinition.content = [];
+    docDefinition.content.push({ text: 'Carta de serviços', style: 'title'});
+    docDefinition.content.push({ text: '__________', style: 'border', margin: [ 70, -40, 90, 0 ] });
     docDefinition.content.push('\n');
     docDefinition.content.push('\n');
-    docDefinition.content.push({ text: 'Carta de serviços', style: 'title' });
-    docDefinition.content.push('\n');
-    docDefinition.content.push('\n');
-    docDefinition.content.push({ text: 'Ministério da educação MEC', style: 'header', pageBreak: 'after' });
+    docDefinition.content.push({ text: 'Ministério da educação MEC'.toUpperCase(), style: 'subtitle', margin: [ 70, 0, 115, 0 ], pageBreak: 'after' });
   };
 
   function generatePdf() {

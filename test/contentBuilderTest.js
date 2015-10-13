@@ -21,7 +21,7 @@ describe('Montar conteúdo do serviço', function () {
 
     it('deve adicionar descrição', function () {
         var servico = { descricao: 'Descrição teste'},
-            content = [{ text: 'O que é?', style: 'subheader' }, { text: 'Descrição teste', style: 'paragraph' }];
+            content = [{ text: 'O QUE É?', style: 'subheader' }, { text: 'Descrição teste', style: 'paragraph' }];
         contentBuilder.servico = servico;
 
         contentBuilder.buildDescricao();
@@ -53,7 +53,7 @@ describe('Montar conteúdo do serviço', function () {
             tempoTotalEstimado: { max: '40', unidade: 'dias-uteis'}
         };
         var content = [
-            { text: 'Quanto tempo leva?', style: 'subheader' },
+            { text: 'QUANTO TEMPO LEVA?', style: 'subheader' },
             { text: '40 dias-uteis', style: 'paragraph' },
         ];
         contentBuilder.servico = servico;
@@ -68,7 +68,7 @@ describe('Montar conteúdo do serviço', function () {
             legislacoes: [ '[TítuloLei nº 6.766, de 19 de Dezembro de 1979](http://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1979-12-19;6766)' ]
         };
         var content = [
-            { text: 'Legislação', style: 'subheader' },
+            { text: 'LEGISLAÇÃO', style: 'subheader' },
         ];
         contentBuilder.servico = servico;
 
@@ -107,7 +107,7 @@ describe('Montar conteúdo do serviço', function () {
 
     it('deve adicionar outras informações', function () {
         var content = [
-            { text: 'Outras informações', style: 'subheader' }
+            { text: 'OUTRAS INFORMAÇÕES', style: 'subheader' }
         ];
         spyOn(contentBuilder, 'buildNomesPopulares');
         spyOn(contentBuilder, 'buildGratuidade');

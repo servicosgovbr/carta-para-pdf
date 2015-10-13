@@ -13,12 +13,12 @@ ContentBuilder.prototype.addNewLine = function () {
 };
 
 ContentBuilder.prototype.buildNome = function () {
-	this.addContent({ text: this.servico.nome + ' (' + this.servico.sigla + ')', style: 'header' });
+	this.addContent({ text: this.servico.nome + ' (' + this.servico.sigla + ')', style: 'header'});
 	this.addNewLine();
 };
 
 ContentBuilder.prototype.buildDescricao = function () {
-	this.addContent({ text: 'O que é?', style: 'subheader' });
+	this.addContent({ text: 'O que é?'.toUpperCase(), style: 'subheader' });
 	this.addNewLine();
 	this.addContent({ text: this.servico.descricao, style: 'paragraph' });
 	this.addNewLine();
@@ -27,7 +27,7 @@ ContentBuilder.prototype.buildDescricao = function () {
 ContentBuilder.prototype.buildSolicitantes = function () {
 	var self = this;
 
-	this.addContent({ text: 'Quem pode utilizar este serviço?', style: 'subheader' });
+	this.addContent({ text: 'Quem pode utilizar este serviço?'.toUpperCase(), style: 'subheader' });
 	this.addNewLine();
 
 	$(this.servico.solicitantes).each(function(index, solicitante) {
@@ -40,7 +40,7 @@ ContentBuilder.prototype.buildSolicitantes = function () {
 };
 
 ContentBuilder.prototype.buildTempoTotalEstimado = function () {
-	this.addContent({ text: 'Quanto tempo leva?', style: 'subheader' });
+	this.addContent({ text: 'Quanto tempo leva?'.toUpperCase(), style: 'subheader' });
 	this.addNewLine();
 	this.addContent({ text: this.servico.tempoTotalEstimado.max + ' ' + this.servico.tempoTotalEstimado.unidade, style: 'paragraph' });
 	this.addNewLine();
@@ -50,7 +50,7 @@ ContentBuilder.prototype.buildLegislacoes = function () {
 	var content = [];
 	var textoHtml = markdown.toHTML(this.servico.legislacoes[0]);
 
-	this.addContent({ text: 'Legislação', style: 'subheader' });
+	this.addContent({ text: 'Legislação'.toUpperCase(), style: 'subheader' });
 	this.addNewLine();
 
 	this.parseHtml.parseHtml(content, textoHtml);
@@ -69,7 +69,7 @@ ContentBuilder.prototype.buildGratuidade = function () {
 };
 
 ContentBuilder.prototype.buildOutrasInformacoes = function () {
-	this.addContent({ text: 'Outras informações', style: 'subheader' });
+	this.addContent({ text: 'Outras informações'.toUpperCase(), style: 'subheader' });
 	this.addNewLine();
 	this.buildNomesPopulares();
 	this.buildGratuidade();
