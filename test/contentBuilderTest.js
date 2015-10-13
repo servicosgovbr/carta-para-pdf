@@ -105,6 +105,20 @@ describe('Montar conteúdo do serviço', function () {
         expect(contentBuilder.docContent).toEqual(aC(content));
     });
 
+    it('deve adicionar outras informações', function () {
+        var content = [
+            { text: 'Outras informações', style: 'subheader' }
+        ];
+        spyOn(contentBuilder, 'buildNomesPopulares');
+        spyOn(contentBuilder, 'buildGratuidade');
+
+        contentBuilder.buildOutrasInformacoes();
+
+        expect(contentBuilder.buildNomesPopulares).toHaveBeenCalledWith();
+        expect(contentBuilder.buildGratuidade).toHaveBeenCalledWith();
+        expect(contentBuilder.docContent).toEqual(aC(content));
+    });
+
     it('deve chamar todos os builders', function () {
         var each,
         builders = [
