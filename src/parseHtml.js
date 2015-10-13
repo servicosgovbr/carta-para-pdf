@@ -2,18 +2,26 @@ var ParseHtml = function() {
 	function ParseContainer(cnt, e, p, styles) {
 	    var elements = [];
 	    var children = e.childNodes;
+
 	    if (children.length !== 0) {
-	        for (i = 0; i < children.length; i++) p = ParseElement(elements, children[i], p, styles);
+	        for (i = 0; i < children.length; i++) { 
+	        	p = ParseElement(elements, children[i], p, styles); 
+	        }
 	    }
+	    
 	    if (elements.length !== 0) {            
-	        for (i = 0; i < elements.length; i++) cnt.push(elements[i]);
+	        for (i = 0; i < elements.length; i++) { 
+	        	cnt.push(elements[i]); 
+	        }
 	    }
+	    
 	    return p;
 	}
 
 	function ComputeStyle(o, styles) {
 	    for (i = 0; i < styles.length; i++) {
 	        var st = styles[i].trim().toLowerCase().split(":");
+	        
 	        if (st.length === 2) {
 	            switch (st[0]) {
 	                case "font-size":{
@@ -52,22 +60,32 @@ var ParseHtml = function() {
 
 	function ParseElement(cnt, e, p, styles) {
 	    if (!styles) styles = [];
+
 	    if (e.getAttribute) {
 	        var nodeStyle = e.getAttribute("style");
+
 	        if (nodeStyle) {
 	            var ns = nodeStyle.split(";");
-	            for (k = 0; k < ns.length; k++) styles.push(ns[k]);
+
+	            for (k = 0; k < ns.length; k++) { 
+	            	styles.push(ns[k]);
+	            }
 	        }
 	    }
 
 	    switch (e.nodeName.toLowerCase()) {
 	        case "#text": {
 	            var text = { text: e.textContent.replace(/\n/g, "") };
-	            if (styles) ComputeStyle(t, styles);
+
+	            if (styles) { 
+	            	ComputeStyle(t, styles); 
+	            }
+
 	            p.text.push(text);
 	            break;
 	        }
-	        case "b":case "strong": {
+	        case "b":
+	        case "strong": {
 	            ParseContainer(cnt, e, p, styles.concat(["font-weight:bold"]));
 	            break;
 	        }
@@ -98,21 +116,29 @@ var ParseHtml = function() {
 	                var border = e.getAttribute("border");
 	                var isBorder = false;
 
-	                if (border) if (parseInt(border) === 1) { 
+	                if (border && parseInt(border) === 1) { 
 	                	isBorder = true;
 	                }
 	                
-	                if (!isBorder) t.layout = 'noBorders';
+	                if (!isBorder) { 
+	                	t.layout = 'noBorders'; 
+	                }
+	                
 	                ParseContainer(t.table.body, e, p, styles);
 	                
 	                var widths = e.getAttribute("widths");
 
 	                if (!widths) {
 	                    if (t.table.body.length !== 0) {
-	                        if (t.table.body[0].length !== 0) for (k = 0; k < t.table.body[0].length; k++) t.table.widths.push("*");
+	                        if (t.table.body[0].length !== 0) { 
+	                        	for (k = 0; k < t.table.body[0].length; k++) { 
+	                        		t.table.widths.push("*"); 
+	                        	}
+	                    	}
 	                    }
 	                } else {
 	                    var width = widths.split(",");
+
 	                    for (k = 0; k < width.length; k++)  { 
 	                    	t.table.widths.push(width[k]);
 	                    }
@@ -136,9 +162,15 @@ var ParseHtml = function() {
 	            st.stack.push(p);
 	            
 	            var rspan = e.getAttribute("rowspan");
-	            if (rspan) st.rowSpan = parseInt(rspan);
+	            if (rspan) { 
+	            	st.rowSpan = parseInt(rspan); 
+	            }
+	            
 	            var cspan = e.getAttribute("colspan");
-	            if (cspan) st.colSpan = parseInt(cspan);
+	            
+	            if (cspan) { 
+	            	st.colSpan = parseInt(cspan); 
+	            }
 	            
 	            ParseContainer(st.stack, e, p, styles);
 	            cnt.push(st);
@@ -174,8 +206,7 @@ var ParseHtml = function() {
 	}
 
 	function CreateParagraph() {
-	    var paragraph = { text: [] };
-	    return paragraph;
+	    return { text: [] };
 	}
 
 	return {
