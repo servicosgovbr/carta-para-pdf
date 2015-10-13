@@ -54,7 +54,6 @@ ContentBuilder.prototype.buildLegislacoes = function () {
 	this.addNewLine();
 
 	this.parseHtml.parseHtml(content, textoHtml);
-	console.log(content);
 	this.docContent = this.docContent.concat(content);
 	this.addNewLine();
 };
