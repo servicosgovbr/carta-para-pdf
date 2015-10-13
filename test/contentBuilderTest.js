@@ -91,4 +91,18 @@ describe('Montar conteúdo do serviço', function () {
         expect(contentBuilder.docContent).toEqual(aC(content));
     });
 
+    it('deve adicionar gratuidade', function () {
+        var servico = {
+            gratuito: true
+        };
+        var content = [
+            { text: 'Este serviço é gratuito para o cidadão.', style: 'paragraph' }
+        ];
+        contentBuilder.servico = servico;
+
+        contentBuilder.buildGratuidade();
+
+        expect(contentBuilder.docContent).toEqual(aC(content));
+    });
+
 });

@@ -63,11 +63,16 @@ ContentBuilder.prototype.buildNomesPopulares = function () {
 	this.addNewLine();
 };
 
+ContentBuilder.prototype.buildGratuidade = function () {
+	this.addContent({ text: this.servico.gratuito ? 'Este serviço é gratuito para o cidadão.' : '', style: 'paragraph' });
+	this.addNewLine();
+};
+
 ContentBuilder.prototype.buildOutrasInformacoes = function () {
 	this.addContent({ text: 'Outras informações', style: 'subheader' });
 	this.addNewLine();
 	this.buildNomesPopulares();
-	this.addContent({ text: this.servico.gratuito ? 'Este serviço é gratuito para o cidadão.' : '', style: 'paragraph' });
+	this.buildGratuidade();
 };
 
 ContentBuilder.prototype.buildEtapa = function (index, etapa) {
