@@ -25,15 +25,15 @@ ContentBuilder.prototype.buildDescricao = function () {
 };
 
 ContentBuilder.prototype.buildSolicitantes = function () {
-	var builder = this;
+	var self = this;
 
 	this.addContent({ text: 'Quem pode utilizar este serviço?', style: 'subheader' });
 	this.addNewLine();
 
 	$(this.servico.solicitantes).each(function(index, solicitante) {
-		builder.addContent({ text: solicitante.tipo , style: 'thirdheader' });
-		builder.addContent({ text: solicitante.requisitos , style: 'paragraph' });
-		builder.addNewLine();
+		self.addContent({ text: solicitante.tipo , style: 'thirdheader' });
+		self.addContent({ text: solicitante.requisitos , style: 'paragraph' });
+		self.addNewLine();
 	});
 
 	this.addContent({ text: '', style: 'paragraph', pageBreak: 'after' });
