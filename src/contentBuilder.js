@@ -46,17 +46,22 @@ ContentBuilder.prototype.buildTempoTotalEstimado = function () {
 	this.addNewLine();
 };
 
-ContentBuilder.prototype.buildFooter = function () {
-	this.buildTempoTotalEstimado();
+ContentBuilder.prototype.buildLegislacoes = function () {
+	var content = [];
+	var textoHtml = markdown.toHTML(this.servico.legislacoes[0]);
+
 	this.addContent({ text: 'Legislação', style: 'subheader' });
 	this.addNewLine();
 
-	var content = [];
-	var simpleHtm = markdown.toHTML(this.servico.legislacoes[0]);
-
-	this.parseHtml.parseHtml(content, simpleHtm);
+	this.parseHtml.parseHtml(content, textoHtml);
+	console.log(content);
 	this.docContent = this.docContent.concat(content);
 	this.addNewLine();
+};
+
+ContentBuilder.prototype.buildFooter = function () {
+	this.buildTempoTotalEstimado();
+	this.buildLegislacoes();
 };
 
 ContentBuilder.prototype.buildOutrasInformacoes = function () {

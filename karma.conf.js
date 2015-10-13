@@ -7,6 +7,7 @@ module.exports = function(config) {
         browsers: ['PhantomJS'],
         files: [
           'lib/jquery-1.11.3.min.js',
+          'lib/markdown.min.js',
           'src/*.js',
           'test/*.js'
         ],

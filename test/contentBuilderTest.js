@@ -63,4 +63,18 @@ describe('Montar conteúdo do serviço', function () {
         expect(contentBuilder.docContent).toEqual(aC(content));
     });
 
+    it('deve adicionar legislações', function () {
+        var servico = {
+            legislacoes: [ '[TítuloLei nº 6.766, de 19 de Dezembro de 1979](http://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1979-12-19;6766)' ]
+        };
+        var content = [
+            { text: 'Legislação', style: 'subheader' },
+        ];
+        contentBuilder.servico = servico;
+
+        contentBuilder.buildLegislacoes();
+
+        expect(contentBuilder.docContent).toEqual(aC(content));
+    });
+
 });
