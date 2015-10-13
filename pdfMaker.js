@@ -17,7 +17,6 @@ var docDefinition = {
      },
      border: {
        fontSize: 72,
-       bold: true,
        color: '#606060',
        lineHeight: 0.64
      },
