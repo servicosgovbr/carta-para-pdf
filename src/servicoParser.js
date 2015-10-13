@@ -1,10 +1,6 @@
 function ServicoParser() {
 	var api = {};
 
-	api.parseNome = function (xmlDoc) {
-		return $(xmlDoc).find('nome').html();
-	};
-
 	function parseArray(xmlDoc, selector) {
 		var values = [];
 
@@ -13,6 +9,10 @@ function ServicoParser() {
 		});
 
 		return values;
+	}
+
+	api.parseNome = function (xmlDoc) {
+		return $(xmlDoc).find('nome').html();
 	};
 
 	api.parseSigla = function (xmlDoc) {
