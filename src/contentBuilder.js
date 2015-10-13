@@ -92,12 +92,12 @@ ContentBuilder.prototype.buildDocumentos = function (documentos) {
 
 	var documentosDoc = [];
 
-	documentosDoc.push({ text: 'Documentação comum para todos', style: 'thirdheader' });
+	documentosDoc.push({ text: 'Documentação comum para todos', style: 'thirdheaderTable' });
 	documentosDoc.push({ ul: documentos.items, style: 'list' });
 	documentosDoc.push('\n');
 
 	$(documentos.casos).each(function(index, caso) {
-		documentosDoc.push({ text: caso.descricao, style: 'thirdheader' });
+		documentosDoc.push({ text: caso.descricao, style: 'thirdheaderTable' });
 		documentosDoc.push({ ul: caso.items, style: 'list' });
 	});
 
@@ -123,7 +123,7 @@ ContentBuilder.prototype.buildCustos = function (custos) {
 
 	var custosDoc = [];
 
-	custosDoc.push({ text: 'Custos padrão', style: 'thirdheader' });
+	custosDoc.push({ text: 'Custos padrão', style: 'thirdheaderTable' });
 
 	$(custos.items).each(function(index, custo) {
 		custosDoc.push({ ul: [ custo.descricao + ': ' + custo.valor ], style: 'list' });
@@ -132,7 +132,7 @@ ContentBuilder.prototype.buildCustos = function (custos) {
 	custosDoc.push('\n');
 
 	$(custos.casos).each(function(index, caso) {
-		custosDoc.push({ text: caso.descricao, style: 'thirdheader' });
+		custosDoc.push({ text: caso.descricao, style: 'thirdheaderTable' });
 		$(caso.items).each(function(index, custo) {
 			custosDoc.push({ ul: [ custo.descricao + ': ' + custo.valor ], style: 'list' });
 		});
@@ -160,7 +160,7 @@ ContentBuilder.prototype.buildCanais = function (canais) {
 
 	var canaisDoc = [];
 
-	canaisDoc.push({ text: 'Canais de prestação padrão', style: 'thirdheader' });
+	canaisDoc.push({ text: 'Canais de prestação padrão', style: 'thirdheaderTable' });
 
 	$(canais.items).each(function(index, canal) {
 		canaisDoc.push({ ul: [ canal.tipo + ': ' + canal.descricao ], style: 'list' });
@@ -169,7 +169,7 @@ ContentBuilder.prototype.buildCanais = function (canais) {
 	canaisDoc.push('\n');
 
 	$(canais.casos).each(function(index, caso) {
-		canaisDoc.push({ text: caso.descricao, style: 'thirdheader' });
+		canaisDoc.push({ text: caso.descricao, style: 'thirdheaderTable' });
 		$(caso.items).each(function(index, canal) {
 			canaisDoc.push({ ul: [ canal.tipo + ': ' + canal.descricao ], style: 'list' });
 		});

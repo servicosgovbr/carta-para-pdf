@@ -41,17 +41,22 @@ var docDefinition = {
        lineHeight: 0.5
      },
      thirdheader: {
-       fontSize: 12,
-       bold: true,
+       fontSize: 15,
+       italics: true,
        color: '#606060',
-       margin: [ 40, 0, 40, 0 ]
+       margin: [ 40, 10, 40, 0 ]
+     },
+     thirdheaderTable: {
+       fontSize: 15,
+       italics: true,
+       color: '#606060'
      },
      tableExample: {
-      margin: [0, 5, 0, 15]
+      margin: [40, 5, 40, 15]
      },
      list: {
       fontSize: 12,
-      blod: true
+      blod: true,
      },
      paragraph: {
       fontSize: 12,
