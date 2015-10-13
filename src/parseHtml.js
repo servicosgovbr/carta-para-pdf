@@ -2,10 +2,10 @@ var ParseHtml = function() {
 	function ParseContainer(cnt, e, p, styles) {
 	    var elements = [];
 	    var children = e.childNodes;
-	    if (children.length != 0) {
+	    if (children.length !== 0) {
 	        for (var i = 0; i < children.length; i++) p = ParseElement(elements, children[i], p, styles);
 	    }
-	    if (elements.length != 0) {            
+	    if (elements.length !== 0) {            
 	        for (var i = 0; i < elements.length; i++) cnt.push(elements[i]);
 	    }
 	    return p;
@@ -14,7 +14,7 @@ var ParseHtml = function() {
 	function ComputeStyle(o, styles) {
 	    for (var i = 0; i < styles.length; i++) {
 	        var st = styles[i].trim().toLowerCase().split(":");
-	        if (st.length == 2) {
+	        if (st.length === 2) {
 	            switch (st[0]) {
 	                case "font-size":{
 	                    o.fontSize = parseInt(st[1]);
@@ -95,21 +95,28 @@ var ParseHtml = function() {
 	                        widths: [],
 	                        body: []
 	                    }
-	                }
+	                };
 	                var border = e.getAttribute("border");
 	                var isBorder = false;
-	                if (border) if (parseInt(border) == 1) isBorder = true;
+
+	                if (border) if (parseInt(border) === 1) { 
+	                	isBorder = true;
+	                }
+	                
 	                if (!isBorder) t.layout = 'noBorders';
 	                ParseContainer(t.table.body, e, p, styles);
 	                
 	                var widths = e.getAttribute("widths");
+
 	                if (!widths) {
-	                    if (t.table.body.length != 0) {
-	                        if (t.table.body[0].length != 0) for (var k = 0; k < t.table.body[0].length; k++) t.table.widths.push("*");
+	                    if (t.table.body.length !== 0) {
+	                        if (t.table.body[0].length !== 0) for (var k = 0; k < t.table.body[0].length; k++) t.table.widths.push("*");
 	                    }
 	                } else {
-	                    var w = widths.split(",");
-	                    for (var k = 0; k < w.length; k++) t.table.widths.push(w[k]);
+	                    var width = widths.split(",");
+	                    for (var k = 0; k < width.length; k++)  { 
+	                    	t.table.widths.push(width[k]);
+	                    }
 	                }
 	                cnt.push(t);
 	                break;
@@ -126,7 +133,7 @@ var ParseHtml = function() {
 	        }
 	        case "td": {
 	            p = CreateParagraph();
-	            var st = {stack: []}
+	            var st = {stack: []};
 	            st.stack.push(p);
 	            
 	            var rspan = e.getAttribute("rowspan");
@@ -138,9 +145,11 @@ var ParseHtml = function() {
 	            cnt.push(st);
 	            break;
 	        }
-	        case "a":case "div":case "p": {
+	        case "a":
+	        case "div":
+	        case "p": {
 	            p = CreateParagraph();
-	            var st = {stack: []}
+	            var st = { stack: [] };
 	            st.stack.push(p);
 	            ComputeStyle(st, styles);
 	            ParseContainer(st.stack, e, p);
@@ -158,16 +167,19 @@ var ParseHtml = function() {
 
 	function ParseHtml(cnt, htmlText) {
 	    var html = $(htmlText.replace(/\t/g, "").replace(/\n/g, ""));
-	    var p = CreateParagraph();
-	    for (var i = 0; i < html.length; i++) ParseElement(cnt, html.get(i), p);
+	    var paragraph = CreateParagraph();
+	    
+	    for (var i = 0; i < html.length; i++) { 
+	    	ParseElement(cnt, html.get(i), paragraph);
+	    }
 	}
 
 	function CreateParagraph() {
-	    var p = {text:[]};
-	    return p;
+	    var paragraph = { text: [] };
+	    return paragraph;
 	}
 
 	return {
 		parseHtml: ParseHtml
-	}
+	};
 };
