@@ -1,3 +1,5 @@
+[![Status da construção](https://snap-ci.com/servicosgovbr/carta-para-pdf/branch/master/build_image)](https://snap-ci.com/servicosgovbr/carta-para-pdf/branch/master)
+[![Coverage Status](https://coveralls.io/repos/servicosgovbr/carta-para-pdf/badge.svg?branch=master&service=github)](https://coveralls.io/github/servicosgovbr/carta-para-pdf?branch=master)
 [![Stories in Ready](https://badge.waffle.io/servicosgovbr/carta-para-pdf.png?label=ready&title=Ready)](https://waffle.io/servicosgovbr/carta-para-pdf)
 [![Join the chat at https://gitter.im/servicosgovbr/carta-para-pdf](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/servicosgovbr/carta-para-pdf?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 

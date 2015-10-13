@@ -3,8 +3,13 @@ module.exports = function(config) {
 
     config.set({
         frameworks: ['jasmine'],
-        reporters: ['spec', 'coverage'],
+        reporters: ['spec', 'coverage', 'coveralls'],
         browsers: ['PhantomJS'],
+        coverageReporter: {
+          repoToken: 'khhm0L9sekEGN2r12dWspLyYT7D7cK2KA',
+          type: 'lcov',
+          dir: 'coverage/'
+        },
         files: [
           'lib/jquery-1.11.3.min.js',
           'lib/markdown.min.js',
