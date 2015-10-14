@@ -81,6 +81,8 @@ var ParseHtml = function() {
 	            	ComputeStyle(text, styles); 
 	            }
 
+	            paragraph.text.push(text);
+
 	            break;
 	        }
 	        case "b":
@@ -107,38 +109,11 @@ var ParseHtml = function() {
 	        }
 	        case "table": {
 	                var table = {
-	                    table: { widths: [], body: [] }
+	                    table: { body: [] }
 	                };
-	                var border = element.getAttribute("border");
-	                var isBorder = false;
-
-	                if (border && parseInt(border) === 1) { 
-	                	isBorder = true;
-	                }
-	                
-	                if (!isBorder) { 
-	                	table.layout = 'noBorders'; 
-	                }
 	                
 	                ParseContainer(table.table.body, element, paragraph, styles);
 	                
-	                var widths = element.getAttribute("widths");
-
-	                if (!widths) {
-	                    if (table.table.body.length !== 0) {
-	                        if (table.table.body[0].length !== 0) { 
-	                        	for (k = 0; k < table.table.body[0].length; k++) { 
-	                        		table.table.widths.push("*"); 
-	                        	}
-	                    	}
-	                    }
-	                } else {
-	                    var width = widths.split(",");
-
-	                    for (k = 0; k < width.length; k++)  { 
-	                    	table.table.widths.push(width[k]);
-	                    }
-	                }
 	                container.push(table);
 	                break;
 	            }
@@ -174,6 +149,36 @@ var ParseHtml = function() {
 	        }
 	        case "a": {
 	            var stack = { stack: [{ text: $(element).html() + ' - ' + $(element).attr('href') }] };
+	            container.push(stack);
+	            break;
+	        }
+	        case "h2": {
+	        	var stack = { stack: [{ text: $(element).html(), style: 'subheader' }] };
+	            container.push(stack);
+	            break;
+	        }
+	        case "h1": {
+	        	var stack = { stack: [{ text: $(element).html(), style: 'header' }] };
+	            container.push(stack);
+	            break;
+	        }
+	        case "ul": {
+	        	paragraph = CreateParagraph();
+	            var stack = { stack: [] };
+	            stack.stack.push(paragraph);
+	            ComputeStyle(stack, styles);
+	            ParseContainer(stack.stack, element, paragraph);
+	            
+	            container.push(stack);
+	            break;
+	        }
+	        case "li": {
+	        	paragraph = CreateParagraph();
+	            var stack = { stack: [] };
+	            stack.stack.push(paragraph);
+	            ComputeStyle(stack, styles);
+	            ParseContainer(stack.stack, element, paragraph);
+	            
 	            container.push(stack);
 	            break;
 	        }
