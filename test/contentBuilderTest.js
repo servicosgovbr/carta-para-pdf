@@ -1,7 +1,7 @@
 describe('Montar conteúdo do serviço', function () {
     var contentBuilder;
 
-    function aC(data) {
+    function arrayContaining(data) {
         return jasmine.arrayContaining(data);
     }
 
@@ -29,7 +29,7 @@ describe('Montar conteúdo do serviço', function () {
             content = [{ text: 'Serviço teste (STST)', style: 'header' }];
         contentBuilder = criarContentBuilder(servico);
 
-        expect(contentBuilder.buildContent()).toEqual(aC(content));
+        expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));
     });
 
     it('deve adicionar descrição', function () {
@@ -37,7 +37,7 @@ describe('Montar conteúdo do serviço', function () {
             content = [{ text: 'O QUE É?', style: 'subheader' }, { text: 'Descrição teste', style: 'paragraph' }];
         contentBuilder = criarContentBuilder(servico);
 
-        expect(contentBuilder.buildContent()).toEqual(aC(content));
+        expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));
     });
 
     it('deve adicionar solicitantes', function () {
@@ -54,7 +54,7 @@ describe('Montar conteúdo do serviço', function () {
         ];
         contentBuilder = criarContentBuilder(servico);
 
-        expect(contentBuilder.buildContent()).toEqual(aC(content));
+        expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));
     });
 
     it('deve adicionar tempo estimado', function () {
@@ -67,7 +67,7 @@ describe('Montar conteúdo do serviço', function () {
         ];
         contentBuilder = criarContentBuilder(servico);
 
-        expect(contentBuilder.buildContent()).toEqual(aC(content));
+        expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));
     });
 
     it('deve adicionar legislações', function () {
@@ -79,7 +79,7 @@ describe('Montar conteúdo do serviço', function () {
         ];
         contentBuilder = criarContentBuilder(servico);
 
-        expect(contentBuilder.buildContent()).toEqual(aC(content));
+        expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));
     });
 
     it('deve adicionar nomes populares', function () {
@@ -91,7 +91,7 @@ describe('Montar conteúdo do serviço', function () {
         ];
         contentBuilder = criarContentBuilder(servico);
 
-        expect(contentBuilder.buildContent()).toEqual(aC(content));
+        expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));
     });
 
     it('deve adicionar gratuidade', function () {
@@ -103,7 +103,7 @@ describe('Montar conteúdo do serviço', function () {
         ];
         contentBuilder = criarContentBuilder(servico);
 
-        expect(contentBuilder.buildContent()).toEqual(aC(content));
+        expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));
     });
 
     it('deve adicionar outras informações', function () {
@@ -111,6 +111,6 @@ describe('Montar conteúdo do serviço', function () {
             { text: 'OUTRAS INFORMAÇÕES', style: 'subheader' }
         ];
 
-        expect(contentBuilder.buildContent()).toEqual(aC(content));
+        expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));
     });
 });
