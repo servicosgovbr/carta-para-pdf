@@ -110,31 +110,7 @@ describe('Montar conteúdo do serviço', function () {
         var content = [
             { text: 'OUTRAS INFORMAÇÕES', style: 'subheader' }
         ];
-        spyOn(contentBuilder, 'buildNomesPopulares');
-        spyOn(contentBuilder, 'buildGratuidade');
 
-        contentBuilder.buildOutrasInformacoes();
-
-        expect(contentBuilder.buildNomesPopulares).toHaveBeenCalledWith();
-        expect(contentBuilder.buildGratuidade).toHaveBeenCalledWith();
         expect(contentBuilder.buildContent()).toEqual(aC(content));
-    });
-
-    it('deve chamar todos os builders', function () {
-        var each,
-        builders = [
-            'buildNome', 'buildDescricao', 'buildSolicitantes', 'buildEtapas',
-            'buildTempoTotalEstimado', 'buildLegislacoes', 'buildOutrasInformacoes'
-        ];
-
-      for (each in builders) {
-          spyOn(contentBuilder, builders[each]);
-      }
-
-      contentBuilder.buildContent();
-
-      for (each in builders) {
-          expect(contentBuilder[builders[each]]).toHaveBeenCalledWith();
-      }
     });
 });

@@ -12,19 +12,19 @@ function ContentBuilder (servicoObject) {
 		addContent('\n');
 	}
 
-	api.buildNome = function () {
+	buildNome = function () {
 		addContent({ text: servico.nome + ' (' + servico.sigla + ')', style: 'header' });
 		addNewLine();
 	};
 
-	api.buildDescricao = function () {
+	buildDescricao = function () {
 		addContent({ text: 'O QUE É?', style: 'subheader' });
 		addNewLine();
 		addContent({ text: servico.descricao, style: 'paragraph' });
 		addNewLine();
 	};
 
-	api.buildSolicitantes = function () {
+	buildSolicitantes = function () {
 		addContent({ text: 'Quem pode utilizar este serviço?', style: 'subheader' });
 		addNewLine();
 
@@ -37,14 +37,14 @@ function ContentBuilder (servicoObject) {
 		addContent({ text: '', style: 'paragraph', pageBreak: 'after' });
 	};
 
-	api.buildTempoTotalEstimado = function () {
+	buildTempoTotalEstimado = function () {
 		addContent({ text: 'QUANTO TEMPO LEVA?', style: 'subheader' });
 		addNewLine();
 		addContent({ text: servico.tempoTotalEstimado.max + ' ' + servico.tempoTotalEstimado.unidade, style: 'paragraph' });
 		addNewLine();
 	};
 
-	api.buildLegislacoes = function () {
+	buildLegislacoes = function () {
 		var content = [];
 		var textoHtml = markdown.toHTML(servico.legislacoes[0]);
 
@@ -56,21 +56,21 @@ function ContentBuilder (servicoObject) {
 		addNewLine();
 	};
 
-	api.buildNomesPopulares = function () {
+	buildNomesPopulares = function () {
 		addContent({ text: 'Você também pode conhecer este serviço como: ' + servico.nomesPopulares.join(', ') + '.', style: 'paragraph' });
 		addNewLine();
 	};
 
-	api.buildGratuidade = function () {
+	buildGratuidade = function () {
 		addContent({ text: servico.gratuito ? 'Este serviço é gratuito para o cidadão.' : '', style: 'paragraph' });
 		addNewLine();
 	};
 
-	api.buildOutrasInformacoes = function () {
+	buildOutrasInformacoes = function () {
 		addContent({ text: 'OUTRAS INFORMAÇÕES', style: 'subheader' });
 		addNewLine();
-		api.buildNomesPopulares();
-		api.buildGratuidade();
+		buildNomesPopulares();
+		buildGratuidade();
 	};
 
 	function buildEtapa(index, etapa) {
@@ -189,7 +189,7 @@ function ContentBuilder (servicoObject) {
 		});
 	}
 
-	api.buildEtapas = function () {
+	buildEtapas = function () {
 		addContent({ text: 'Etapas para a realização desse serviço', style: 'subheader' });
 		addNewLine();
 
@@ -199,13 +199,13 @@ function ContentBuilder (servicoObject) {
 	};
 
 	api.buildContent = function () {
-		api.buildNome();
-		api.buildDescricao();
-		api.buildSolicitantes();
-		api.buildEtapas();
-		api.buildTempoTotalEstimado();
-		api.buildLegislacoes();
-		api.buildOutrasInformacoes();
+		buildNome();
+		buildDescricao();
+		buildSolicitantes();
+		buildEtapas();
+		buildTempoTotalEstimado();
+		buildLegislacoes();
+		buildOutrasInformacoes();
 
 		return docContent;
 	};
