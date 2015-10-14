@@ -99,20 +99,7 @@ function ContentBuilder (servicoObject) {
 			documentosDoc.push({ ul: caso.items, style: 'list' });
 		});
 
-		addContent({
-			style: 'tableExample',
-			table: {
-				body: [
-					[{ stack: documentosDoc}]
-				]
-			},
-			layout: {
-	            paddingLeft: function(i, node) { return 10; },
-	            paddingRight: function(i, node) { return 10; },
-	            paddingTop: function(i, node) { return 10; },
-	            paddingBottom: function(i, node) { return 10; }
-	        }
-		});
+		buildTable(documentosDoc);
 	}
 
 	function buildCustos (custos) {
@@ -136,20 +123,7 @@ function ContentBuilder (servicoObject) {
 			});
 		});
 
-		addContent({
-			style: 'tableExample',
-			table: {
-				body: [
-					[{ stack: custosDoc}]
-				]
-			},
-			layout: {
-	            paddingLeft: function(i, node) { return 10; },
-	            paddingRight: function(i, node) { return 10; },
-	            paddingTop: function(i, node) { return 10; },
-	            paddingBottom: function(i, node) { return 10; }
-	        }
-		});
+		buildTable(custosDoc);
 	}
 
 	function buildCanais(canais) {
@@ -173,11 +147,15 @@ function ContentBuilder (servicoObject) {
 			});
 		});
 
+		buildTable(canaisDoc);
+	}
+
+	function buildTable(documento) {
 		addContent({
 			style: 'tableExample',
 			table: {
 				body: [
-					[{ stack: canaisDoc}]
+					[{ stack: documento}]
 				]
 			},
 			layout: {
