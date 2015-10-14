@@ -81,7 +81,6 @@ var ParseHtml = function() {
 	            	ComputeStyle(text, styles); 
 	            }
 
-	            paragraph.text.push(text);
 	            break;
 	        }
 	        case "b":
@@ -174,12 +173,7 @@ var ParseHtml = function() {
 	            break;
 	        }
 	        case "a": {
-	        	paragraph = CreateParagraph();
-	            var stack = { stack: [] };
-	            stack.stack.push(paragraph);
-	            ComputeStyle(stack, styles);
-	            ParseContainer(stack.stack, element, paragraph);
-	            
+	            var stack = { stack: [{ text: $(element).html() + ' - ' + $(element).attr('href') }] };
 	            container.push(stack);
 	            break;
 	        }
