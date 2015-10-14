@@ -57,4 +57,14 @@ describe('Montar objeto pdfmake', function () {
             
         expect(content).toEqual(result);
     });
+
+    it('parse italic', function () {
+        var html = '<p><i>Test</i></p>';
+        var content = [];
+        var result = [{ stack: [{ text: [{ text: 'Test', italics: true }] }] }];
+
+        parseHtml.parseHtml(content, html);
+            
+        expect(content).toEqual(result);
+    });
 });

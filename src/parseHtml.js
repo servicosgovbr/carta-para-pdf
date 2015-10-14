@@ -1,11 +1,11 @@
 var ParseHtml = function() {
-	function ParseContainer(container, element, p, styles) {
+	function ParseContainer(container, element, paragraph, styles) {
 	    var elements = [];
 	    var children = element.childNodes;
 
 	    if (children.length !== 0) {
 	        for (i = 0; i < children.length; i++) { 
-	        	p = ParseElement(elements, children[i], p, styles); 
+	        	paragraph = ParseElement(elements, children[i], paragraph, styles); 
 	        }
 	    }
 	    
@@ -15,7 +15,7 @@ var ParseHtml = function() {
 	        }
 	    }
 	    
-	    return p;
+	    return paragraph;
 	}
 
 	function ComputeStyle(object, styles) {
@@ -207,12 +207,12 @@ var ParseHtml = function() {
 	    return p;
 	}
 
-	function ParseHtml(cnt, htmlText) {
+	function ParseHtml(content, htmlText) {
 	    var html = $(htmlText.replace(/\t/g, "").replace(/\n/g, ""));
 	    var paragraph = CreateParagraph();
 	    
 	    for (i = 0; i < html.length; i++) { 
-	    	ParseElement(cnt, html.get(i), paragraph);
+	    	ParseElement(content, html.get(i), paragraph);
 	    }
 	}
 
