@@ -7,7 +7,7 @@ describe('Montar objeto pdfmake', function () {
 
     it('parse link', function () {
         var html = '<p><a href="http://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1979-12-19;6766">TítuloLei nº 6.766, de 19 de Dezembro de 1979</a></p>';
-        var content = [];
+        var container = [];
         var result = [
             { 'stack': [
                 { 'text': [] },
@@ -19,65 +19,65 @@ describe('Montar objeto pdfmake', function () {
             ]}
         ];
 
-        parseHtml.parseHtml(content, html);
+        parseHtml.parseHtml(container, html);
             
-        expect(content).toEqual(result);
+        expect(container).toEqual(result);
     });
 
     it('parse span', function () {
         var html = '<p><span>Test</span></p>';
-        var content = [];
+        var container = [];
         var result = [{ 
             stack: [{ 'text': [{ text: 'Test' }] }]
         }];
 
-        parseHtml.parseHtml(content, html);
+        parseHtml.parseHtml(container, html);
             
-        expect(content).toEqual(result);
+        expect(container).toEqual(result);
     });
 
     it('parse bold', function () {
         var html = '<p><b>Test</b></p>';
-        var content = [];
+        var container = [];
         var result = [{ 
             stack: [{ 'text': [{ text: 'Test', bold: true }] }]
         }];
 
-        parseHtml.parseHtml(content, html);
+        parseHtml.parseHtml(container, html);
             
-        expect(content).toEqual(result);
+        expect(container).toEqual(result);
     });
 
     it('parse underline', function () {
         var html = '<p><u>Test</u></p>';
-        var content = [];
+        var container = [];
         var result = [{ stack: [{ text: [{ text: 'Test', decoration: 'underline' }] }] }];
 
-        parseHtml.parseHtml(content, html);
+        parseHtml.parseHtml(container, html);
             
-        expect(content).toEqual(result);
+        expect(container).toEqual(result);
     });
 
     it('parse italic', function () {
         var html = '<p><i>Test</i></p>';
-        var content = [];
+        var container = [];
         var result = [{ stack: [{ text: [{ text: 'Test', italics: true }] }] }];
 
-        parseHtml.parseHtml(content, html);
+        parseHtml.parseHtml(container, html);
             
-        expect(content).toEqual(result);
+        expect(container).toEqual(result);
     });
 
     it('parse table', function () {
         var html = '<table><tr><td>Test</td></tr></table>';
-        var content = [];
+        var container = [];
         var result = [{ table: { widths: [ '*' ],
             body: [[ { stack: [ { text: [ { text: 'Test' } ] }] }] ] }, 
             layout: 'noBorders' 
         }];
 
-        parseHtml.parseHtml(content, html);
+        parseHtml.parseHtml(container, html);
             
-        expect(content).toEqual(result);
+        expect(container).toEqual(result);
     });
 });

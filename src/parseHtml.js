@@ -58,13 +58,11 @@ var ParseHtml = function() {
 	    }
 	}
 
-	function ParseElement(cnt, e, p, styles) {
-	    if (!styles) {
-	    	styles = [];
-	    };
+	function ParseElement(container, element, paragraph, styles) {
+	    if (!styles) { styles = []; };
 
-	    if (e.getAttribute) {
-	        var nodeStyle = e.getAttribute("style");
+	    if (element.getAttribute) {
+	        var nodeStyle = element.getAttribute("style");
 
 	        if (nodeStyle) {
 	            var ns = nodeStyle.split(";");
@@ -75,47 +73,44 @@ var ParseHtml = function() {
 	        }
 	    }
 
-	    switch (e.nodeName.toLowerCase()) {
+	    switch (element.nodeName.toLowerCase()) {
 	        case "#text": {
-	            var text = { text: e.textContent.replace(/\n/g, "") };
+	            var text = { text: element.textContent.replace(/\n/g, "") };
 
 	            if (styles) { 
 	            	ComputeStyle(text, styles); 
 	            }
 
-	            p.text.push(text);
+	            paragraph.text.push(text);
 	            break;
 	        }
 	        case "b":
 	        case "strong": {
-	            ParseContainer(cnt, e, p, styles.concat(["font-weight:bold"]));
+	            ParseContainer(container, element, paragraph, styles.concat(["font-weight:bold"]));
 	            break;
 	        }
 	        case "u": {
-	            ParseContainer(cnt, e, p, styles.concat(["text-decoration:underline"]));
+	            ParseContainer(container, element, paragraph, styles.concat(["text-decoration:underline"]));
 	            break;
 	        }
 	        case "i": {
-	            ParseContainer(cnt, e, p, styles.concat(["font-style:italic"]));
+	            ParseContainer(container, element, paragraph, styles.concat(["font-style:italic"]));
 	            break;
 	        }
 	        case "span": {
-	            ParseContainer(cnt, e, p, styles);
+	            ParseContainer(container, element, paragraph, styles);
 	            break;
 	        }
 	        case "br": {
-	            p = CreateParagraph();
-	            cnt.push(p);
+	            paragraph = CreateParagraph();
+	            cnt.push(paragraph);
 	            break;
 	        }
 	        case "table": {
-	                var t = {
-	                    table: {
-	                        widths: [],
-	                        body: []
-	                    }
+	                var table = {
+	                    table: { widths: [], body: [] }
 	                };
-	                var border = e.getAttribute("border");
+	                var border = element.getAttribute("border");
 	                var isBorder = false;
 
 	                if (border && parseInt(border) === 1) { 
@@ -123,18 +118,18 @@ var ParseHtml = function() {
 	                }
 	                
 	                if (!isBorder) { 
-	                	t.layout = 'noBorders'; 
+	                	table.layout = 'noBorders'; 
 	                }
 	                
-	                ParseContainer(t.table.body, e, p, styles);
+	                ParseContainer(table.table.body, element, paragraph, styles);
 	                
-	                var widths = e.getAttribute("widths");
+	                var widths = element.getAttribute("widths");
 
 	                if (!widths) {
-	                    if (t.table.body.length !== 0) {
-	                        if (t.table.body[0].length !== 0) { 
-	                        	for (k = 0; k < t.table.body[0].length; k++) { 
-	                        		t.table.widths.push("*"); 
+	                    if (table.table.body.length !== 0) {
+	                        if (table.table.body[0].length !== 0) { 
+	                        	for (k = 0; k < table.table.body[0].length; k++) { 
+	                        		table.table.widths.push("*"); 
 	                        	}
 	                    	}
 	                    }
@@ -142,77 +137,77 @@ var ParseHtml = function() {
 	                    var width = widths.split(",");
 
 	                    for (k = 0; k < width.length; k++)  { 
-	                    	t.table.widths.push(width[k]);
+	                    	table.table.widths.push(width[k]);
 	                    }
 	                }
-	                cnt.push(t);
+	                container.push(table);
 	                break;
 	            }
 	        case "tbody": {
-	            ParseContainer(cnt, e, p, styles);
+	            ParseContainer(container, element, paragraph, styles);
 	            break;
 	        }
 	        case "tr": {
 	            var row = [];
-	            ParseContainer(row, e, p, styles);
-	            cnt.push(row);
+	            ParseContainer(row, element, paragraph, styles);
+	            container.push(row);
 	            break;
 	        }
 	        case "td": {
-	            p = CreateParagraph();
-	            var st = {stack: []};
-	            st.stack.push(p);
+	            paragraph = CreateParagraph();
+	            var stack = {stack: []};
+	            stack.stack.push(paragraph);
 	            
-	            var rspan = e.getAttribute("rowspan");
+	            var rspan = element.getAttribute("rowspan");
 	            if (rspan) { 
-	            	st.rowSpan = parseInt(rspan); 
+	            	stack.rowSpan = parseInt(rspan); 
 	            }
 	            
-	            var cspan = e.getAttribute("colspan");
+	            var cspan = element.getAttribute("colspan");
 	            
 	            if (cspan) { 
-	            	st.colSpan = parseInt(cspan); 
+	            	stack.colSpan = parseInt(cspan); 
 	            }
 	            
-	            ParseContainer(st.stack, e, p, styles);
-	            cnt.push(st);
+	            ParseContainer(stack.stack, element, paragraph, styles);
+	            container.push(stack);
 	            break;
 	        }
 	        case "a": {
-	        	p = CreateParagraph();
+	        	paragraph = CreateParagraph();
 	            var stack = { stack: [] };
-	            stack.stack.push(p);
+	            stack.stack.push(paragraph);
 	            ComputeStyle(stack, styles);
-	            ParseContainer(stack.stack, e, p);
+	            ParseContainer(stack.stack, element, paragraph);
 	            
-	            cnt.push(stack);
+	            container.push(stack);
 	            break;
 	        }
 	        case "div":
 	        case "p": {
-	            p = CreateParagraph();
+	            paragraph = CreateParagraph();
 	            var stack = { stack: [] };
-	            stack.stack.push(p);
+	            stack.stack.push(paragraph);
 	            ComputeStyle(stack, styles);
-	            ParseContainer(stack.stack, e, p);
+	            ParseContainer(stack.stack, element, paragraph);
 	            
-	            cnt.push(stack);
+	            container.push(stack);
 	            break;
 	        }
 	        default: {
-	            console.log("Parsing for node " + e.nodeName + " not found");
+	            console.log("Parsing for node " + element.nodeName + " not found");
 	            break;
 	        }
 	    }
-	    return p;
+	    return paragraph;
 	}
 
-	function ParseHtml(content, htmlText) {
+	function ParseHtml(container, htmlText) {
 	    var html = $(htmlText.replace(/\t/g, "").replace(/\n/g, ""));
 	    var paragraph = CreateParagraph();
 	    
 	    for (i = 0; i < html.length; i++) { 
-	    	ParseElement(content, html.get(i), paragraph);
+	    	ParseElement(container, html.get(i), paragraph);
 	    }
 	}
 
