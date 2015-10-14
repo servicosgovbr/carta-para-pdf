@@ -1,7 +1,7 @@
 var ParseHtml = function() {
-	function ParseContainer(cnt, e, p, styles) {
+	function ParseContainer(container, element, p, styles) {
 	    var elements = [];
-	    var children = e.childNodes;
+	    var children = element.childNodes;
 
 	    if (children.length !== 0) {
 	        for (i = 0; i < children.length; i++) { 
@@ -11,45 +11,45 @@ var ParseHtml = function() {
 	    
 	    if (elements.length !== 0) {            
 	        for (i = 0; i < elements.length; i++) { 
-	        	cnt.push(elements[i]); 
+	        	container.push(elements[i]); 
 	        }
 	    }
 	    
 	    return p;
 	}
 
-	function ComputeStyle(o, styles) {
+	function ComputeStyle(object, styles) {
 	    for (i = 0; i < styles.length; i++) {
 	        var st = styles[i].trim().toLowerCase().split(":");
 	        
 	        if (st.length === 2) {
 	            switch (st[0]) {
 	                case "font-size":{
-	                    o.fontSize = parseInt(st[1]);
+	                    object.fontSize = parseInt(st[1]);
 	                    break;
 	                }
 	                case "text-align": {
 	                    switch (st[1]) {
-	                        case "right": o.alignment = 'right'; break;
-	                        case "center": o.alignment = 'center'; break;
+	                        case "right": object.alignment = 'right'; break;
+	                        case "center": object.alignment = 'center'; break;
 	                    }
 	                    break;
 	                }
 	                case "font-weight": {
 	                    switch (st[1]) {
-	                        case "bold": o.bold = true; break;
+	                        case "bold": object.bold = true; break;
 	                    }
 	                    break;
 	                }
 	                case "text-decoration": {
 	                    switch (st[1]) {
-	                        case "underline": o.decoration = "underline"; break;
+	                        case "underline": object.decoration = "underline"; break;
 	                    }
 	                    break;
 	                }
 	                case "font-style": {
 	                    switch (st[1]) {
-	                        case "italic": o.italics = true; break;
+	                        case "italic": object.italics = true; break;
 	                    }
 	                    break;
 	                }
@@ -59,7 +59,9 @@ var ParseHtml = function() {
 	}
 
 	function ParseElement(cnt, e, p, styles) {
-	    if (!styles) styles = [];
+	    if (!styles) {
+	    	styles = [];
+	    };
 
 	    if (e.getAttribute) {
 	        var nodeStyle = e.getAttribute("style");
@@ -78,7 +80,7 @@ var ParseHtml = function() {
 	            var text = { text: e.textContent.replace(/\n/g, "") };
 
 	            if (styles) { 
-	            	ComputeStyle(t, styles); 
+	            	ComputeStyle(text, styles); 
 	            }
 
 	            p.text.push(text);
@@ -176,7 +178,16 @@ var ParseHtml = function() {
 	            cnt.push(st);
 	            break;
 	        }
-	        case "a":
+	        case "a": {
+	        	p = CreateParagraph();
+	            var stack = { stack: [] };
+	            stack.stack.push(p);
+	            ComputeStyle(stack, styles);
+	            ParseContainer(stack.stack, e, p);
+	            
+	            cnt.push(stack);
+	            break;
+	        }
 	        case "div":
 	        case "p": {
 	            p = CreateParagraph();
