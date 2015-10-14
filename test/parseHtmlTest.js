@@ -67,4 +67,17 @@ describe('Montar objeto pdfmake', function () {
             
         expect(content).toEqual(result);
     });
+
+    it('parse table', function () {
+        var html = '<table><tr><td>Test</td></tr></table>';
+        var content = [];
+        var result = [{ table: { widths: [ '*' ],
+            body: [[ { stack: [ { text: [ { text: 'Test' } ] }] }] ] }, 
+            layout: 'noBorders' 
+        }];
+
+        parseHtml.parseHtml(content, html);
+            
+        expect(content).toEqual(result);
+    });
 });
