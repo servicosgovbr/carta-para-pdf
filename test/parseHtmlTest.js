@@ -36,6 +36,18 @@ describe('Montar objeto pdfmake', function () {
         expect(content).toEqual(result);
     });
 
+    it('parse bold', function () {
+        var html = '<p><b>Test</b></p>';
+        var content = [];
+        var result = [{ 
+            stack: [{ 'text': [{ text: 'Test', bold: true }] }]
+        }];
+
+        parseHtml.parseHtml(content, html);
+            
+        expect(content).toEqual(result);
+    });
+
     it('parse underline', function () {
         var html = '<p><u>Test</u></p>';
         var content = [];
