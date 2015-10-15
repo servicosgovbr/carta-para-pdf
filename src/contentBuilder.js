@@ -33,8 +33,6 @@ function ContentBuilder (servicoObject) {
 			addContent({ text: solicitante.requisitos , style: 'paragraph' });
 			addNewLine();
 		});
-
-		addContent({ text: '', style: 'paragraph', pageBreak: 'after' });
 	};
 
 	buildTempoTotalEstimado = function () {

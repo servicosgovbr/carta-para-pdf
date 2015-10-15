@@ -105,10 +105,10 @@ $(function() {
     var parseHtml = new ParseHtml();
 
     parseHtml.parseHtml(content, textoHtml);
-    docContent = docDefinition.concat(content);
+    docDefinition.content = docDefinition.content.concat(content);
 
 
-    //docDefinition.content.push({ text: , style: 'paragraph', pageBreak: 'after' });
+    docDefinition.content.push({ text: '', style: 'paragraph', pageBreak: 'after' });
   }
 
   function generatePdf() {
