@@ -4,14 +4,14 @@ var ParseHtml = function() {
 	    var children = element.childNodes;
 
 	    if (children.length !== 0) {
-	        for (i = 0; i < children.length; i++) { 
-	        	docDefinition = ParseElement(elements, children[i], docDefinition); 
+	        for (i = 0; i < children.length; i++) {
+	        	docDefinition = ParseElement(elements, children[i], docDefinition);
 	        }
 	    }
-	    
-	    if (elements.length !== 0) {            
-	        for (i = 0; i < elements.length; i++) { 
-	        	container.push(elements[i]); 
+
+	    if (elements.length !== 0) {
+	        for (i = 0; i < elements.length; i++) {
+	        	container.push(elements[i]);
 	        }
 	    }
 	}
@@ -68,7 +68,7 @@ var ParseHtml = function() {
 	            	list.push($(listItem).html());
 	            });
 
-	            var content = { ul: list, style: 'list' }
+	            var content = { ul: list, style: 'list' };
 
 	            container.push(content);
 	            break;
@@ -92,7 +92,7 @@ var ParseHtml = function() {
 	function ParseHtml(container, htmlText) {
 	    var html = $.parseHTML(htmlText);
 	    var docDefinition = CreateDocument();
-	    
+
 	    $(html).each(function(i, element) {
 		  ParseElement(container, element, docDefinition);
 		});
