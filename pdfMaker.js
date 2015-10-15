@@ -57,7 +57,7 @@ var docDefinition = {
        color: '#606060'
      },
      tableExample: {
-      margin: [40, 5, 100, 15],
+      margin: [40, 5, 40, 15],
       color: '#606060'
      },
      list: {

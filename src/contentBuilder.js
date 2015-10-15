@@ -73,7 +73,7 @@ function ContentBuilder (servicoObject) {
 	function buildEtapa(index, etapa) {
 		addContent({ text: 'Etapa ' + (index + 1) + ' - ' + etapa.titulo, style: 'thirdheader' });
 		addNewLine();
-		addContent({ text: etapa.descricao, style: 'paragraph', margin: [ 40, 0, 120, 15 ] });
+		addContent({ text: etapa.descricao, style: 'paragraph', margin: [ 40, 0, 100, 15 ] });
 		addNewLine();
 
 		if(etapa.documentos.items.length > 0) { buildDocumentos(etapa.documentos); }
