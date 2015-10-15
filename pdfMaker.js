@@ -138,11 +138,7 @@ $(function() {
       doc.save('novo.pdf');
   }
 
-  $('#antigo').click(function() {
+  $('#pdf').click(function() {
     generatePdf();
-  });
-
-  $('#novo').click(function() {
-    gerarPDFNovo();
   });
 });
