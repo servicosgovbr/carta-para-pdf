@@ -163,23 +163,14 @@ var ParseHtml = function() {
 	            break;
 	        }
 	        case "ul": {
-	        	paragraph = CreateParagraph();
-	            var stack = { stack: [] };
-	            stack.stack.push(paragraph);
-	            ComputeStyle(stack, styles);
-	            ParseContainer(stack.stack, element, paragraph);
-	            
-	            container.push(stack);
-	            break;
-	        }
-	        case "li": {
-	        	paragraph = CreateParagraph();
-	            var stack = { stack: [] };
-	            stack.stack.push(paragraph);
-	            ComputeStyle(stack, styles);
-	            ParseContainer(stack.stack, element, paragraph);
-	            
-	            container.push(stack);
+	        	var list = [];
+	            $(element).find('li').each(function(index, listItem) {
+	            	list.push($(listItem).html());
+	            });
+
+	            var content = { ul: list, style: 'list' }
+
+	            container.push(content);
 	            break;
 	        }
 	        case "div":
