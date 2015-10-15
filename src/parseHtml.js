@@ -16,11 +16,28 @@ var ParseHtml = function() {
 	    }
 	}
 
+	function ParseItem(container, element, docDefinition, listType) {
+		var list = [],
+			content = {};
+
+        $(element).find('li').each(function(index, listItem) {
+			if (listItem.children.length !== 0) {
+	            ParseContainer(list, listItem, docDefinition);
+			} else {
+        		list.push($(listItem).html());
+			}
+        });
+
+        content = { style: 'listMargin' };
+		content[listType] = list;
+
+        container.push(content);
+	}
+
 	function ParseElement(container, element, docDefinition) {
 		var content,
 			stack,
-			text,
-			list;
+			text;
 
 	    switch (element.nodeName.toLowerCase()) {
 	        case "#text": {
@@ -68,29 +85,11 @@ var ParseHtml = function() {
 	            break;
 	        }
 	        case "ul": {
-	        	list = [];
-	            $(element).find('li').each(function(index, listItem) {
-	            	list.push($(listItem).html());
-	            });
-
-	            content = { ul: list, style: 'listMargin' };
-
-	            container.push(content);
+				ParseItem(container, element, docDefinition, 'ul');
 	            break;
 	        }
 	        case "ol": {
-	        	list = [];
-	            $(element).find('li').each(function(index, listItem) {
-					if (listItem.children.length !== 0) {
-			            ParseContainer(list, listItem, docDefinition);
-					} else {
-	            		list.push($(listItem).html());
-					}
-	            });
-
-	            content = { ol: list, style: 'listMargin' };
-
-	            container.push(content);
+				ParseItem(container, element, docDefinition, 'ol');
 	            break;
 	        }
 	        case "div":
