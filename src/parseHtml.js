@@ -98,12 +98,12 @@ var ParseHtml = function() {
 	}
 
 	function ParseHtml(container, htmlText) {
-	    var html = $(htmlText.replace(/\t/g, "").replace(/\n/g, ""));
+	    var html = $.parseHTML(htmlText);
 	    var docDefinition = CreateDocument();
 	    
-	    for (i = 0; i < html.length; i++) { 
-	    	ParseElement(container, html.get(i), docDefinition);
-	    }
+	    $(html).each(function(i, element) {
+		  ParseElement(container, element, docDefinition);
+		});
 	}
 
 	function CreateDocument() {

@@ -50,7 +50,7 @@ describe('Montar conteúdo do serviço', function () {
             { text: 'Requisito', style: 'paragraph' },
             { text: 'Sem requisito', style: 'thirdheader' },
             { text: '', style: 'paragraph' },
-            { text: '', style: 'paragraph', pageBreak: 'after' }
+            { text: '', style: 'paragraph' }
         ];
         contentBuilder = criarContentBuilder(servico);
 
