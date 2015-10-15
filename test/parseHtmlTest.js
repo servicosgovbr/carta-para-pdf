@@ -65,6 +65,16 @@ describe('Montar objeto pdfmake', function () {
         expect(container).toEqual(result);
     });
 
+    it('parse h6', function () {
+        var html = '<h6>Teste</h6>';
+        var container = [];
+        var result = [{ text: 'Teste', style: 'thirdheader' }];
+
+        parseHtml.parseHtml(container, html);
+
+        expect(container).toEqual(result);
+    });
+
     it('parse h2', function () {
         var html = '<h2>Ministério da Educação (MEC)</h2>';
         var container = [];

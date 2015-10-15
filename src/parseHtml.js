@@ -72,6 +72,10 @@ var ParseHtml = function() {
 	            container.push({ text: $(element).html() + ' - ' + $(element).attr('href'), style: "text"});
 	            break;
 	        }
+			case "h6":
+			case "h5":
+			case "h4":
+			case "h3":
 	        case "h2": {
 	            container.push({ text: $(element).html(), style: 'thirdheader' });
 	            break;
