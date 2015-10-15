@@ -68,7 +68,7 @@ var ParseHtml = function() {
 	            	list.push($(listItem).html());
 	            });
 
-	            var content = { ul: list, style: 'listMargin' }
+	            var content = { ul: list, style: 'listMargin' };
 
 	            container.push(content);
 	            break;
