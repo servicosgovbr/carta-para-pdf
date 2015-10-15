@@ -81,7 +81,11 @@ var ParseHtml = function() {
 	        case "ol": {
 	        	list = [];
 	            $(element).find('li').each(function(index, listItem) {
-	            	list.push($(listItem).html());
+					if (listItem.children.length !== 0) {
+			            ParseContainer(list, listItem, docDefinition);
+					} else {
+	            		list.push($(listItem).html());
+					}
 	            });
 
 	            content = { ol: list, style: 'listMargin' };

@@ -105,6 +105,26 @@ describe('Montar objeto pdfmake', function () {
         expect(container).toEqual(result);
     });
 
+    it('parse ol com bold', function () {
+        var html = '<ol><li><b>Bold</b></li><li>Foo</li></ol>';
+        var container = [];
+        var result = [{ ol: [ { text: 'Bold', bold: true }, 'Foo' ], style: 'listMargin' }];
+
+        parseHtml.parseHtml(container, html);
+
+        expect(container).toEqual(result);
+    });
+
+    it('parse ol com link', function () {
+        var html = '<ol><li><i>Italic</i></li><li><a href="www.google.com">Test</a></li></ol>';
+        var container = [];
+        var result = [{ ol: [ { text: 'Italic', italics: true }, { text: 'Test - www.google.com', style: 'text' }], style: 'listMargin' }];
+
+        parseHtml.parseHtml(container, html);
+
+        expect(container).toEqual(result);
+    });
+
     it('parse orgao', function () {
         var html = '<h2>Ministério da Educação (MEC)</h2><p>Órgão do governo federal que trata da política nacional de educação em geral, compreendendo:</p><ul><li>ensino fundamental, médio e superior;</li><li>educação de jovens e adultos, seja profissional, especial ou à distância;</li><li>informação e pesquisa educacional;</li><li>pesquisa e extensão universitária; e</li><li>magistério.</li></ul>';
         var container = [];
