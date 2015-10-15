@@ -16,12 +16,12 @@ var ParseHtml = function() {
 	    }
 	}
 
-	function ParseElement(container, element, paragraph) {
+	function ParseElement(container, element, docDefinition) {
 	    switch (element.nodeName.toLowerCase()) {
 	        case "#text": {
 	            var text = { text: element.textContent.replace(/\n/g, "") };
-	            paragraph.text.push(text);
-	            container.push(paragraph);
+	            docDefinition.text.push(text);
+	            container.push(docDefinition);
 	            break;
 	        }
 	        case "b":
@@ -41,12 +41,12 @@ var ParseHtml = function() {
 	            break;
 	        }
 	        case "span": {
-	            ParseContainer(container, element, paragraph);
+	            ParseContainer(container, element, docDefinition);
 	            break;
 	        }
 	        case "br": {
-	            paragraph = CreateDocument();
-	            container.push(paragraph);
+	            docDefinition = CreateDocument();
+	            container.push(docDefinition);
 	            break;
 	        }
 	        case "a": {
@@ -83,8 +83,7 @@ var ParseHtml = function() {
 	        case "div":
 	        case "p": {
 	            var stack = { stack: [] };
-	            ParseContainer(stack.stack, element, paragraph);
-	            
+	            ParseContainer(stack.stack, element, docDefinition);
 	            container.push(stack);
 	            break;
 	        }
@@ -94,7 +93,7 @@ var ParseHtml = function() {
 	        }
 	    }
 
-	    return paragraph;
+	    return docDefinition;
 	}
 
 	function ParseHtml(container, htmlText) {
