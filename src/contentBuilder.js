@@ -151,6 +151,7 @@ function ContentBuilder (servicoObject) {
 		addContent({
 			style: 'tableExample',
 			table: {
+				widths: [ '*' ],
 				body: [
 					[{ stack: documento}]
 				]
@@ -159,7 +160,11 @@ function ContentBuilder (servicoObject) {
 	            paddingLeft: function(i, node) { return 10; },
 	            paddingRight: function(i, node) { return 10; },
 	            paddingTop: function(i, node) { return 10; },
-	            paddingBottom: function(i, node) { return 10; }
+	            paddingBottom: function(i, node) { return 10; },
+	            hLineWidth: function(i, node) { return 1; },
+				vLineWidth: function(i, node) { return 1; },
+				hLineColor: function(i, node) { return '#ddd'; },
+				vLineColor: function(i, node) { return '#ddd'; },
 	        }
 		});
 	}
