@@ -26,18 +26,15 @@ var ParseHtml = function() {
 	        }
 	        case "b":
 	        case "strong": {
-	            var stack = { text: $(element).html(), bold: true };
-	            container.push(stack);
+	            container.push({ text: $(element).html(), bold: true });
 	            break;
 	        }
 	        case "u": {
-	            var stack = { text: $(element).html(), decoration: 'underline' };
-	            container.push(stack);
+	            container.push({ text: $(element).html(), decoration: 'underline' });
 	            break;
 	        }
 	        case "i": {
-	            var stack = { text: $(element).html(), italics: true };
-	            container.push(stack);
+	            container.push({ text: $(element).html(), italics: true });
 	            break;
 	        }
 	        case "span": {
@@ -50,23 +47,19 @@ var ParseHtml = function() {
 	            break;
 	        }
 	        case "a": {
-	            var stack = { stack: [{ text: $(element).html() + ' - ' + $(element).attr('href') }] };
-	            container.push(stack);
+	            container.push({ text: $(element).html() + ' - ' + $(element).attr('href') });
 	            break;
 	        }
 	        case "h2": {
-	        	var stack = { stack: [{ text: $(element).html(), style: 'subheader' }] };
-	            container.push(stack);
+	            container.push({ text: $(element).html(), style: 'subheader' });
 	            break;
 	        }
 	        case "h1": {
-	        	var stack = { stack: [{ text: $(element).html(), style: 'header' }] };
-	            container.push(stack);
+	            container.push({ text: $(element).html(), style: 'header' });
 	            break;
 	        }
 	        case "em": {
-	        	var stack = { stack: [{ text: $(element).html(), style: 'paragraph' }] };
-	            container.push(stack);
+	            container.push({ text: $(element).html(), style: 'paragraph' });
 	            break;
 	        }
 	        case "ul": {
@@ -82,8 +75,8 @@ var ParseHtml = function() {
 	        }
 	        case "div":
 	        case "p": {
-	            var stack = { stack: [] };
-	            ParseContainer(stack.stack, element, docDefinition);
+	            var stack = [];
+	            ParseContainer(stack, element, docDefinition);
 	            container.push(stack);
 	            break;
 	        }
