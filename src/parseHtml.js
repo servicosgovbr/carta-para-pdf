@@ -1,11 +1,11 @@
 var ParseHtml = function() {
-	function ParseContainer(container, element, paragraph, styles) {
+	function ParseContainer(container, element, docDefinition) {
 	    var elements = [];
 	    var children = element.childNodes;
 
 	    if (children.length !== 0) {
 	        for (i = 0; i < children.length; i++) { 
-	        	paragraph = ParseElement(elements, children[i], paragraph, styles); 
+	        	docDefinition = ParseElement(elements, children[i], docDefinition); 
 	        }
 	    }
 	    
@@ -14,124 +14,39 @@ var ParseHtml = function() {
 	        	container.push(elements[i]); 
 	        }
 	    }
-	    
-	    return paragraph;
 	}
 
-	function ComputeStyle(object, styles) {
-	    for (i = 0; i < styles.length; i++) {
-	        var styleArray = styles[i].trim().toLowerCase().split(":");
-	        
-	        if (styleArray.length === 2) {
-	            switch (styleArray[0]) {
-	                case "font-size":{
-	                    object.fontSize = parseInt(styleArray[1]);
-	                    break;
-	                }
-	                case "text-align": {
-	                    switch (styleArray[1]) {
-	                        case "right": object.alignment = 'right'; break;
-	                        case "center": object.alignment = 'center'; break;
-	                    }
-	                    break;
-	                }
-	                case "font-weight": {
-	                    switch (styleArray[1]) {
-	                        case "bold": object.bold = true; break;
-	                    }
-	                    break;
-	                }
-	                case "text-decoration": {
-	                    switch (styleArray[1]) {
-	                        case "underline": object.decoration = "underline"; break;
-	                    }
-	                    break;
-	                }
-	                case "font-style": {
-	                    switch (styleArray[1]) {
-	                        case "italic": object.italics = true; break;
-	                    }
-	                    break;
-	                }
-	            }
-	        }
-	    }
-	}
-
-	function ParseElement(container, element, paragraph, styles) {
-	    if (!styles) { styles = []; };
-
-	    if (element.getAttribute) {
-	        var nodeStyle = element.getAttribute("style");
-
-	        if (nodeStyle) {
-	            var nodeStyleArray = nodeStyle.split(";");
-
-	            for (k = 0; k < nodeStyleArray.length; k++) { 
-	            	styles.push(nodeStyleArray[k]);
-	            }
-	        }
-	    }
-
+	function ParseElement(container, element, paragraph) {
 	    switch (element.nodeName.toLowerCase()) {
 	        case "#text": {
 	            var text = { text: element.textContent.replace(/\n/g, "") };
-
-	            if (styles) { 
-	            	ComputeStyle(text, styles); 
-	            }
-
 	            paragraph.text.push(text);
-
+	            container.push(paragraph);
 	            break;
 	        }
 	        case "b":
 	        case "strong": {
-	            ParseContainer(container, element, paragraph, styles.concat(["font-weight:bold"]));
+	            var stack = { text: $(element).html(), bold: true };
+	            container.push(stack);
 	            break;
 	        }
 	        case "u": {
-	            ParseContainer(container, element, paragraph, styles.concat(["text-decoration:underline"]));
+	            var stack = { text: $(element).html(), decoration: 'underline' };
+	            container.push(stack);
 	            break;
 	        }
 	        case "i": {
-	            ParseContainer(container, element, paragraph, styles.concat(["font-style:italic"]));
+	            var stack = { text: $(element).html(), italics: true };
+	            container.push(stack);
 	            break;
 	        }
 	        case "span": {
-	            ParseContainer(container, element, paragraph, styles);
+	            ParseContainer(container, element, paragraph);
 	            break;
 	        }
 	        case "br": {
 	            paragraph = CreateDocument();
 	            container.push(paragraph);
-	            break;
-	        }
-	        case "table": {
-	                var table = { table: { body: [] } };
-	                
-	                ParseContainer(table.table.body, element, paragraph, styles);
-	                
-	                container.push(table);
-	                break;
-	            }
-	        case "tbody": {
-	            ParseContainer(container, element, paragraph, styles);
-	            break;
-	        }
-	        case "tr": {
-	            var row = [];
-	            ParseContainer(row, element, paragraph, styles);
-	            container.push(row);
-	            break;
-	        }
-	        case "td": {
-	            paragraph = CreateDocument();
-	            var stack = {stack: []};
-	            stack.stack.push(paragraph);
-	            
-	            ParseContainer(stack.stack, element, paragraph, styles);
-	            container.push(stack);
 	            break;
 	        }
 	        case "a": {
@@ -149,6 +64,11 @@ var ParseHtml = function() {
 	            container.push(stack);
 	            break;
 	        }
+	        case "em": {
+	        	var stack = { stack: [{ text: $(element).html(), style: 'paragraph' }] };
+	            container.push(stack);
+	            break;
+	        }
 	        case "ul": {
 	        	var list = [];
 	            $(element).find('li').each(function(index, listItem) {
@@ -162,10 +82,7 @@ var ParseHtml = function() {
 	        }
 	        case "div":
 	        case "p": {
-	            paragraph = CreateDocument();
 	            var stack = { stack: [] };
-	            stack.stack.push(paragraph);
-	            ComputeStyle(stack, styles);
 	            ParseContainer(stack.stack, element, paragraph);
 	            
 	            container.push(stack);
@@ -176,17 +93,16 @@ var ParseHtml = function() {
 	            break;
 	        }
 	    }
-	    
+
 	    return paragraph;
 	}
 
 	function ParseHtml(container, htmlText) {
 	    var html = $(htmlText.replace(/\t/g, "").replace(/\n/g, ""));
-	    var paragraph = CreateDocument();
+	    var docDefinition = CreateDocument();
 	    
 	    for (i = 0; i < html.length; i++) { 
-	    	console.log('Entrou aqui ', i);
-	    	ParseElement(container, html.get(i), paragraph);
+	    	ParseElement(container, html.get(i), docDefinition);
 	    }
 	}
 
