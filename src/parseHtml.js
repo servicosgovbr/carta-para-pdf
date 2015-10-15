@@ -81,7 +81,7 @@ var ParseHtml = function() {
 	            break;
 	        }
 	        default: {
-	            console.log("Parsing for node " + element.nodeName + " not found");
+	            container.push({ text: $(element).html(), style: 'text' });
 	            break;
 	        }
 	    }
