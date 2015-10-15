@@ -20,7 +20,7 @@ var ParseHtml = function() {
 	    switch (element.nodeName.toLowerCase()) {
 	        case "#text": {
 	            var text = { text: element.textContent.replace(/\n/g, "") };
-	            docDefinition.text.push(text);
+	            docDefinition.push(text);
 	            container.push(docDefinition);
 	            break;
 	        }
@@ -51,11 +51,11 @@ var ParseHtml = function() {
 	            break;
 	        }
 	        case "h2": {
-	            container.push({ text: $(element).html(), style: 'subheader' });
+	            container.push({ text: $(element).html(), style: 'thirdheader' });
 	            break;
 	        }
 	        case "h1": {
-	            container.push({ text: $(element).html(), style: 'header' });
+	            container.push({ text: $(element).html(), style: 'subheader' });
 	            break;
 	        }
 	        case "em": {
@@ -99,7 +99,7 @@ var ParseHtml = function() {
 	}
 
 	function CreateDocument() {
-	    return { text: [] };
+	    return [];
 	}
 
 	return {
