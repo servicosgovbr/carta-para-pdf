@@ -61,7 +61,6 @@ function ContentBuilder (servicoObject) {
 
 	buildGratuidade = function () {
 		addContent({ text: servico.gratuito ? 'Este serviço é gratuito para o cidadão.' : '', style: 'paragraph' });
-		addNewLine();
 	};
 
 	buildOutrasInformacoes = function () {

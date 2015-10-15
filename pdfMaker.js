@@ -13,6 +13,11 @@ var docDefinition = {
        lineHeight: 0.64,
        margin: [ 70, 150, 90, 0 ]
      },
+     text: {
+      fontSize: 12,
+      color: '#606060',
+      margin: [ 40, 0, 40, 5 ]
+     },
      border: {
        fontSize: 72,
        color: '#606060',
@@ -57,6 +62,12 @@ var docDefinition = {
       fontSize: 12,
       blod: true,
       color: '#606060'
+     },
+     listMargin: {
+      fontSize: 12,
+      blod: true,
+      color: '#606060',
+      margin: [ 40, 0, 40, 0 ]
      },
      paragraph: {
       fontSize: 12,
