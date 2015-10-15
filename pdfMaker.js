@@ -89,7 +89,7 @@ $(function() {
     docDefinition.content.push({ text: 'O que é?'.toUpperCase(), style: 'subheader' });
     docDefinition.content.push('\n');
 
-    var descricao = 'Ministério da Educação (MEC) \n Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: \n * ensino fundamental, médio e superior; \n * educação de jovens e adultos, seja profissional, especial ou à distância; \n * informação e pesquisa educacional; \n * pesquisa e extensão universitária; e \n * magistério.';
+    var descricao = 'Ministério da Educação (MEC) \n Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: \n\n * ensino fundamental, médio e superior; \n * educação de jovens e adultos, seja profissional, especial ou à distância; \n * informação e pesquisa educacional; \n * pesquisa e extensão universitária; e \n * magistério.';
 
     var textoHtml = markdown.toHTML(descricao);
     var content = [];

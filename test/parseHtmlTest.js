@@ -104,4 +104,15 @@ describe('Montar objeto pdfmake', function () {
             
         expect(container).toEqual(result);
     });
+
+    it('parse orgao 2', function () {
+        var markdownString = 'Ministério da Educação (MEC) \n Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: \n\n * ensino fundamental, médio e superior; \n * educação de jovens e adultos, seja profissional, especial ou à distância; \n * informação e pesquisa educacional; \n * pesquisa e extensão universitária; e \n * magistério.';
+        var html = markdown.toHTML(markdownString);;
+        var container = [];
+        var result = [[{ text: [{ text: 'Ministério da Educação (MEC)  Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: ' }, { text: '' } ]}], { text: [{ text: 'Ministério da Educação (MEC)  Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: ' }, { text: '' }]}, { ul: [ 'ensino fundamental, médio e superior; ', 'educação de jovens e adultos, seja profissional, especial ou à distância; ', 'informação e pesquisa educacional; ', 'pesquisa e extensão universitária; e ', 'magistério.' ], style: 'list' }];
+
+        parseHtml.parseHtml(container, html);
+            
+        expect(container).toEqual(result);
+    });
 });
