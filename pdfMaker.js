@@ -16,7 +16,7 @@ var docDefinition = {
      text: {
       fontSize: 12,
       color: '#606060',
-      margin: [ 40, 0, 40, 5 ]
+      margin: [ 40, 0, 100, 5 ]
      },
      border: {
        fontSize: 72,
@@ -27,7 +27,8 @@ var docDefinition = {
        fontSize: 25,
        bold: true,
        color: '#606060',
-       lineHeight: 0.8
+       lineHeight: 0.8,
+       margin: [ 40, 0, 40, 0 ]
      },
      header: {
        fontSize: 32,
@@ -55,7 +56,7 @@ var docDefinition = {
        color: '#606060'
      },
      tableExample: {
-      margin: [40, 5, 40, 15],
+      margin: [40, 5, 100, 15],
       color: '#606060'
      },
      list: {
@@ -72,7 +73,7 @@ var docDefinition = {
      paragraph: {
       fontSize: 12,
       color: '#606060',
-      margin: [ 40, 0, 40, 30 ]
+      margin: [ 40, 0, 40, 15 ]
      }
    }
 };
