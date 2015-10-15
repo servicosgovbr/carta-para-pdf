@@ -17,9 +17,14 @@ var ParseHtml = function() {
 	}
 
 	function ParseElement(container, element, docDefinition) {
+		var content,
+			stack,
+			text,
+			list;
+
 	    switch (element.nodeName.toLowerCase()) {
 	        case "#text": {
-	            var text = { text: element.textContent.replace(/\n/g, ""), style: 'text' };
+	            text = { text: element.textContent.replace(/\n/g, ""), style: 'text' };
 	            docDefinition.push(text);
 	            container.push(docDefinition);
 	            break;
@@ -63,19 +68,30 @@ var ParseHtml = function() {
 	            break;
 	        }
 	        case "ul": {
-	        	var list = [];
+	        	list = [];
 	            $(element).find('li').each(function(index, listItem) {
 	            	list.push($(listItem).html());
 	            });
 
-	            var content = { ul: list, style: 'listMargin' };
+	            content = { ul: list, style: 'listMargin' };
+
+	            container.push(content);
+	            break;
+	        }
+	        case "ol": {
+	        	list = [];
+	            $(element).find('li').each(function(index, listItem) {
+	            	list.push($(listItem).html());
+	            });
+
+	            content = { ol: list, style: 'listMargin' };
 
 	            container.push(content);
 	            break;
 	        }
 	        case "div":
 	        case "p": {
-	            var stack = [];
+	            stack = [];
 	            ParseContainer(stack, element, docDefinition);
 	            container.push(stack);
 	            break;
