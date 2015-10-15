@@ -102,15 +102,15 @@ describe('Montar objeto pdfmake', function () {
         expect(container).toEqual(result);
     });
 
-    // it('parse orgao', function () {
-    //     var html = '<h2>Ministério da Educação (MEC)</h2><p>Órgão do governo federal que trata da política nacional de educação em geral, compreendendo:</p><ul><li>ensino fundamental, médio e superior;</li><li>educação de jovens e adultos, seja profissional, especial ou à distância;</li><li>informação e pesquisa educacional;</li><li>pesquisa e extensão universitária; e</li><li>magistério.</li></ul><p>Provê assistência financeira a famílias carentes para a escolarização de seus filhos ou dependentes e não abrange o ensino militar.</p><p>Dentre os serviços ofertados ao público estão os de <a href="/servico/sisu-sistema-de-selecao-unificada">inscrição no Sistema de Seleção Unificada (SISU)</a>; no <a href="/servico/sisutec-sistema-de-selecao-unificada-da-educacao-profissional-e-tecnologica">Sistema de Seleção Unificada da Educação Profissional e Tecnológica (Sisutec)</a>; no <a href="/servico/pronatec-programa-nacional-de-acesso-ao-ensino-profissional-e-emprego">Programa Nacional de Acesso ao Ensino Profissional e Emprego (Pronatec)</a> e no <a href="/servico/programa-de-financiamento-estudantil-fies">Programa de Financiamento Estudantil (Fies)</a>.</p>';
-    //     var container = [];
-    //     var result = [{ stack: [{ text: [ ] }, { stack: [{ text: 'Test - www.google.com' }] }, { stack: [{ text: 'Test 2 - www.yahoo.com' }] }] }];
+    it('parse orgao', function () {
+        var html = '<h2>Ministério da Educação (MEC)</h2><p>Órgão do governo federal que trata da política nacional de educação em geral, compreendendo:</p><ul><li>ensino fundamental, médio e superior;</li><li>educação de jovens e adultos, seja profissional, especial ou à distância;</li><li>informação e pesquisa educacional;</li><li>pesquisa e extensão universitária; e</li><li>magistério.</li></ul>';
+        var container = [];
+        var result = [{ stack: [{ text: 'Ministério da Educação (MEC)', style: 'subheader' }] }, { stack: [{ text: [{ text: 'Órgão do governo federal que trata da política nacional de educação em geral, compreendendo:' }] } ] }, { ul: [ 'ensino fundamental, médio e superior;', 'educação de jovens e adultos, seja profissional, especial ou à distância;', 'informação e pesquisa educacional;', 'pesquisa e extensão universitária; e', 'magistério.' ], style: 'list' }];
 
-    //     parseHtml.parseHtml(container, html);
+        parseHtml.parseHtml(container, html);
             
-    //     expect(container).toEqual(result);
-    // });
+        expect(container).toEqual(result);
+    });
 
     it('parse table', function () {
         var html = '<table><tr><td>Test</td></tr></table>';

@@ -20,35 +20,35 @@ var ParseHtml = function() {
 
 	function ComputeStyle(object, styles) {
 	    for (i = 0; i < styles.length; i++) {
-	        var st = styles[i].trim().toLowerCase().split(":");
+	        var styleArray = styles[i].trim().toLowerCase().split(":");
 	        
-	        if (st.length === 2) {
-	            switch (st[0]) {
+	        if (styleArray.length === 2) {
+	            switch (styleArray[0]) {
 	                case "font-size":{
-	                    object.fontSize = parseInt(st[1]);
+	                    object.fontSize = parseInt(styleArray[1]);
 	                    break;
 	                }
 	                case "text-align": {
-	                    switch (st[1]) {
+	                    switch (styleArray[1]) {
 	                        case "right": object.alignment = 'right'; break;
 	                        case "center": object.alignment = 'center'; break;
 	                    }
 	                    break;
 	                }
 	                case "font-weight": {
-	                    switch (st[1]) {
+	                    switch (styleArray[1]) {
 	                        case "bold": object.bold = true; break;
 	                    }
 	                    break;
 	                }
 	                case "text-decoration": {
-	                    switch (st[1]) {
+	                    switch (styleArray[1]) {
 	                        case "underline": object.decoration = "underline"; break;
 	                    }
 	                    break;
 	                }
 	                case "font-style": {
-	                    switch (st[1]) {
+	                    switch (styleArray[1]) {
 	                        case "italic": object.italics = true; break;
 	                    }
 	                    break;
@@ -65,10 +65,10 @@ var ParseHtml = function() {
 	        var nodeStyle = element.getAttribute("style");
 
 	        if (nodeStyle) {
-	            var ns = nodeStyle.split(";");
+	            var nodeStyleArray = nodeStyle.split(";");
 
-	            for (k = 0; k < ns.length; k++) { 
-	            	styles.push(ns[k]);
+	            for (k = 0; k < nodeStyleArray.length; k++) { 
+	            	styles.push(nodeStyleArray[k]);
 	            }
 	        }
 	    }
@@ -103,14 +103,12 @@ var ParseHtml = function() {
 	            break;
 	        }
 	        case "br": {
-	            paragraph = CreateParagraph();
-	            cnt.push(paragraph);
+	            paragraph = CreateDocument();
+	            container.push(paragraph);
 	            break;
 	        }
 	        case "table": {
-	                var table = {
-	                    table: { body: [] }
-	                };
+	                var table = { table: { body: [] } };
 	                
 	                ParseContainer(table.table.body, element, paragraph, styles);
 	                
@@ -128,20 +126,9 @@ var ParseHtml = function() {
 	            break;
 	        }
 	        case "td": {
-	            paragraph = CreateParagraph();
+	            paragraph = CreateDocument();
 	            var stack = {stack: []};
 	            stack.stack.push(paragraph);
-	            
-	            var rspan = element.getAttribute("rowspan");
-	            if (rspan) { 
-	            	stack.rowSpan = parseInt(rspan); 
-	            }
-	            
-	            var cspan = element.getAttribute("colspan");
-	            
-	            if (cspan) { 
-	            	stack.colSpan = parseInt(cspan); 
-	            }
 	            
 	            ParseContainer(stack.stack, element, paragraph, styles);
 	            container.push(stack);
@@ -175,7 +162,7 @@ var ParseHtml = function() {
 	        }
 	        case "div":
 	        case "p": {
-	            paragraph = CreateParagraph();
+	            paragraph = CreateDocument();
 	            var stack = { stack: [] };
 	            stack.stack.push(paragraph);
 	            ComputeStyle(stack, styles);
@@ -189,19 +176,21 @@ var ParseHtml = function() {
 	            break;
 	        }
 	    }
+	    
 	    return paragraph;
 	}
 
 	function ParseHtml(container, htmlText) {
 	    var html = $(htmlText.replace(/\t/g, "").replace(/\n/g, ""));
-	    var paragraph = CreateParagraph();
+	    var paragraph = CreateDocument();
 	    
 	    for (i = 0; i < html.length; i++) { 
+	    	console.log('Entrou aqui ', i);
 	    	ParseElement(container, html.get(i), paragraph);
 	    }
 	}
 
-	function CreateParagraph() {
+	function CreateDocument() {
 	    return { text: [] };
 	}
 
