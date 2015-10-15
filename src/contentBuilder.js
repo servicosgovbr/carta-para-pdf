@@ -20,7 +20,7 @@ function ContentBuilder (servicoObject) {
 	buildDescricao = function () {
 		addContent({ text: 'O QUE É?', style: 'subheader' });
 		addNewLine();
-		addContent({ text: servico.descricao, style: 'paragraph' });
+		addContent({ text: servico.descricao, style: 'paragraph', margin: [ 40, 0, 20, 15 ] });
 		addNewLine();
 	};
 
@@ -30,7 +30,7 @@ function ContentBuilder (servicoObject) {
 
 		$(servico.solicitantes).each(function(index, solicitante) {
 			addContent({ text: solicitante.tipo , style: 'thirdheader' });
-			addContent({ text: solicitante.requisitos , style: 'paragraph' });
+			addContent({ text: solicitante.requisitos , style: 'paragraph', margin: [ 40, 0, 20, 15 ] });
 			addNewLine();
 		});
 	};
@@ -38,7 +38,7 @@ function ContentBuilder (servicoObject) {
 	buildTempoTotalEstimado = function () {
 		addContent({ text: 'QUANTO TEMPO LEVA?', style: 'subheader' });
 		addNewLine();
-		addContent({ text: servico.tempoTotalEstimado.max + ' ' + servico.tempoTotalEstimado.unidade, style: 'paragraph' });
+		addContent({ text: servico.tempoTotalEstimado.max + ' ' + servico.tempoTotalEstimado.unidade, style: 'paragraph', margin: [ 40, 0, 40, 15 ] });
 		addNewLine();
 	};
 
@@ -55,12 +55,12 @@ function ContentBuilder (servicoObject) {
 	};
 
 	buildNomesPopulares = function () {
-		addContent({ text: 'Você também pode conhecer este serviço como: ' + servico.nomesPopulares.join(', ') + '.', style: 'paragraph' });
+		addContent({ text: 'Você também pode conhecer este serviço como: ' + servico.nomesPopulares.join(', ') + '.', style: 'paragraph', margin: [ 40, 0, 100, 15 ] });
 		addNewLine();
 	};
 
 	buildGratuidade = function () {
-		addContent({ text: servico.gratuito ? 'Este serviço é gratuito para o cidadão.' : '', style: 'paragraph' });
+		addContent({ text: servico.gratuito ? 'Este serviço é gratuito para o cidadão.' : '', style: 'paragraph', margin: [ 40, 0, 100, 15 ] });
 	};
 
 	buildOutrasInformacoes = function () {
@@ -73,7 +73,7 @@ function ContentBuilder (servicoObject) {
 	function buildEtapa(index, etapa) {
 		addContent({ text: 'Etapa ' + (index + 1) + ' - ' + etapa.titulo, style: 'thirdheader' });
 		addNewLine();
-		addContent({ text: etapa.descricao, style: 'paragraph' });
+		addContent({ text: etapa.descricao, style: 'paragraph', margin: [ 40, 0, 120, 15 ] });
 		addNewLine();
 
 		if(etapa.documentos.items.length > 0) { buildDocumentos(etapa.documentos); }
@@ -157,10 +157,10 @@ function ContentBuilder (servicoObject) {
 				]
 			},
 			layout: {
-	            paddingLeft: function(i, node) { return 10; },
-	            paddingRight: function(i, node) { return 10; },
-	            paddingTop: function(i, node) { return 10; },
-	            paddingBottom: function(i, node) { return 10; },
+	            paddingLeft: function(i, node) { return 25; },
+	            paddingRight: function(i, node) { return 25; },
+	            paddingTop: function(i, node) { return 20; },
+	            paddingBottom: function(i, node) { return 20; },
 	            hLineWidth: function(i, node) { return 1; },
 				vLineWidth: function(i, node) { return 1; },
 				hLineColor: function(i, node) { return '#ddd'; },

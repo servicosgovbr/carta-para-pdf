@@ -16,7 +16,7 @@ var docDefinition = {
      text: {
       fontSize: 12,
       color: '#606060',
-      margin: [ 40, 0, 100, 5 ]
+      margin: [ 40, 0, 140, 5 ]
      },
      border: {
        fontSize: 72,
@@ -35,7 +35,7 @@ var docDefinition = {
        bold: true,
        color: '#2C66CE',
        lineHeight: 0.8,
-       margin: [ 40, 220, 40, 30 ]
+       margin: [ 40, 40, 40, 30 ]
      },
      subheader: {
        fontSize: 22,
@@ -51,8 +51,9 @@ var docDefinition = {
        margin: [ 40, 10, 40, 0 ]
      },
      thirdheaderTable: {
-       fontSize: 15,
+       fontSize: 12,
        italics: true,
+       margin: [ 0, 0, 0, 5 ],
        color: '#606060'
      },
      tableExample: {
@@ -62,7 +63,8 @@ var docDefinition = {
      list: {
       fontSize: 12,
       blod: true,
-      color: '#606060'
+      color: '#606060',
+      margin: [ 10, 0, 0, 0 ]
      },
      listMargin: {
       fontSize: 12,
@@ -72,8 +74,7 @@ var docDefinition = {
      },
      paragraph: {
       fontSize: 12,
-      color: '#606060',
-      margin: [ 40, 0, 40, 15 ]
+      color: '#606060'
      }
    }
 };

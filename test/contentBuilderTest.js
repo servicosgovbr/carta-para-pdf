@@ -34,7 +34,7 @@ describe('Montar conteúdo do serviço', function () {
 
     it('deve adicionar descrição', function () {
         var servico = { descricao: 'Descrição teste'},
-            content = [{ text: 'O QUE É?', style: 'subheader' }, { text: 'Descrição teste', style: 'paragraph' }];
+            content = [{ text: 'O QUE É?', style: 'subheader' }, { text: 'Descrição teste', style: 'paragraph', margin: [ 40, 0, 20, 15 ] }];
         contentBuilder = criarContentBuilder(servico);
 
         expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));
@@ -47,10 +47,10 @@ describe('Montar conteúdo do serviço', function () {
         ]};
         var content = [
             { text: 'Com requisito', style: 'thirdheader' },
-            { text: 'Requisito', style: 'paragraph' },
+            { text: 'Requisito', style: 'paragraph', margin: [ 40, 0, 20, 15 ] },
             { text: 'Sem requisito', style: 'thirdheader' },
-            { text: '', style: 'paragraph' },
-            { text: '', style: 'paragraph' }
+            { text: '', style: 'paragraph', margin: [ 40, 0, 20, 15 ] },
+            { text: '', style: 'paragraph', margin: [ 40, 0, 20, 15 ] }
         ];
         contentBuilder = criarContentBuilder(servico);
 
@@ -63,7 +63,7 @@ describe('Montar conteúdo do serviço', function () {
         };
         var content = [
             { text: 'QUANTO TEMPO LEVA?', style: 'subheader' },
-            { text: '40 dias-uteis', style: 'paragraph' },
+            { text: '40 dias-uteis', style: 'paragraph', margin: [ 40, 0, 40, 15 ] },
         ];
         contentBuilder = criarContentBuilder(servico);
 
@@ -87,7 +87,7 @@ describe('Montar conteúdo do serviço', function () {
             nomesPopulares: ['Serviço para teste', 'Testando a interface']
         };
         var content = [
-            { text: 'Você também pode conhecer este serviço como: Serviço para teste, Testando a interface.', style: 'paragraph'}
+            { text: 'Você também pode conhecer este serviço como: Serviço para teste, Testando a interface.', style: 'paragraph', margin: [ 40, 0, 100, 15 ]}
         ];
         contentBuilder = criarContentBuilder(servico);
 
@@ -99,7 +99,7 @@ describe('Montar conteúdo do serviço', function () {
             gratuito: true
         };
         var content = [
-            { text: 'Este serviço é gratuito para o cidadão.', style: 'paragraph' }
+            { text: 'Este serviço é gratuito para o cidadão.', style: 'paragraph', margin: [ 40, 0, 100, 15 ] }
         ];
         contentBuilder = criarContentBuilder(servico);
 
