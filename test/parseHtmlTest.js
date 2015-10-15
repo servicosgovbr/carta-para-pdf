@@ -68,7 +68,7 @@ describe('Montar objeto pdfmake', function () {
     it('parse h2', function () {
         var html = '<h2>Ministério da Educação (MEC)</h2>';
         var container = [];
-        var result = [{ text: 'Ministério da Educação (MEC)', style: 'subheader' }];
+        var result = [{ text: 'Ministério da Educação (MEC)', style: 'thirdheader' }];
 
         parseHtml.parseHtml(container, html);
             
@@ -78,7 +78,7 @@ describe('Montar objeto pdfmake', function () {
     it('parse h1', function () {
         var html = '<h1>Ministério da Educação (MEC)</h1>';
         var container = [];
-        var result = [{ text: 'Ministério da Educação (MEC)', style: 'header' }];
+        var result = [{ text: 'Ministério da Educação (MEC)', style: 'subheader' }];
 
         parseHtml.parseHtml(container, html);
             
@@ -98,7 +98,7 @@ describe('Montar objeto pdfmake', function () {
     it('parse orgao', function () {
         var html = '<h2>Ministério da Educação (MEC)</h2><p>Órgão do governo federal que trata da política nacional de educação em geral, compreendendo:</p><ul><li>ensino fundamental, médio e superior;</li><li>educação de jovens e adultos, seja profissional, especial ou à distância;</li><li>informação e pesquisa educacional;</li><li>pesquisa e extensão universitária; e</li><li>magistério.</li></ul>';
         var container = [];
-        var result = [{ text: 'Ministério da Educação (MEC)', style: 'subheader' }, [[{ text: 'Órgão do governo federal que trata da política nacional de educação em geral, compreendendo:' }]], { ul: [ 'ensino fundamental, médio e superior;', 'educação de jovens e adultos, seja profissional, especial ou à distância;', 'informação e pesquisa educacional;', 'pesquisa e extensão universitária; e', 'magistério.' ], style: 'list' }];
+        var result = [{ text: 'Ministério da Educação (MEC)', style: 'thirdheader' }, [[{ text: 'Órgão do governo federal que trata da política nacional de educação em geral, compreendendo:' }]], { ul: [ 'ensino fundamental, médio e superior;', 'educação de jovens e adultos, seja profissional, especial ou à distância;', 'informação e pesquisa educacional;', 'pesquisa e extensão universitária; e', 'magistério.' ], style: 'list' }];
 
         parseHtml.parseHtml(container, html);
             
@@ -120,7 +120,7 @@ describe('Montar objeto pdfmake', function () {
         var markdownString = '# Ministério da Educação (MEC) \n Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: \n\n * ensino fundamental, médio e superior; \n * educação de jovens e adultos, seja profissional, especial ou à distância; \n * informação e pesquisa educacional; \n * pesquisa e extensão universitária; e \n * magistério.';
         var html = markdown.toHTML(markdownString);;
         var container = [];
-        var result = [ { text: 'Ministério da Educação (MEC)', style: 'header' }, [ { text: '' }, { text: ' Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: ' }, { text: '' }], [ [ { text: '' }, { text: ' Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: ' }, { text: '' }] ], [ { text: '' }, { text: ' Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: ' }, { text: '' }], { ul: [ 'ensino fundamental, médio e superior; ', 'educação de jovens e adultos, seja profissional, especial ou à distância; ', 'informação e pesquisa educacional; ', 'pesquisa e extensão universitária; e ', 'magistério.' ], style: 'list' }];
+        var result = [ { text: 'Ministério da Educação (MEC)', style: 'subheader' }, [ { text: '' }, { text: ' Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: ' }, { text: '' }], [ [ { text: '' }, { text: ' Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: ' }, { text: '' }] ], [ { text: '' }, { text: ' Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: ' }, { text: '' }], { ul: [ 'ensino fundamental, médio e superior; ', 'educação de jovens e adultos, seja profissional, especial ou à distância; ', 'informação e pesquisa educacional; ', 'pesquisa e extensão universitária; e ', 'magistério.' ], style: 'list' }];
 
         parseHtml.parseHtml(container, html);
             
