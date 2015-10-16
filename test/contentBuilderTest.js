@@ -34,7 +34,7 @@ describe('Montar conteúdo do serviço', function () {
 
     it('deve adicionar descrição', function () {
         var servico = { descricao: 'Descrição teste'},
-            content = [{ text: 'O QUE É?', style: 'subheader' }, { text: 'Descrição teste', style: 'paragraph', margin: [ 40, 0, 20, 15 ] }];
+            content = [{ text: 'O que é?', style: 'subheader' }, { text: 'Descrição teste', style: 'paragraph', margin: [ 40, 0, 20, 15 ] }];
         contentBuilder = criarContentBuilder(servico);
 
         expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));
@@ -62,7 +62,7 @@ describe('Montar conteúdo do serviço', function () {
             tempoTotalEstimado: { max: '40', unidade: 'dias-uteis'}
         };
         var content = [
-            { text: 'QUANTO TEMPO LEVA?', style: 'subheader' },
+            { text: 'Quanto tempo leva?', style: 'subheader' },
             { text: '40 dias-uteis', style: 'paragraph', margin: [ 40, 0, 40, 15 ] },
         ];
         contentBuilder = criarContentBuilder(servico);
@@ -75,7 +75,7 @@ describe('Montar conteúdo do serviço', function () {
             legislacoes: [ '[TítuloLei nº 6.766, de 19 de Dezembro de 1979](http://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1979-12-19;6766)' ]
         };
         var content = [
-            { text: 'LEGISLAÇÃO', style: 'subheader' },
+            { text: 'Legislação', style: 'subheader' },
         ];
         contentBuilder = criarContentBuilder(servico);
 
@@ -108,7 +108,7 @@ describe('Montar conteúdo do serviço', function () {
 
     it('deve adicionar outras informações', function () {
         var content = [
-            { text: 'OUTRAS INFORMAÇÕES', style: 'subheader' }
+            { text: 'Outras informações', style: 'subheader' }
         ];
 
         expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));

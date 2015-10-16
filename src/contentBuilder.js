@@ -18,7 +18,7 @@ function ContentBuilder (servicoObject) {
 	};
 
 	buildDescricao = function () {
-		addContent({ text: 'O QUE É?', style: 'subheader' });
+		addContent({ text: 'O que é?', style: 'subheader' });
 		addNewLine();
 		addContent({ text: servico.descricao, style: 'paragraph', margin: [ 40, 0, 20, 15 ] });
 		addNewLine();
@@ -36,7 +36,7 @@ function ContentBuilder (servicoObject) {
 	};
 
 	buildTempoTotalEstimado = function () {
-		addContent({ text: 'QUANTO TEMPO LEVA?', style: 'subheader' });
+		addContent({ text: 'Quanto tempo leva?', style: 'subheader' });
 		addNewLine();
 		addContent({ text: servico.tempoTotalEstimado.max + ' ' + servico.tempoTotalEstimado.unidade, style: 'paragraph', margin: [ 40, 0, 40, 15 ] });
 		addNewLine();
@@ -46,7 +46,7 @@ function ContentBuilder (servicoObject) {
 		var content = [];
 		var textoHtml = markdown.toHTML(servico.legislacoes[0]);
 
-		addContent({ text: 'LEGISLAÇÃO', style: 'subheader' });
+		addContent({ text: 'Legislação', style: 'subheader' });
 		addNewLine();
 
 		parseHtml.parseHtml(content, textoHtml);
@@ -64,7 +64,7 @@ function ContentBuilder (servicoObject) {
 	};
 
 	buildOutrasInformacoes = function () {
-		addContent({ text: 'OUTRAS INFORMAÇÕES', style: 'subheader' });
+		addContent({ text: 'Outras informações', style: 'subheader' });
 		addNewLine();
 		buildNomesPopulares();
 		buildGratuidade();
