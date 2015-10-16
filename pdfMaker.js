@@ -3,7 +3,13 @@ var docDefinition = {
   defaultStyle: {
     font: 'OpenSans'
   },
-  footer: function(currentPage, pageCount) { return currentPage.toString() + ' of ' + pageCount; },
+  footer: function(currentPage, pageCount) { 
+    return {
+        columns: ['Página ' + currentPage.toString() + ' de ' + pageCount],
+        color: '#606060',
+        margin: [ 70, 0, 70, 0 ]
+      } 
+  },
   pageSize: 'A4',
   pageMargins: [ 70, 70 ],
   pageOrientation: 'portrait',
