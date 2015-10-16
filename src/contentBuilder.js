@@ -20,7 +20,7 @@ function ContentBuilder (servicoObject) {
 	buildDescricao = function () {
 		addContent({ text: 'O que é?', style: 'subheader' });
 		addNewLine();
-		addContent({ text: servico.descricao, style: 'paragraph', margin: [ 40, 0, 20, 15 ] });
+		addContent({ text: servico.descricao, style: 'paragraph' });
 		addNewLine();
 	};
 
@@ -42,7 +42,7 @@ function ContentBuilder (servicoObject) {
 	buildTempoTotalEstimado = function () {
 		addContent({ text: 'Quanto tempo leva?', style: 'subheader' });
 		addNewLine();
-		addContent({ text: servico.tempoTotalEstimado.max + ' ' + servico.tempoTotalEstimado.unidade, style: 'paragraph', margin: [ 40, 0, 40, 15 ] });
+		addContent({ text: servico.tempoTotalEstimado.max + ' ' + servico.tempoTotalEstimado.unidade, style: 'paragraph' });
 		addNewLine();
 	};
 
@@ -59,12 +59,12 @@ function ContentBuilder (servicoObject) {
 	};
 
 	buildNomesPopulares = function () {
-		addContent({ text: 'Você também pode conhecer este serviço como: ' + servico.nomesPopulares.join(', ') + '.', style: 'paragraph', margin: [ 40, 0, 100, 15 ] });
+		addContent({ text: 'Você também pode conhecer este serviço como: ' + servico.nomesPopulares.join(', ') + '.', style: 'paragraph' });
 		addNewLine();
 	};
 
 	buildGratuidade = function () {
-		addContent({ text: servico.gratuito ? 'Este serviço é gratuito para o cidadão.' : '', style: 'paragraph', margin: [ 40, 0, 100, 15 ] });
+		addContent({ text: servico.gratuito ? 'Este serviço é gratuito para o cidadão.' : '', style: 'paragraph' });
 	};
 
 	buildOutrasInformacoes = function () {
@@ -77,7 +77,7 @@ function ContentBuilder (servicoObject) {
 	function buildEtapa(index, etapa) {
 		addContent({ text: 'Etapa ' + (index + 1) + ' - ' + etapa.titulo, style: 'thirdheader' });
 		addNewLine();
-		addContent({ text: etapa.descricao, style: 'paragraph', margin: [ 40, 0, 100, 15 ] });
+		addContent({ text: etapa.descricao, style: 'paragraph' });
 		addNewLine();
 
 		if(etapa.documentos.items.length > 0) { buildDocumentos(etapa.documentos); }

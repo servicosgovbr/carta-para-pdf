@@ -5,6 +5,7 @@ var docDefinition = {
   },
   footer: function(currentPage, pageCount) { return currentPage.toString() + ' of ' + pageCount; },
   pageSize: 'A4',
+  pageMargins: [ 70, 70 ],
   pageOrientation: 'portrait',
   styles: {
     title: {
@@ -12,12 +13,12 @@ var docDefinition = {
        bold: true,
        color: '#2C66CE',
        lineHeight: 0.64,
-       margin: [ 70, 150, 90, 0 ]
+       margin: [ 70, 150, 0, 0 ]
      },
      text: {
       fontSize: 12,
       color: '#606060',
-      margin: [ 40, 0, 140, 5 ]
+      margin: [ 0, 0, 0, 5 ]
      },
      border: {
        fontSize: 72,
@@ -28,28 +29,25 @@ var docDefinition = {
        fontSize: 25,
        bold: true,
        color: '#606060',
-       lineHeight: 0.8,
-       margin: [ 40, 0, 40, 0 ]
+       lineHeight: 0.8
      },
      header: {
        fontSize: 32,
        bold: true,
        color: '#2C66CE',
        lineHeight: 0.8,
-       margin: [ 40, 40, 40, 30 ]
+       margin: [ 0, 40, 0, 30 ]
      },
      subheader: {
        fontSize: 22,
        bold: true,
        color: '#2C66CE',
-       margin: [ 40, 0, 40, 0 ],
        lineHeight: 0.5
      },
      thirdheader: {
        fontSize: 15,
        italics: true,
        color: '#606060',
-       margin: [ 40, 10, 40, 0 ]
      },
      thirdheaderTable: {
        fontSize: 12,
@@ -58,7 +56,7 @@ var docDefinition = {
        color: '#606060'
      },
      tableExample: {
-      margin: [40, 5, 40, 15],
+      margin: [0, 5, 0, 15],
       color: '#606060'
      },
      list: {
@@ -71,11 +69,12 @@ var docDefinition = {
       fontSize: 12,
       blod: true,
       color: '#606060',
-      margin: [ 40, 0, 40, 0 ]
+      margin: [ 0, 0, 0, 0 ]
      },
      paragraph: {
       fontSize: 12,
-      color: '#606060'
+      color: '#606060',
+      margin: [ 0, 0, 0, 15 ]
      }
    }
 };
