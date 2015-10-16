@@ -47,11 +47,17 @@ describe('Montar conteúdo do serviço', function () {
         ]};
         var content = [
             { text: 'Com requisito', style: 'thirdheader' },
-            { text: 'Requisito', style: 'paragraph', margin: [ 40, 0, 20, 15 ] },
+            [
+                [{
+                "text": "Requisito",
+                "style": "text"
+                }]
+            ],
             { text: 'Sem requisito', style: 'thirdheader' },
             { text: '', style: 'paragraph', margin: [ 40, 0, 20, 15 ] },
             { text: '', style: 'paragraph', margin: [ 40, 0, 20, 15 ] }
         ];
+
         contentBuilder = criarContentBuilder(servico);
 
         expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));

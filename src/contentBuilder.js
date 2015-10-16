@@ -30,7 +30,11 @@ function ContentBuilder (servicoObject) {
 
 		$(servico.solicitantes).each(function(index, solicitante) {
 			addContent({ text: solicitante.tipo , style: 'thirdheader' });
-			addContent({ text: solicitante.requisitos , style: 'paragraph', margin: [ 40, 0, 20, 15 ] });
+
+			var content = [];
+			var textoHtml = markdown.toHTML(solicitante.requisitos);
+			parseHtml.parseHtml(content, textoHtml);
+			docContent = docContent.concat(content);
 			addNewLine();
 		});
 	};
