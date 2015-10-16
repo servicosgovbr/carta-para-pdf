@@ -42,7 +42,8 @@ var docDefinition = {
        fontSize: 22,
        bold: true,
        color: '#2C66CE',
-       lineHeight: 0.5
+       lineHeight: 0.5,
+       margin: [ 0, 0, 0, 5 ]
      },
      thirdheader: {
        fontSize: 15,

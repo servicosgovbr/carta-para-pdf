@@ -20,12 +20,23 @@ function FormatterHelper() {
 	    return day + ' ' + months[month] + ' de ' + year;
 	}
 
+	function formatarCanalDeComunicacao(string) {
+		if(string === 'web-agendar') {
+			return 'Web';
+		} else {
+			return string.replace(string.charAt(0), function(letter) {
+			    return letter.toUpperCase();
+			});
+		}
+	}
+
 	function getCurrentDate() {
 		return formatDate(new Date());
 	}
 
 	return {
 		getCurrentDate: getCurrentDate,
-		formatDate: formatDate
+		formatDate: formatDate,
+		formatarCanalDeComunicacao: formatarCanalDeComunicacao
 	};
 }

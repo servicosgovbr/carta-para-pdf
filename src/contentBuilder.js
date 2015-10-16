@@ -2,7 +2,8 @@ function ContentBuilder (servicoObject) {
 	var servico = servicoObject,
 		docContent = [],
 		api = {},
-		parseHtml = new ParseHtml();
+		parseHtml = new ParseHtml(),
+		formatterHelper = new FormatterHelper();		
 
 	function addContent(content) {
 		docContent.push(content);
@@ -136,7 +137,7 @@ function ContentBuilder (servicoObject) {
 		canaisDoc.push({ text: 'Canais de prestação padrão', style: 'thirdheaderTable' });
 
 		$(canais.items).each(function(index, canal) {
-			canaisDoc.push({ ul: [ canal.tipo + ': ' + canal.descricao ], style: 'list' });
+			canaisDoc.push({ ul: [ formatterHelper.formatarCanalDeComunicacao(canal.tipo) + ': ' + canal.descricao ], style: 'list' });
 		});
 
 		canaisDoc.push('\n');
@@ -144,7 +145,7 @@ function ContentBuilder (servicoObject) {
 		$(canais.casos).each(function(index, caso) {
 			canaisDoc.push({ text: caso.descricao, style: 'thirdheaderTable' });
 			$(caso.items).each(function(index, canal) {
-				canaisDoc.push({ ul: [ canal.tipo + ': ' + canal.descricao ], style: 'list' });
+				canaisDoc.push({ ul: [ formatterHelper.formatarCanalDeComunicacao(canal.tipo) + ': ' + canal.descricao ], style: 'list' });
 			});
 		});
 
