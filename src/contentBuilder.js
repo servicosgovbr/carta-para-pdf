@@ -43,7 +43,7 @@ function ContentBuilder (servicoObject) {
 	buildTempoTotalEstimado = function () {
 		addContent({ text: 'Quanto tempo leva?', style: 'subheader' });
 		addNewLine();
-		addContent({ text: servico.tempoTotalEstimado.max + ' ' + servico.tempoTotalEstimado.unidade, style: 'paragraph' });
+		addContent({ text: 'Até ' + servico.tempoTotalEstimado.max + ' ' + formatterHelper.formatarTempoEstimado(servico.tempoTotalEstimado.unidade) + '.', style: 'paragraph' });
 		addNewLine();
 	};
 

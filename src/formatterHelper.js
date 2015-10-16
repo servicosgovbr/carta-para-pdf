@@ -30,6 +30,14 @@ function FormatterHelper() {
 		}
 	}
 
+	function formatarTempoEstimado(tempo) {
+		if(tempo === 'dias-uteis') {
+			return 'dias úteis';
+		} else {
+			return tempo;
+		}
+	}
+
 	function getCurrentDate() {
 		return formatDate(new Date());
 	}
@@ -37,6 +45,7 @@ function FormatterHelper() {
 	return {
 		getCurrentDate: getCurrentDate,
 		formatDate: formatDate,
-		formatarCanalDeComunicacao: formatarCanalDeComunicacao
+		formatarCanalDeComunicacao: formatarCanalDeComunicacao,
+		formatarTempoEstimado: formatarTempoEstimado
 	};
 }
