@@ -69,7 +69,7 @@ describe('Montar conteúdo do serviço', function () {
         };
         var content = [
             { text: 'Quanto tempo leva?', style: 'subheader' },
-            { text: '40 dias-uteis', style: 'paragraph' },
+            { text: 'Até 40 dias úteis.', style: 'paragraph' },
         ];
         contentBuilder = criarContentBuilder(servico);
 
