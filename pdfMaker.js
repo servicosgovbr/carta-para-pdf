@@ -118,7 +118,7 @@ $(function() {
   var informacaoCartasDeServico = function() {
     docDefinition.content.push({ text: 'O que é uma carta de serviços?', style: 'header'});
     docDefinition.content.push('\n');
-    docDefinition.content.push({ text: 'Carta de serviços é um documento feito para principalmente informar a população sobre os serviços públicos disponíveis do governo federal. Cada carta contém um orgão do governo e seus serviços disponíveis.', style: 'paragraph' });
+    docDefinition.content.push({ text: 'Carta de serviços é um documento feito para informar o cidadão sobre os serviços públicos disponíveis pelo governo federal. Cada carta é sobre um orgão do governo e seus serviços disponíveis.', style: 'paragraph' });
     docDefinition.content.push('\n');
     docDefinition.content.push({ text: 'A Carta de serviços é baseada nas informações do portal de serviços do governo federal (www.servicos.gov.br). Esse documento foi gerado em ' + new FormatterHelper().getCurrentDate() + '. O portal de serviços está sempre sendo atualizado, por isso é importante imprimir esse documento com certa frequência.', style: 'paragraph', pageBreak: 'after' });
   }
