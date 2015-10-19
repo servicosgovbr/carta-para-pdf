@@ -42,8 +42,7 @@ var ParseHtml = function() {
 	    switch (element.nodeName.toLowerCase()) {
 	        case "#text": {
 	            text = { text: element.textContent.replace(/\n/g, ""), style: 'text' };
-	            docDefinition.push(text);
-	            container.push(docDefinition);
+	            container.push(text);
 	            break;
 	        }
 	        case "b":
@@ -113,12 +112,12 @@ var ParseHtml = function() {
 	}
 
 	function ParseHtml(container, htmlText) {
-	    var html = $.parseHTML(htmlText);
+	    var html = $(htmlText.replace(/\t/g, "").replace(/\n/g, ""));
 	    var docDefinition = CreateDocument();
 
-	    $(html).each(function(i, element) {
-		  ParseElement(container, element, docDefinition);
-		});
+	    for (var i = 0; i < html.length; i++) {
+	    	ParseElement(container, html[i], docDefinition);	
+	    }
 	}
 
 	function CreateDocument() {

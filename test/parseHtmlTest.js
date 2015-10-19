@@ -18,7 +18,7 @@ describe('Montar objeto pdfmake', function () {
     it('parse span', function () {
         var html = '<p><span>Test</span></p>';
         var container = [];
-        var result = [[[{ text: 'Test', style: 'text' }]]];
+        var result = [[{ text: 'Test', style: 'text' }]];
 
         parseHtml.parseHtml(container, html);
 
@@ -128,7 +128,9 @@ describe('Montar objeto pdfmake', function () {
     it('parse ol com link', function () {
         var html = '<ol><li><i>Italic</i></li><li><a href="www.google.com">Test</a></li></ol>';
         var container = [];
-        var result = [{ ol: [ { text: 'Italic', italics: true }, { text: 'Test - www.google.com', style: 'text' }], style: 'listMargin' }];
+        var result = [{ ol: [ 
+            { text: 'Italic', italics: true }, 
+            { text: 'Test - www.google.com', style: 'text' }], style: 'listMargin' }];
 
         parseHtml.parseHtml(container, html);
 
@@ -138,7 +140,7 @@ describe('Montar objeto pdfmake', function () {
     it('parse orgao', function () {
         var html = '<h2>Ministério da Educação (MEC)</h2><p>Órgão do governo federal que trata da política nacional de educação em geral, compreendendo:</p><ul><li>ensino fundamental, médio e superior;</li><li>educação de jovens e adultos, seja profissional, especial ou à distância;</li><li>informação e pesquisa educacional;</li><li>pesquisa e extensão universitária; e</li><li>magistério.</li></ul>';
         var container = [];
-        var result = [{ text: 'Ministério da Educação (MEC)', style: 'thirdheader' }, [[{ text: 'Órgão do governo federal que trata da política nacional de educação em geral, compreendendo:', style: 'text' }]], { ul: [ 'ensino fundamental, médio e superior;', 'educação de jovens e adultos, seja profissional, especial ou à distância;', 'informação e pesquisa educacional;', 'pesquisa e extensão universitária; e', 'magistério.' ], style: 'listMargin' }];
+        var result = [{ text: 'Ministério da Educação (MEC)', style: 'thirdheader' }, [{ text: 'Órgão do governo federal que trata da política nacional de educação em geral, compreendendo:', style: 'text' }], { ul: [ 'ensino fundamental, médio e superior;', 'educação de jovens e adultos, seja profissional, especial ou à distância;', 'informação e pesquisa educacional;', 'pesquisa e extensão universitária; e', 'magistério.' ], style: 'listMargin' }];
 
         parseHtml.parseHtml(container, html);
 
@@ -149,7 +151,7 @@ describe('Montar objeto pdfmake', function () {
         var markdownString = 'Ministério da Educação (MEC) \n Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: \n\n * ensino fundamental, médio e superior; \n * educação de jovens e adultos, seja profissional, especial ou à distância; \n * informação e pesquisa educacional; \n * pesquisa e extensão universitária; e \n * magistério.';
         var html = markdown.toHTML(markdownString);
         var container = [];
-        var result = [[[ { text: 'Ministério da Educação (MEC)  Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: ', style: 'text' }, { text: '', style: 'text' } ] ], [ { text: 'Ministério da Educação (MEC)  Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: ', style: 'text' }, { text: '', style: 'text' }], { ul: [ 'ensino fundamental, médio e superior; ', 'educação de jovens e adultos, seja profissional, especial ou à distância; ', 'informação e pesquisa educacional; ', 'pesquisa e extensão universitária; e ', 'magistério.' ], style: 'listMargin' }];
+        var result = [ [ { text: 'Ministério da Educação (MEC)  Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: ', style: 'text' } ], { style: 'listMargin', ul: [ 'ensino fundamental, médio e superior; ', 'educação de jovens e adultos, seja profissional, especial ou à distância; ', 'informação e pesquisa educacional; ', 'pesquisa e extensão universitária; e ', 'magistério.' ] } ];
 
         parseHtml.parseHtml(container, html);
 
@@ -160,10 +162,26 @@ describe('Montar objeto pdfmake', function () {
         var markdownString = '# Ministério da Educação (MEC) \n Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: \n\n * ensino fundamental, médio e superior; \n * educação de jovens e adultos, seja profissional, especial ou à distância; \n * informação e pesquisa educacional; \n * pesquisa e extensão universitária; e \n * magistério.';
         var html = markdown.toHTML(markdownString);
         var container = [];
-        var result = [ { text: 'Ministério da Educação (MEC)', style: 'subheader' }, [ { text: '', style: 'text' }, { text: ' Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: ', style: 'text' }, { text: '', style: 'text' }], [ [ { text: '', style: 'text' }, { text: ' Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: ', style: 'text' }, { text: '', style: 'text' }] ], [ { text: '', style: 'text' }, { text: ' Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: ', style: 'text' }, { text: '', style: 'text' }], { ul: [ 'ensino fundamental, médio e superior; ', 'educação de jovens e adultos, seja profissional, especial ou à distância; ', 'informação e pesquisa educacional; ', 'pesquisa e extensão universitária; e ', 'magistério.' ], style: 'listMargin' }];
+        var result = [ { text: 'Ministério da Educação (MEC)', style: 'subheader' }, [ { text: ' Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: ', style: 'text' }], { style: 'listMargin', ul: [ 'ensino fundamental, médio e superior; ', 'educação de jovens e adultos, seja profissional, especial ou à distância; ', 'informação e pesquisa educacional; ', 'pesquisa e extensão universitária; e ', 'magistério.' ] } ];
 
         parseHtml.parseHtml(container, html);
 
+        expect(container).toEqual(result);
+    });
+
+    it('parse markdown page example 1', function () {
+        var markdownString = 'A First Level Header\n====================\n\nA Second Level Header\n---------------------\n\nNow is the time for all good men to come to\nthe aid of their country. This is just\nregular paragraph.\n\nThe quick brown fox jumped over the lazy\ndog\'s back.\n\n### Header 3\n\n> This is a blockquote.\n>\n> This is the second paragraph in the blockquote.\n>\n> ## This is an H2 in a blockquote';
+        var html = markdown.toHTML(markdownString);
+        console.log(html);
+        var container = [];
+        var result = [{ text: 'A First Level Header', style: 'subheader' }, 
+            { text: 'A Second Level Header', style: 'thirdheader' }, 
+            [{ text: 'Now is the time for all good men to come tothe aid of their country. This is justregular paragraph.', style: 'text' }], 
+            [{ text: 'The quick brown fox jumped over the lazydog\'s back.', style: 'text' }], 
+            { text: 'Header 3', style: 'thirdheader' }, 
+            { text: '<p>This is a blockquote.</p><p>This is the second paragraph in the blockquote.</p><h2>This is an H2 in a blockquote</h2>', style: 'text' }];
+        
+        parseHtml.parseHtml(container, html);
         expect(container).toEqual(result);
     });
 });
