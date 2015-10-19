@@ -95,21 +95,19 @@ function PdfMaker() {
 		}
 	};
 
-	var initialDocDefinition = function() {
+	var initialDocDefinition = function(nome) {
 		docDefinition.content = [];
 		docDefinition.content.push({ text: 'Carta de serviços', style: 'title'});
 		docDefinition.content.push({ text: '__________', style: 'border', margin: [ 70, -40, 90, 0 ] });
 		docDefinition.content.push('\n');
 		docDefinition.content.push('\n');
-		docDefinition.content.push({ text: 'Ministério da educação (MEC)'.toUpperCase(), style: 'subtitle', margin: [ 70, 0, 115, 0 ], pageBreak: 'after' });
+		docDefinition.content.push({ text: nome.toUpperCase(), style: 'subtitle', margin: [ 70, 0, 115, 0 ], pageBreak: 'after' });
 	};
 
-	var capaOrgao = function() {
-		docDefinition.content.push({ text: 'Ministério da educação (MEC)', style: 'header'});
+	var capaOrgao = function(nome, descricao) {
+		docDefinition.content.push({ text: nome, style: 'header'});
 		docDefinition.content.push({ text: 'O que é?', style: 'subheader' });
 		docDefinition.content.push('\n');
-
-		var descricao = 'Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: \n\n * ensino fundamental, médio e superior; \n * educação de jovens e adultos, seja profissional, especial ou à distância; \n * informação e pesquisa educacional; \n * pesquisa e extensão universitária; e \n * magistério.';
 
 		var textoHtml = markdown.toHTML(descricao);
 		var content = [];
@@ -122,7 +120,7 @@ function PdfMaker() {
 		docDefinition.content.push({ text: '', style: 'paragraph', pageBreak: 'after' });
 	}
 
-	var indice = function() {
+	var indice = function(servicos) {
 		var servicos = [
 		'Serviço teste',
 		'Serviço test 2',
@@ -140,20 +138,20 @@ function PdfMaker() {
 		docDefinition.content.push({ text: 'A Carta de serviços é baseada nas informações do portal de serviços do governo federal (www.servicos.gov.br). Esse documento foi gerado em ' + new FormatterHelper().getCurrentDate() + '. O portal de serviços está sempre sendo atualizado, por isso é importante imprimir a carta de serviços com frequência.', style: 'paragraph', pageBreak: 'after' });
 	}
 
-	function generatePdf(xmls) {
-		initialDocDefinition();
+	function generatePdf(jsonResponse) {
+		initialDocDefinition(jsonResponse.nome);
 		informacaoCartasDeServico();
-		capaOrgao();
+		capaOrgao(jsonResponse.nome, jsonResponse.descricao);
 		indice();
 		var servicoParser = new ServicoParser();
 
-		$(xmls).each(function(index, xml) {
+		$(jsonResponse.servicos).each(function(index, xml) {
 			var servicoObject = servicoParser.parseXml(xml);
 
 			var contentBuilder = new ContentBuilder(servicoObject);
 			var servicoDocument = contentBuilder.buildContent();
 
-			if(index < xmls.length - 1) {
+			if(index < jsonResponse.servicos.length - 1) {
 				servicoDocument.push({ text: '' , pageBreak: 'after' });
 			}
 
