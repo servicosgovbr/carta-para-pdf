@@ -127,7 +127,6 @@ function PdfMaker() {
 		'Serviço teste',
 		'Serviço test 2',
 		'Serviço test 3']
-		docDefinition.content.push({ text: 'Indice', style: 'header'});
 		docDefinition.content.push({ text: 'Quais os serviços disponíveis nesse guia?', style: 'subheader' });
 		docDefinition.content.push('\n');
 		docDefinition.content.push({ ul: servicos , style: 'list', pageBreak: 'after' });
