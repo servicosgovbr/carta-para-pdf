@@ -5,11 +5,11 @@ function PdfMaker() {
 			font: 'OpenSans'
 		},
 		footer: function(currentPage, pageCount) { 
-		return {
-		    columns: ['Página ' + currentPage.toString() + ' de ' + pageCount],
-		    color: '#606060',
-		    margin: [ 70, 0, 70, 0 ]
-		  } 
+			return {
+			    columns: ['Página ' + currentPage.toString() + ' de ' + pageCount],
+			    color: '#606060',
+			    margin: [ 70, 0, 70, 0 ]
+		  	};
 		},
 		pageSize: 'A4',
 		pageMargins: [ 70, 70 ],
@@ -95,16 +95,16 @@ function PdfMaker() {
 		}
 	};
 
-	var initialDocDefinition = function(nome) {
+	function initialDocDefinition(nome) {
 		docDefinition.content = [];
 		docDefinition.content.push({ text: 'Carta de serviços', style: 'title'});
 		docDefinition.content.push({ text: '__________', style: 'border', margin: [ 70, -40, 90, 0 ] });
 		docDefinition.content.push('\n');
 		docDefinition.content.push('\n');
 		docDefinition.content.push({ text: nome.toUpperCase(), style: 'subtitle', margin: [ 70, 0, 115, 0 ], pageBreak: 'after' });
-	};
+	}
 
-	var capaOrgao = function(nome, descricao) {
+	function capaOrgao(nome, descricao) {
 		docDefinition.content.push({ text: nome, style: 'header'});
 		docDefinition.content.push({ text: 'O que é?', style: 'subheader' });
 		docDefinition.content.push('\n');
@@ -120,17 +120,18 @@ function PdfMaker() {
 		docDefinition.content.push({ text: '', style: 'paragraph', pageBreak: 'after' });
 	}
 
-	var indice = function(servicos) {
+	function indice() {
 		var servicos = [
-		'Serviço teste',
-		'Serviço test 2',
-		'Serviço test 3']
+			'Serviço teste',
+			'Serviço test 2',
+			'Serviço test 3'
+		];
 		docDefinition.content.push({ text: 'Quais os serviços disponíveis nesse guia?', style: 'subheader' });
 		docDefinition.content.push('\n');
 		docDefinition.content.push({ ul: servicos , style: 'list', pageBreak: 'after' });
 	}
 
-	var informacaoCartasDeServico = function() {
+	function informacaoCartasDeServico() {
 		docDefinition.content.push({ text: 'O que é uma carta de serviços?', style: 'header'});
 		docDefinition.content.push('\n');
 		docDefinition.content.push({ text: 'Carta de serviços é um documento feito para informar o cidadão sobre os serviços públicos disponíveis pelo governo federal. Cada carta é sobre um orgão do governo e seus serviços disponíveis.', style: 'paragraph' });
@@ -162,6 +163,8 @@ function PdfMaker() {
 	}
 
 	return {
-		generatePdf: generatePdf
+		generatePdf: generatePdf,
+		initialDocDefinition: initialDocDefinition,
+		docDefinition: docDefinition
 	};
 }

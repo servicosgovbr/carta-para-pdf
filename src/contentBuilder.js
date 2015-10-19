@@ -1,7 +1,6 @@
 function ContentBuilder (servicoObject) {
 	var servico = servicoObject,
 		docContent = [],
-		api = {},
 		parseHtml = new ParseHtml(),
 		formatterHelper = new FormatterHelper();		
 
@@ -13,19 +12,19 @@ function ContentBuilder (servicoObject) {
 		addContent('\n');
 	}
 
-	buildNome = function () {
+	function buildNome() {
 		addContent({ text: servico.nome + ' (' + servico.sigla + ')', style: 'header' });
 		addNewLine();
-	};
+	}
 
-	buildDescricao = function () {
+	function buildDescricao() {
 		addContent({ text: 'O que é?', style: 'subheader' });
 		addNewLine();
 		addContent({ text: servico.descricao, style: 'paragraph' });
 		addNewLine();
-	};
+	}
 
-	buildSolicitantes = function () {
+	function buildSolicitantes() {
 		addContent({ text: 'Quem pode utilizar este serviço?', style: 'subheader' });
 		addNewLine();
 
@@ -38,16 +37,16 @@ function ContentBuilder (servicoObject) {
 			docContent = docContent.concat(content);
 			addNewLine();
 		});
-	};
+	}
 
-	buildTempoTotalEstimado = function () {
+	function buildTempoTotalEstimado() {
 		addContent({ text: 'Quanto tempo leva?', style: 'subheader' });
 		addNewLine();
 		addContent({ text: 'Até ' + servico.tempoTotalEstimado.max + ' ' + formatterHelper.formatarTempoEstimado(servico.tempoTotalEstimado.unidade) + '.', style: 'paragraph' });
 		addNewLine();
-	};
+	}
 
-	buildLegislacoes = function () {
+	function buildLegislacoes() {
 		var content = [];
 		var textoHtml = markdown.toHTML(servico.legislacoes[0]);
 
@@ -57,23 +56,23 @@ function ContentBuilder (servicoObject) {
 		parseHtml.parseHtml(content, textoHtml);
 		docContent = docContent.concat(content);
 		addNewLine();
-	};
+	}
 
-	buildNomesPopulares = function () {
+	function buildNomesPopulares() {
 		addContent({ text: 'Você também pode conhecer este serviço como: ' + servico.nomesPopulares.join(', ') + '.', style: 'paragraph' });
 		addNewLine();
-	};
+	}
 
-	buildGratuidade = function () {
+	function buildGratuidade() {
 		addContent({ text: servico.gratuito ? 'Este serviço é gratuito para o cidadão.' : '', style: 'paragraph' });
-	};
+	}
 
-	buildOutrasInformacoes = function () {
+	function buildOutrasInformacoes() {
 		addContent({ text: 'Outras informações', style: 'subheader' });
 		addNewLine();
 		buildNomesPopulares();
 		buildGratuidade();
-	};
+	}
 
 	function buildEtapa(index, etapa) {
 		addContent({ text: 'Etapa ' + (index + 1) + ' - ' + etapa.titulo, style: 'thirdheader' });
@@ -174,25 +173,26 @@ function ContentBuilder (servicoObject) {
 		});
 	}
 
-	buildEtapas = function () {
+	function buildEtapas() {
 		addContent({ text: 'Etapas para a realização desse serviço', style: 'subheader' });
 		addNewLine();
 
 		$(servico.etapas).each(function(index, etapa){
 			buildEtapa(index, etapa);
 		});
-	};
+	}
 
-	api.buildContent = function () {
-		buildNome();
-		buildDescricao();
-		buildSolicitantes();
-		buildEtapas();
-		buildTempoTotalEstimado();
-		buildLegislacoes();
-		buildOutrasInformacoes();
+	return {
+		buildContent: function () {
+			buildNome();
+			buildDescricao();
+			buildSolicitantes();
+			buildEtapas();
+			buildTempoTotalEstimado();
+			buildLegislacoes();
+			buildOutrasInformacoes();
 
-		return docContent;
+			return docContent;
+		}
 	};
-	return api;
 }
