@@ -49,6 +49,11 @@ describe('Montar objeto pdfmake inicial', function () {
         };
 
         pdfMaker.geraInformacoesDosServicos(['<xml>test</xml>', '<xml>test</xml>', '<xml>test</xml>']);
-        expect(pdfMaker.docDefinition.content).toEqual([ { text: 'test' }, { text: '', pageBreak: 'after' }, { text: 'test' }, { text: '', pageBreak: 'after' }, { text: 'test' } ]);
+        expect(pdfMaker.docDefinition.content).toEqual([ 
+          { text: 'test' }, 
+          { text: '', pageBreak: 'after' }, 
+          { text: 'test' }, 
+          { text: '', pageBreak: 'after' }, 
+          { text: 'test' } ]);
     });
 });
