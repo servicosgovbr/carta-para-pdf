@@ -38,4 +38,17 @@ describe('Montar objeto pdfmake inicial', function () {
           { text: 'A Carta de serviços é baseada nas informações do portal de serviços do governo federal (www.servicos.gov.br). Esse documento foi gerado em ' + new FormatterHelper().getCurrentDate() + '. O portal de serviços está sempre sendo atualizado, por isso é importante imprimir a carta de serviços com frequência.', style: 'paragraph', pageBreak: 'after' }
         ]);
     });
+
+    it('cria info sobre serviços', function () {
+        ContentBuilder = function () { 
+          return {
+            buildContent: function() {
+              return [{ text: 'test' }];
+            } 
+          };
+        };
+
+        pdfMaker.geraInformacoesDosServicos(['<xml>test</xml>', '<xml>test</xml>', '<xml>test</xml>']);
+        expect(pdfMaker.docDefinition.content).toEqual([ { text: 'test' }, { text: '', pageBreak: 'after' }, { text: 'test' }, { text: '', pageBreak: 'after' }, { text: 'test' } ]);
+    });
 });

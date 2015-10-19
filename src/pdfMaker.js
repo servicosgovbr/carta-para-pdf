@@ -139,25 +139,29 @@ function PdfMaker() {
 		docDefinition.content.push({ text: 'A Carta de serviços é baseada nas informações do portal de serviços do governo federal (www.servicos.gov.br). Esse documento foi gerado em ' + new FormatterHelper().getCurrentDate() + '. O portal de serviços está sempre sendo atualizado, por isso é importante imprimir a carta de serviços com frequência.', style: 'paragraph', pageBreak: 'after' });
 	}
 
-	function generatePdf(jsonResponse) {
-		initialDocDefinition(jsonResponse.nome);
-		informacaoCartasDeServico();
-		capaOrgao(jsonResponse.nome, jsonResponse.descricao);
-		indice();
+	function geraInformacoesDosServicos(servicos) {
 		var servicoParser = new ServicoParser();
 
-		$(jsonResponse.servicos).each(function(index, xml) {
+		$(servicos).each(function(index, xml) {
 			var servicoObject = servicoParser.parseXml(xml);
 
 			var contentBuilder = new ContentBuilder(servicoObject);
 			var servicoDocument = contentBuilder.buildContent();
 
-			if(index < jsonResponse.servicos.length - 1) {
+			if (index < servicos.length - 1) {
 				servicoDocument.push({ text: '' , pageBreak: 'after' });
 			}
 
 			docDefinition.content = docDefinition.content.concat(servicoDocument);
 		});
+	}
+
+	function generatePdf(jsonResponse) {
+		initialDocDefinition(jsonResponse.nome);
+		informacaoCartasDeServico();
+		capaOrgao(jsonResponse.nome, jsonResponse.descricao);
+		indice();
+		geraInformacoesDosServicos(jsonResponse.servicos);
 
 		pdfMake.createPdf(docDefinition).open();
 	}
@@ -167,6 +171,7 @@ function PdfMaker() {
 		initialDocDefinition: initialDocDefinition,
 		docDefinition: docDefinition,
 		capaOrgao: capaOrgao,
-		informacaoCartasDeServico: informacaoCartasDeServico
+		informacaoCartasDeServico: informacaoCartasDeServico,
+		geraInformacoesDosServicos: geraInformacoesDosServicos
 	};
 }
