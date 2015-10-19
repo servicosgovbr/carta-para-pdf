@@ -48,8 +48,8 @@ describe('Montar conteúdo do serviço', function () {
         var content = [
             { text: 'Com requisito', style: 'thirdheader' },
             [{
-            "text": "Requisito",
-            "style": "text"
+            'text': 'Requisito',
+            'style': 'text'
             }],
             { text: 'Sem requisito', style: 'thirdheader' },
             { text: '', style: 'paragraph' },
@@ -114,6 +114,71 @@ describe('Montar conteúdo do serviço', function () {
         var content = [
             { text: 'Outras informações', style: 'subheader' }
         ];
+
+        expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));
+    });
+
+    it('deve adicionar 1 etapa', function () {
+        var servico = {
+            gratuito: true,
+            etapas: [{
+                titulo: 'Agendamento',
+                descricao: 'Inscrições abertas a partir de 11/08 até 31/08, o prazo final para inscrição de candidato ainda não matriculado na instituição de educação superior em que deseja se inscrever.',
+                documentos: {
+                    items: ['CPF'],
+                    casos: [{
+                        descricao: 'Professores',
+                        items: ['Comprovante do exercício do magistério']
+                    }]
+                },
+                custos: {
+                    items: [{
+                        descricao: 'Taxa de inscrição',
+                        valor: '90,00'
+                    }],
+                    casos: [{
+                        descricao: 'Estudantes da rede pública de ensino',
+                        items: [{
+                            descricao: 'Taxa de inscrição',
+                            valor: '0,00'
+                        }]
+                    }]
+                },
+                canaisDePrestacao: {
+                    items: [{
+                        tipo: 'postal',
+                        descricao: 'Av. Ipiranga 6681 - Prédio 99A - sala 218 – 2º andar. Porto Alegre - RS - Brasil. CEP 90619-900'
+                    }, {
+                        tipo: 'e-mail',
+                        descricao: 'brasil@gov.br'
+                    }, {
+                        tipo: 'web-agendar',
+                        descricao: 'http://siteprouni.mec.gov.br/'
+                    }],
+                    casos: [{
+                        descricao: 'Estudantes da rede pública de ensino',
+                        items: [{
+                            tipo: 'postal',
+                            descricao: 'Av. Ipiranga 6681 - Prédio 99A - sala 218 – 2º andar. Porto Alegre - RS - Brasil. CEP 90619-900'
+                        }]
+                    }]
+                }
+            }],
+        };
+
+        var content = [
+            {text: 'Etapas para a realização desse serviço',style:'subheader'},
+            '\n',
+            {text: 'Etapa 1 - Agendamento',style:'thirdheader'},
+            '\n',
+            {text: 'Inscrições abertas a partir de 11/08 até 31/08, o prazo final para inscrição de candidato ainda não matriculado na instituição de educação superior em que deseja se inscrever.',style:'paragraph'},
+            '\n',{
+                text: 'Documentos necessários para esta etapa:',
+                style: 'thirdheader'
+            }, '\n'
+        ];
+
+        contentBuilder = criarContentBuilder(servico);
 
         expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));
     });
