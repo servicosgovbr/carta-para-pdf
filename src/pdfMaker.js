@@ -166,6 +166,7 @@ function PdfMaker() {
 		generatePdf: generatePdf,
 		initialDocDefinition: initialDocDefinition,
 		docDefinition: docDefinition,
-		capaOrgao: capaOrgao
+		capaOrgao: capaOrgao,
+		informacaoCartasDeServico: informacaoCartasDeServico
 	};
 }
