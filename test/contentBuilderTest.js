@@ -47,12 +47,10 @@ describe('Montar conteúdo do serviço', function () {
         ]};
         var content = [
             { text: 'Com requisito', style: 'thirdheader' },
-            [
-                [{
-                "text": "Requisito",
-                "style": "text"
-                }]
-            ],
+            [{
+            "text": "Requisito",
+            "style": "text"
+            }],
             { text: 'Sem requisito', style: 'thirdheader' },
             { text: '', style: 'paragraph' },
             { text: '', style: 'paragraph' }

@@ -172,7 +172,6 @@ describe('Montar objeto pdfmake', function () {
     it('parse markdown page example 1', function () {
         var markdownString = 'A First Level Header\n====================\n\nA Second Level Header\n---------------------\n\nNow is the time for all good men to come to\nthe aid of their country. This is just\nregular paragraph.\n\nThe quick brown fox jumped over the lazy\ndog\'s back.\n\n### Header 3\n\n> This is a blockquote.\n>\n> This is the second paragraph in the blockquote.\n>\n> ## This is an H2 in a blockquote';
         var html = markdown.toHTML(markdownString);
-        console.log(html);
         var container = [];
         var result = [{ text: 'A First Level Header', style: 'subheader' }, 
             { text: 'A Second Level Header', style: 'thirdheader' }, 

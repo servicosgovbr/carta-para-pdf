@@ -19,13 +19,11 @@ describe('Montar objeto pdfmake inicial', function () {
 
     it('cria capa do orgão', function () {
         pdfMaker.capaOrgao('Ministério da educação (MEC)', 'Órgão do governo federal que trata da política nacional de educação em geral.');
-        expect(pdfMaker.docDefinition.content).toEqual([
-          { text: 'Ministério da educação (MEC)', style: 'header' },
-          { text: 'O que é?', style: 'subheader' },
-          '\n',
-          [ [ { text: 'Órgão do governo federal que trata da política nacional de educação em geral.', style: 'text' } ] ],
-          { text: '', style: 'paragraph', pageBreak: 'after' } 
-        ]);
+        expect(pdfMaker.docDefinition.content).toEqual([{ text: 'Ministério da educação (MEC)', style: 'header' }, 
+          { text: 'O que é?', style: 'subheader' }, 
+          '\n', [ 
+          { text: 'Órgão do governo federal que trata da política nacional de educação em geral.', style: 'text' } ], 
+          { text: '', style: 'paragraph', pageBreak: 'after' } ]);
     });
 
     it('cria info sobre carta de serviços', function () {
