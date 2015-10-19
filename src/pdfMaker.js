@@ -22,6 +22,12 @@ function PdfMaker() {
 		   lineHeight: 0.64,
 		   margin: [ 70, 150, 0, 0 ]
 		 },
+		 code: {
+		 	fontSize: 12,
+		  	color: '#606060',
+		  	margin: [ 0, 0, 0, 5 ],
+		  	italics: true
+		 },
 		 text: {
 		  fontSize: 12,
 		  color: '#606060',

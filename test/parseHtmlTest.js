@@ -184,4 +184,76 @@ describe('Montar objeto pdfmake', function () {
         parseHtml.parseHtml(container, html);
         expect(container).toEqual(result);
     });
+
+    it('parse markdown page example 2', function () {
+        var markdownString = 'Some of these words *are emphasized*.\nSome of these words _are emphasized also_.\n\nUse two asterisks for **strong emphasis**.\nOr, if you prefer, __use two underscores instead__.';
+        var html = markdown.toHTML(markdownString);
+        var container = [];
+        var result = [ [ { text: 'Some of these words ', style: 'text' }, 
+            { text: 'are emphasized', style: 'paragraph' }, 
+            { text: '.Some of these words ', style: 'text' }, 
+            { text: 'are emphasized also', style: 'paragraph' }, 
+            { text: '.', style: 'text' } ], 
+            [ { text: 'Use two asterisks for ', style: 'text' }, 
+            { text: 'strong emphasis', bold: true }, 
+            { text: '.Or, if you prefer, ', style: 'text' }, 
+            { text: 'use two underscores instead', bold: true }, 
+            { text: '.', style: 'text' } ] ] ;
+        
+        parseHtml.parseHtml(container, html);
+        expect(container).toEqual(result);
+    });
+
+    it('parse markdown page example 3', function () {
+        var markdownString = '*   Candy.\n*   Gum.\n*   Booze.';
+        var html = markdown.toHTML(markdownString);
+        var container = [];
+        var result = [{ style: 'listMargin', ul: [ 'Candy.', 'Gum.', 'Booze.' ] } ];
+        
+        parseHtml.parseHtml(container, html);
+        expect(container).toEqual(result);
+    });
+
+    it('parse markdown page example 4', function () {
+        var markdownString = '1. Red\n2. Green\n3. Blue';
+        var html = markdown.toHTML(markdownString);
+        var container = [];
+        var result = [{ style: 'listMargin', ol: [ 'Red', 'Green', 'Blue' ] }];
+        
+        parseHtml.parseHtml(container, html);
+        expect(container).toEqual(result);
+    });
+
+    it('parse markdown page example 5', function () {
+        var markdownString = 'I get 10 times more traffic from [Google][1] than from\n[Yahoo][2] or [MSN][3].\n\n[1]: http://google.com/ "Google"\n[2]: http://search.yahoo.com/ "Yahoo Search"\n[3]: http://search.msn.com/ "MSN Search"';
+        var html = markdown.toHTML(markdownString);
+        var container = [];
+        var result = [ [ { text: 'I get 10 times more traffic from ', style: 'text' }, 
+            { text: 'Google - http://google.com/', style: 'text' }, 
+            { text: ' than from', style: 'text' }, 
+            { text: 'Yahoo - http://search.yahoo.com/', style: 'text' }, 
+            { text: ' or ', style: 'text' }, 
+            { text: 'MSN - http://search.msn.com/', style: 'text' }, 
+            { text: '.', style: 'text' } ] ] ;
+        
+        parseHtml.parseHtml(container, html);
+        expect(container).toEqual(result);
+    });    
+
+    it('parse markdown page example 6', function () {
+        var markdownString = 'I strongly recommend against using any `<blink>` tags.\n\nI wish SmartyPants used named entities like `&mdash;`\ninstead of decimal-encoded entites like `&#8212;`.';
+        var html = markdown.toHTML(markdownString);
+        var container = [];
+        var result =  [ [ { text: 'I strongly recommend against using any ', style: 'text' },
+            { text: '&lt;blink&gt;', style: 'code' }, [  ], 
+            { text: ' tags.', style: 'text' }], 
+            [ { text: 'I wish SmartyPants used named entities like ', style: 'text' }, 
+            { text: '&amp;mdash;', style: 'code' }, [  ], 
+            { text: 'instead of decimal-encoded entites like ', style: 'text' }, 
+            { text: '&amp;#8212;', style: 'code' }, [  ], 
+            { text: '.', style: 'text' } ] ];
+        
+        parseHtml.parseHtml(container, html);
+        expect(container).toEqual(result);
+    });
 });

@@ -62,6 +62,9 @@ var ParseHtml = function() {
 	            ParseContainer(container, element, docDefinition);
 	            break;
 	        }
+	        case "code": {
+	        	container.push({ text: $(element).html(), style: 'code' });
+	        }
 	        case "br": {
 	            docDefinition = CreateDocument();
 	            container.push(docDefinition);
