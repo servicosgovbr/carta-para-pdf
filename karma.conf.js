@@ -11,8 +11,7 @@ module.exports = function(config) {
           dir: 'coverage/'
         },
         files: [
-          'lib/jquery-1.11.3.min.js',
-          'lib/markdown.min.js',
+          'lib/*.js',
           'src/*.js',
           'test/*.js'
         ],

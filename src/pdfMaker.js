@@ -165,6 +165,7 @@ function PdfMaker() {
 	return {
 		generatePdf: generatePdf,
 		initialDocDefinition: initialDocDefinition,
-		docDefinition: docDefinition
+		docDefinition: docDefinition,
+		capaOrgao: capaOrgao
 	};
 }
