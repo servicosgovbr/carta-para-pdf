@@ -173,12 +173,13 @@ describe('Montar objeto pdfmake', function () {
         var markdownString = 'A First Level Header\n====================\n\nA Second Level Header\n---------------------\n\nNow is the time for all good men to come to\nthe aid of their country. This is just\nregular paragraph.\n\nThe quick brown fox jumped over the lazy\ndog\'s back.\n\n### Header 3\n\n> This is a blockquote.\n>\n> This is the second paragraph in the blockquote.\n>\n> ## This is an H2 in a blockquote';
         var html = markdown.toHTML(markdownString);
         var container = [];
-        var result = [{ text: 'A First Level Header', style: 'subheader' }, 
+        var result = [ { text: 'A First Level Header', style: 'subheader' }, 
             { text: 'A Second Level Header', style: 'thirdheader' }, 
-            [{ text: 'Now is the time for all good men to come tothe aid of their country. This is justregular paragraph.', style: 'text' }], 
-            [{ text: 'The quick brown fox jumped over the lazydog\'s back.', style: 'text' }], 
+            [ { text: 'Now is the time for all good men to come tothe aid of their country. This is justregular paragraph.', style: 'text' } ], 
+            [ { text: 'The quick brown fox jumped over the lazydog\'s back.', style: 'text' } ], 
             { text: 'Header 3', style: 'thirdheader' }, 
-            { text: '<p>This is a blockquote.</p><p>This is the second paragraph in the blockquote.</p><h2>This is an H2 in a blockquote</h2>', style: 'text' }];
+            [ [ { text: 'This is a blockquote.', style: 'text' } ], 
+            { text: 'This is an H2 in a blockquote', style: 'thirdheader' } ] ];
         
         parseHtml.parseHtml(container, html);
         expect(container).toEqual(result);

@@ -96,6 +96,7 @@ var ParseHtml = function() {
 	            break;
 	        }
 	        case "div":
+	        case "blockquote":
 	        case "p": {
 	            stack = [];
 	            ParseContainer(stack, element, docDefinition);
