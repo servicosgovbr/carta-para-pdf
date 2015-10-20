@@ -11,7 +11,7 @@ var path = {
 
 gulp.task('bundle', function() {
     return gulp.src(['lib/jquery-1.11.3.min.js','lib/markdown.min.js','lib/pdfmake.min.js','lib/vfs_fonts.js', 'src/cartaParaPDf.js', 'src/contentBuilder.js', 'src/formatterHelper.js', 'src/parseHtml.js', 'src/pdfMaker.js', 'src/servicoParser.js'])
-        .pipe(concat('cartaParaPDf.js'))
+        .pipe(concat('cartaParaPdf.js'))
         .pipe(uglify())
         .pipe(gulp.dest('bin'));
 });

@@ -6,9 +6,10 @@ cartaParaPdf.PdfMaker = function() {
 		},
 		footer: function(currentPage, pageCount) { 
 			return {
-			    columns: ['Página ' + currentPage.toString() + ' de ' + pageCount],
+			    columns: currentPage !== 1 ? ['Página ' + currentPage.toString() + ' de ' + pageCount] : [''],
 			    color: '#606060',
-			    margin: [ 70, 0, 70, 0 ]
+			    margin: [ 430, 20, 70, 0 ],
+			    bold: true
 		  	};
 		},
 		pageSize: 'A4',
@@ -54,9 +55,16 @@ cartaParaPdf.PdfMaker = function() {
 		 subheader: {
 		   fontSize: 22,
 		   bold: true,
-		   color: '#2C66CE',
+		   color: '#606060',
 		   lineHeight: 0.8,
 		   margin: [ 0, 0, 0, 7 ]
+		 },
+		 subheadermargin: {
+		   fontSize: 22,
+		   bold: true,
+		   color: '#606060',
+		   lineHeight: 0.8,
+		   margin: [ 0, 90, 0, 7 ]
 		 },
 		 thirdheader: {
 		   fontSize: 15,
@@ -112,7 +120,7 @@ cartaParaPdf.PdfMaker = function() {
 
 	function capaOrgao(nome, descricao) {
 		docDefinition.content.push({ text: nome, style: 'header'});
-		docDefinition.content.push({ text: 'O que é?', style: 'subheader' });
+		docDefinition.content.push({ text: 'O que é?', style: 'subheadermargin' });
 		docDefinition.content.push('\n');
 
 		var textoHtml = markdown.toHTML(descricao);
@@ -127,7 +135,9 @@ cartaParaPdf.PdfMaker = function() {
 	}
 
 	function informacaoCartasDeServico() {
-		docDefinition.content.push({ text: 'O que é uma carta de serviços?', style: 'header'});
+		docDefinition.content.push({ text: 'Carta de serviços', style: 'header'});
+		docDefinition.content.push('\n');
+		docDefinition.content.push({ text: 'O que é?', style: 'subheadermargin'});
 		docDefinition.content.push('\n');
 		docDefinition.content.push({ text: 'Carta de serviços é um documento feito para informar o cidadão sobre os serviços públicos disponíveis pelo governo federal. Cada carta é sobre um orgão do governo e seus serviços disponíveis.', style: 'paragraph' });
 		docDefinition.content.push('\n');
@@ -151,7 +161,7 @@ cartaParaPdf.PdfMaker = function() {
 		});
 	}
 
-	function indice(servicos) {
+	function indice(servicos, orgao) {
 		var nomesServicos = [];
 		var servicoParser = new cartaParaPdf.ServicoParser();
 
@@ -160,7 +170,9 @@ cartaParaPdf.PdfMaker = function() {
 			nomesServicos.push(servicoObject.nome);			
 		});
 
-		docDefinition.content.push({ text: 'Quais os serviços disponíveis nesse guia?', style: 'subheader' });
+		docDefinition.content.push({ text: orgao, style: 'header' });
+		docDefinition.content.push('\n');
+		docDefinition.content.push({ text: 'Quais os serviços disponíveis?', style: 'subheadermargin' });
 		docDefinition.content.push('\n');
 		docDefinition.content.push({ ul: nomesServicos , style: 'list', pageBreak: 'after' });
 	}
@@ -169,7 +181,7 @@ cartaParaPdf.PdfMaker = function() {
 		initialDocDefinition(jsonResponse.nome);
 		informacaoCartasDeServico();
 		capaOrgao(jsonResponse.nome, jsonResponse.descricao);
-		indice(jsonResponse.servicos);
+		indice(jsonResponse.servicos, jsonResponse.nome);
 		geraInformacoesDosServicos(jsonResponse.servicos);
 
 		pdfMake.createPdf(docDefinition).open();

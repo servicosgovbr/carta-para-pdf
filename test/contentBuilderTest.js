@@ -34,7 +34,7 @@ describe('Montar conteúdo do serviço', function () {
 
     it('deve adicionar descrição', function () {
         var servico = { descricao: 'Descrição teste'},
-            content = [{ text: 'O que é?', style: 'subheader' }, { text: 'Descrição teste', style: 'paragraph' }];
+            content = [{ text: 'O que é?', style: 'subheadermargin' }, { text: 'Descrição teste', style: 'paragraph' }];
         contentBuilder = criarContentBuilder(servico);
 
         expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));
@@ -96,8 +96,6 @@ describe('Montar conteúdo do serviço', function () {
             [ { text: 'TítuloLei nº 6.766, de 19 de Dezembro de 1979 - http://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1979-12-19;6766', style: 'text' } ]
         ];
         contentBuilder = criarContentBuilder(servico);
-
-        console.log(contentBuilder.buildContent());
 
         expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));
     });

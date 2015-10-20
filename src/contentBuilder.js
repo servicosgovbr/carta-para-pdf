@@ -18,7 +18,7 @@ cartaParaPdf.ContentBuilder = function(servicoObject) {
 	}
 
 	function buildDescricao() {
-		addContent({ text: 'O que é?', style: 'subheader' });
+		addContent({ text: 'O que é?', style: 'subheadermargin' });
 		addNewLine();
 		addContent({ text: servico.descricao, style: 'paragraph' });
 		addNewLine();
@@ -63,11 +63,16 @@ cartaParaPdf.ContentBuilder = function(servicoObject) {
 
 	function buildNomesPopulares() {
 		addContent({ text: 'Você também pode conhecer este serviço como: ' + servico.nomesPopulares.join(', ') + '.', style: 'paragraph' });
-		addNewLine();
+		
+		if(servico.gratuito) {
+			addNewLine();
+		}
 	}
 
 	function buildGratuidade() {
-		addContent({ text: servico.gratuito ? 'Este serviço é gratuito para o cidadão.' : '', style: 'paragraph' });
+		if(servico.gratuito) {
+			addContent({ text: 'Este serviço é gratuito para o cidadão.', style: 'paragraph' });
+		}
 	}
 
 	function buildOutrasInformacoes() {
