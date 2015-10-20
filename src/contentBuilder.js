@@ -48,12 +48,15 @@ cartaParaPdf.ContentBuilder = function(servicoObject) {
 
 	function buildLegislacoes() {
 		var content = [];
-		var textoHtml = markdown.toHTML(servico.legislacoes[0]);
 
 		addContent({ text: 'Legislação', style: 'subheader' });
 		addNewLine();
 
-		parseHtml.parseHtml(content, textoHtml);
+		$(servico.legislacoes).each(function(index, item) {
+			var textoHtml = markdown.toHTML(servico.legislacoes[index]);
+			parseHtml.parseHtml(content, textoHtml);
+		});
+
 		docContent = docContent.concat(content);
 		addNewLine();
 	}
