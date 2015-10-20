@@ -126,17 +126,6 @@ function PdfMaker() {
 		docDefinition.content.push({ text: '', style: 'paragraph', pageBreak: 'after' });
 	}
 
-	function indice() {
-		var servicos = [
-			'Serviço teste',
-			'Serviço test 2',
-			'Serviço test 3'
-		];
-		docDefinition.content.push({ text: 'Quais os serviços disponíveis nesse guia?', style: 'subheader' });
-		docDefinition.content.push('\n');
-		docDefinition.content.push({ ul: servicos , style: 'list', pageBreak: 'after' });
-	}
-
 	function informacaoCartasDeServico() {
 		docDefinition.content.push({ text: 'O que é uma carta de serviços?', style: 'header'});
 		docDefinition.content.push('\n');
@@ -162,11 +151,25 @@ function PdfMaker() {
 		});
 	}
 
+	function indice(servicos) {
+		var nomesServicos = [];
+		var servicoParser = new ServicoParser();
+
+		$(servicos).each(function(index, xml) {
+			var servicoObject = servicoParser.parseXml(xml);
+			nomesServicos.push(servicoObject.nome);			
+		});
+
+		docDefinition.content.push({ text: 'Quais os serviços disponíveis nesse guia?', style: 'subheader' });
+		docDefinition.content.push('\n');
+		docDefinition.content.push({ ul: nomesServicos , style: 'list', pageBreak: 'after' });
+	}
+
 	function generatePdf(jsonResponse) {
 		initialDocDefinition(jsonResponse.nome);
 		informacaoCartasDeServico();
 		capaOrgao(jsonResponse.nome, jsonResponse.descricao);
-		indice();
+		indice(jsonResponse.servicos);
 		geraInformacoesDosServicos(jsonResponse.servicos);
 
 		pdfMake.createPdf(docDefinition).open();
