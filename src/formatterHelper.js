@@ -33,6 +33,8 @@ cartaParaPdf.FormatterHelper = function() {
 	function formatarTempoEstimado(tempo) {
 		if(tempo === 'dias-uteis') {
 			return 'dias úteis';
+		} else if (tempo === 'dias-corridos') {
+			return 'dias corridos';
 		} else {
 			return tempo;
 		}

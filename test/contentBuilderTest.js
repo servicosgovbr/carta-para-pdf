@@ -74,6 +74,32 @@ describe('Montar conteúdo do serviço', function () {
         expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));
     });
 
+    it('deve adicionar tempo estimado 2', function () {
+        var servico = {
+            tempoTotalEstimado: { min: '10', max: '15', unidade: 'dias-corridos'}
+        };
+        var content = [
+            { text: 'Quanto tempo leva?', style: 'subheader' },
+            { text: 'Entre 10 e 15 dias corridos.', style: 'paragraph' },
+        ];
+        contentBuilder = criarContentBuilder(servico);
+
+        expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));
+    });
+
+    it('deve adicionar tempo estimado 3', function () {
+        var servico = {
+            tempoTotalEstimado: { min: '1', max: '5', unidade: 'meses'}
+        };
+        var content = [
+            { text: 'Quanto tempo leva?', style: 'subheader' },
+            { text: 'Entre 1 e 5 meses.', style: 'paragraph' },
+        ];
+        contentBuilder = criarContentBuilder(servico);
+
+        expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));
+    });
+
     it('deve adicionar legislações', function () {
         var servico = {
             legislacoes: [ '[TítuloLei nº 6.766, de 19 de Dezembro de 1979](http://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1979-12-19;6766)' ]
