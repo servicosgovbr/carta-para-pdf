@@ -244,13 +244,14 @@ describe('Montar objeto pdfmake', function () {
         var markdownString = 'I strongly recommend against using any `<blink>` tags.\n\nI wish SmartyPants used named entities like `&mdash;`\ninstead of decimal-encoded entites like `&#8212;`.';
         var html = markdown.toHTML(markdownString);
         var container = [];
-        var result =  [ [ { text: 'I strongly recommend against using any ', style: 'text' },
-            { text: '&lt;blink&gt;', style: 'code' }, [  ], 
-            { text: ' tags.', style: 'text' }], 
+        var result =  
+            [ [ { text: 'I strongly recommend against using any ', style: 'text' },
+            { text: '&lt;blink&gt;', style: 'code' }, 
+            { text: ' tags.', style: 'text' } ],
             [ { text: 'I wish SmartyPants used named entities like ', style: 'text' }, 
-            { text: '&amp;mdash;', style: 'code' }, [  ], 
+            { text: '&amp;mdash;', style: 'code' }, 
             { text: 'instead of decimal-encoded entites like ', style: 'text' }, 
-            { text: '&amp;#8212;', style: 'code' }, [  ], 
+            { text: '&amp;#8212;', style: 'code' }, 
             { text: '.', style: 'text' } ] ];
         
         parseHtml.parseHtml(container, html);
