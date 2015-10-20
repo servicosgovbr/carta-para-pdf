@@ -2,7 +2,7 @@ describe('Formatador do valores para o PDF', function () {
     var formatterHelper;
 
     beforeEach(function(){
-      formatterHelper = new FormatterHelper();
+      formatterHelper = new cartaParaPdf.FormatterHelper();
     });
 
     it('formata data', function () {

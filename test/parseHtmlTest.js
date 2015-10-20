@@ -2,7 +2,7 @@ describe('Montar objeto pdfmake', function () {
     var parseHtml;
 
     beforeEach(function(){
-      parseHtml = new ParseHtml();
+      parseHtml = new cartaParaPdf.ParseHtml();
     });
 
     it('parse link', function () {

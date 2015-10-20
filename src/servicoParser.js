@@ -1,4 +1,4 @@
-function ServicoParser() {
+cartaParaPdf.ServicoParser = function() {
 	var api = {};
 
 	function parseArray(xmlDoc, selector) {
@@ -195,4 +195,4 @@ function ServicoParser() {
 	};
 
 	return api;
-}
+};

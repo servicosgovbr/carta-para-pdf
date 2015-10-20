@@ -1,5 +1,5 @@
 $(function() {
-  var pdfMaker = new PdfMaker();
+  var pdfMaker = new cartaParaPdf.PdfMaker();
   var jsonResponse = {
     nome: 'Ministério da educação (MEC)',
     descricao: 'Órgão do governo federal que trata da política nacional de educação em geral, compreendendo: \n\n * ensino fundamental, médio e superior; \n * educação de jovens e adultos, seja profissional, especial ou à distância; \n * informação e pesquisa educacional; \n * pesquisa e extensão universitária; e \n * magistério.',
@@ -11,6 +11,6 @@ $(function() {
   };
 
   $('#pdf').click(function() {
-    pdfMaker.generatePdf(jsonResponse);
+    pdfMaker.geraPdf(jsonResponse);
   });
 });

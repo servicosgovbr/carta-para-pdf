@@ -1,8 +1,8 @@
-function ContentBuilder (servicoObject) {
+cartaParaPdf.ContentBuilder = function(servicoObject) {
 	var servico = servicoObject,
 		docContent = [],
-		parseHtml = new ParseHtml(),
-		formatterHelper = new FormatterHelper();		
+		parseHtml = new cartaParaPdf.ParseHtml(),
+		formatterHelper = new cartaParaPdf.FormatterHelper();		
 
 	function addContent(content) {
 		docContent.push(content);
@@ -195,4 +195,4 @@ function ContentBuilder (servicoObject) {
 			return docContent;
 		}
 	};
-}
+};

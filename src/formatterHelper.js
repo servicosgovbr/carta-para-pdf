@@ -1,4 +1,4 @@
-function FormatterHelper() {
+cartaParaPdf.FormatterHelper = function() {
 	function formatDate(date) {
 		var months = [
 			'Janeiro',
@@ -48,4 +48,4 @@ function FormatterHelper() {
 		formatarCanalDeComunicacao: formatarCanalDeComunicacao,
 		formatarTempoEstimado: formatarTempoEstimado
 	};
-}
+};

@@ -1,11 +1,11 @@
-var ParseHtml = function() {
-	function ParseContainer(container, element, docDefinition) {
+cartaParaPdf.ParseHtml = function() {
+	function parseContainer(container, element, docDefinition) {
 	    var elements = [];
 	    var children = element.childNodes;
 
 	    if (children.length !== 0) {
 	        for (i = 0; i < children.length; i++) {
-	        	docDefinition = ParseElement(elements, children[i], docDefinition);
+	        	docDefinition = parseElement(elements, children[i], docDefinition);
 	        }
 	    }
 
@@ -16,13 +16,13 @@ var ParseHtml = function() {
 	    }
 	}
 
-	function ParseItem(container, element, docDefinition, listType) {
+	function parseItem(container, element, docDefinition, listType) {
 		var list = [],
 			content = {};
 
         $(element).find('li').each(function(index, listItem) {
 			if (listItem.children.length !== 0) {
-	            ParseContainer(list, listItem, docDefinition);
+	            parseContainer(list, listItem, docDefinition);
 			} else {
         		list.push($(listItem).html());
 			}
@@ -34,7 +34,7 @@ var ParseHtml = function() {
         container.push(content);
 	}
 
-	function ParseElement(container, element, docDefinition) {
+	function parseElement(container, element, docDefinition) {
 		var content,
 			stack,
 			text;
@@ -59,7 +59,7 @@ var ParseHtml = function() {
 	            break;
 	        }
 	        case "span": {
-	            ParseContainer(container, element, docDefinition);
+	            parseContainer(container, element, docDefinition);
 	            break;
 	        }
 	        case "code": {
@@ -67,7 +67,7 @@ var ParseHtml = function() {
 	        	break;
 	        }
 	        case "br": {
-	            docDefinition = CreateDocument();
+	            docDefinition = createDocument();
 	            container.push(docDefinition);
 	            break;
 	        }
@@ -92,18 +92,18 @@ var ParseHtml = function() {
 	            break;
 	        }
 	        case "ul": {
-				ParseItem(container, element, docDefinition, 'ul');
+				parseItem(container, element, docDefinition, 'ul');
 	            break;
 	        }
 	        case "ol": {
-				ParseItem(container, element, docDefinition, 'ol');
+				parseItem(container, element, docDefinition, 'ol');
 	            break;
 	        }
 	        case "div":
 	        case "blockquote":
 	        case "p": {
 	            stack = [];
-	            ParseContainer(stack, element, docDefinition);
+	            parseContainer(stack, element, docDefinition);
 	            container.push(stack);
 	            break;
 	        }
@@ -116,12 +116,12 @@ var ParseHtml = function() {
 	    return docDefinition;
 	}
 
-	function ParseHtml(container, htmlText) {
+	function parseHtml(container, htmlText) {
 	    var html = $(htmlText.replace(/\t/g, "").replace(/\n/g, ""));
 	    var docDefinition = CreateDocument();
 
 	    for (var i = 0; i < html.length; i++) {
-	    	ParseElement(container, html[i], docDefinition);	
+	    	parseElement(container, html[i], docDefinition);	
 	    }
 	}
 
@@ -130,6 +130,6 @@ var ParseHtml = function() {
 	}
 
 	return {
-		parseHtml: ParseHtml
+		parseHtml: parseHtml
 	};
 };

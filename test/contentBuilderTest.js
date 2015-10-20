@@ -21,7 +21,7 @@ describe('Montar conteúdo do serviço', function () {
             servico[property] = novoServico[property];
         }
 
-        return new ContentBuilder(servico);
+        return new cartaParaPdf.ContentBuilder(servico);
     }
 
     it('deve adicionar o nome', function () {

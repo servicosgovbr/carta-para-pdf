@@ -1,4 +1,4 @@
-function PdfMaker() {
+cartaParaPdf.PdfMaker = function() {
 	var docDefinition = {
 		content: [],
 			defaultStyle: {
@@ -117,7 +117,7 @@ function PdfMaker() {
 
 		var textoHtml = markdown.toHTML(descricao);
 		var content = [];
-		var parseHtml = new ParseHtml();
+		var parseHtml = new cartaParaPdf.ParseHtml();
 
 		parseHtml.parseHtml(content, textoHtml);
 		docDefinition.content = docDefinition.content.concat(content);
@@ -131,16 +131,16 @@ function PdfMaker() {
 		docDefinition.content.push('\n');
 		docDefinition.content.push({ text: 'Carta de serviços é um documento feito para informar o cidadão sobre os serviços públicos disponíveis pelo governo federal. Cada carta é sobre um orgão do governo e seus serviços disponíveis.', style: 'paragraph' });
 		docDefinition.content.push('\n');
-		docDefinition.content.push({ text: 'A Carta de serviços é baseada nas informações do portal de serviços do governo federal (www.servicos.gov.br). Esse documento foi gerado em ' + new FormatterHelper().getCurrentDate() + '. O portal de serviços está sempre sendo atualizado, por isso é importante imprimir a carta de serviços com frequência.', style: 'paragraph', pageBreak: 'after' });
+		docDefinition.content.push({ text: 'A Carta de serviços é baseada nas informações do portal de serviços do governo federal (www.servicos.gov.br). Esse documento foi gerado em ' + new cartaParaPdf.FormatterHelper().getCurrentDate() + '. O portal de serviços está sempre sendo atualizado, por isso é importante imprimir a carta de serviços com frequência.', style: 'paragraph', pageBreak: 'after' });
 	}
 
 	function geraInformacoesDosServicos(servicos) {
-		var servicoParser = new ServicoParser();
+		var servicoParser = new cartaParaPdf.ServicoParser();
 
 		$(servicos).each(function(index, xml) {
 			var servicoObject = servicoParser.parseXml(xml);
 
-			var contentBuilder = new ContentBuilder(servicoObject);
+			var contentBuilder = new cartaParaPdf.ContentBuilder(servicoObject);
 			var servicoDocument = contentBuilder.buildContent();
 
 			if (index < servicos.length - 1) {
@@ -153,7 +153,7 @@ function PdfMaker() {
 
 	function indice(servicos) {
 		var nomesServicos = [];
-		var servicoParser = new ServicoParser();
+		var servicoParser = new cartaParaPdf.ServicoParser();
 
 		$(servicos).each(function(index, xml) {
 			var servicoObject = servicoParser.parseXml(xml);
@@ -165,7 +165,7 @@ function PdfMaker() {
 		docDefinition.content.push({ ul: nomesServicos , style: 'list', pageBreak: 'after' });
 	}
 
-	function generatePdf(jsonResponse) {
+	function geraPdf(jsonResponse) {
 		initialDocDefinition(jsonResponse.nome);
 		informacaoCartasDeServico();
 		capaOrgao(jsonResponse.nome, jsonResponse.descricao);
@@ -176,11 +176,11 @@ function PdfMaker() {
 	}
 
 	return {
-		generatePdf: generatePdf,
+		geraPdf: geraPdf,
 		initialDocDefinition: initialDocDefinition,
 		docDefinition: docDefinition,
 		capaOrgao: capaOrgao,
 		informacaoCartasDeServico: informacaoCartasDeServico,
 		geraInformacoesDosServicos: geraInformacoesDosServicos
 	};
-}
+};
