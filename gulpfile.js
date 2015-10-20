@@ -1,10 +1,20 @@
 var gulp   = require('gulp');
 var jshint = require('gulp-jshint');
 var Server = require('karma').Server;
+var concat = require('gulp-concat');
+var rename = require('gulp-rename');
+var uglify = require('gulp-uglify');
 
 var path = {
     files: ['./src/*.js', './test/*.js']
 };
+
+gulp.task('bundle', function() {
+    return gulp.src(['lib/jquery-1.11.3.min.js','lib/markdown.min.js','lib/pdfmake.min.js','lib/vfs_fonts.js', 'src/contentBuilder.js', 'src/formatterHelper.js', 'src/parseHtml.js', 'src/pdfMaker.js', 'src/servicoParser.js'])
+        .pipe(concat('cartaParaPDf.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('bin'));
+});
 
 gulp.task('lint', function() {
   return gulp.src('./src/*.js')
