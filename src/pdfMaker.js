@@ -6,10 +6,11 @@ cartaParaPdf.PdfMaker = function() {
 		},
 		footer: function(currentPage, pageCount) { 
 			return {
-			    columns: currentPage !== 1 ? ['Página ' + currentPage.toString() + ' de ' + pageCount] : [''],
+			    columns: currentPage !== 1 ? [currentPage.toString()] : [''],
 			    color: '#606060',
-			    margin: [ 430, 20, 70, 0 ],
-			    bold: true
+			    margin: [ 500, 20, 70, 0 ],
+			    bold: true,
+			    fontSize: 10
 		  	};
 		},
 		pageSize: 'A4',
@@ -111,7 +112,7 @@ cartaParaPdf.PdfMaker = function() {
 
 	function initialDocDefinition(nome) {
 		docDefinition.content = [];
-		docDefinition.content.push({ text: 'Carta de serviços', style: 'title'});
+		docDefinition.content.push({ text: 'Carta de Serviços', style: 'title'});
 		docDefinition.content.push({ text: '__________', style: 'border', margin: [ 70, -40, 90, 0 ] });
 		docDefinition.content.push('\n');
 		docDefinition.content.push('\n');
@@ -135,7 +136,7 @@ cartaParaPdf.PdfMaker = function() {
 	}
 
 	function informacaoCartasDeServico() {
-		docDefinition.content.push({ text: 'Carta de serviços', style: 'header'});
+		docDefinition.content.push({ text: 'Carta de Serviços', style: 'header'});
 		docDefinition.content.push('\n');
 		docDefinition.content.push({ text: 'O que é?', style: 'subheadermargin'});
 		docDefinition.content.push('\n');

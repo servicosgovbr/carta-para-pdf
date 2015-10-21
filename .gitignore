@@ -2,4 +2,3 @@
 .DS_Store
 npm-debug.log
 /coverage
-/bin/*.js
