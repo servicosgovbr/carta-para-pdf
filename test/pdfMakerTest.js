@@ -10,11 +10,16 @@ describe('Montar objeto pdfmake inicial', function () {
         pdfMaker.initialDocDefinition('Ministério da educação (MEC)');
         expect(pdfMaker.docDefinition.content).toEqual(
           [ 
-            { text: 'Carta de Serviços', style: 'title' }, 
-            { text: '__________', style: 'border', margin: [ 70, -40, 90, 0 ] },
+            { text: 'Ministério da educação (MEC)', style: 'title'},
+            { text: '__________________________________', style: 'border', margin: [ 0, 30, 0, 0 ] },
             '\n',
-            '\n', 
-            { text: 'MINISTÉRIO DA EDUCAÇÃO (MEC)', style: 'subtitle', margin: [ 70, 0, 115, 0 ], pageBreak: 'after' } 
+            '\n',
+            { text: 'Carta de Serviços', style: 'subtitle', margin: [ 0, 20, 0, 0 ] },
+            '\n',
+            { text: 'Carta de serviços é um documento feito para informar o cidadão sobre os serviços públicos disponíveis pelo Governo Federal. Cada carta é sobre um orgão do governo e seus serviços disponíveis.', style: 'paragraph' },
+            { text: 'A Carta de serviços é baseada nas informações do portal de serviços do Governo Federal (www.servicos.gov.br).', style: 'paragraph' },
+            '\n',
+            { text: 'Documento impresso em ' + new cartaParaPdf.FormatterHelper().getCurrentDate(), margin: [ 0, 230, 0, 0 ], fontStyle: 50, style: 'paragraph', pageBreak: 'after' }
           ]);
     });
 
@@ -26,21 +31,6 @@ describe('Montar objeto pdfmake inicial', function () {
           '\n',
           [{ text: 'Órgão do governo federal que trata da política nacional de educação em geral.', style: 'text' }], 
           { text: '', style: 'paragraph', pageBreak: 'after' } ]);
-    });
-
-    it('cria info sobre carta de serviços', function () {
-        var date = formatterHelper.formatDate(new Date());
-
-        pdfMaker.informacaoCartasDeServico();
-        expect(pdfMaker.docDefinition.content).toEqual(
-          [ { text: 'Carta de Serviços', style: 'header' }, 
-          '\n', 
-          { text: 'O que é?', style: 'subheadermargin' }, 
-          '\n', 
-          { text: 'Carta de serviços é um documento feito para informar o cidadão sobre os serviços públicos disponíveis pelo governo federal. Cada carta é sobre um orgão do governo e seus serviços disponíveis.', style: 'paragraph' }, 
-          '\n', 
-          { text: 'A Carta de serviços é baseada nas informações do portal de serviços do governo federal (www.servicos.gov.br). Esse documento foi gerado em ' + date + '. O portal de serviços está sempre sendo atualizado, por isso é importante imprimir a carta de serviços com frequência.', style: 'paragraph', pageBreak: 'after' } 
-        ]);
     });
 
     it('cria info sobre serviços', function () {

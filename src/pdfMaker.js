@@ -13,16 +13,26 @@ cartaParaPdf.PdfMaker = function() {
 			    fontSize: 10
 		  	};
 		},
+		header: function(currentPage, pageCount) { 
+			return {
+			    columns: currentPage === 1 ? ['__________________________________________________________________'] : [''],
+			    color: '#2C66CE',
+			    background: '#2C66CE',
+			    margin: [ 0, 0, 0, 0 ],
+			    bold: true,
+			    fontSize: 26
+		  	};
+		},
 		pageSize: 'A4',
 		pageMargins: [ 70, 70 ],
 		pageOrientation: 'portrait',
 		styles: {
 		title: {
-		   fontSize: 72,
+		   fontSize: 55,
 		   bold: true,
 		   color: '#2C66CE',
-		   lineHeight: 0.64,
-		   margin: [ 70, 150, 0, 0 ]
+		   lineHeight: 0.7,
+		   margin: [ 0, 60, 0, 0 ]
 		 },
 		 code: {
 		 	fontSize: 12,
@@ -36,8 +46,8 @@ cartaParaPdf.PdfMaker = function() {
 		  margin: [ 0, 0, 0, 5 ]
 		 },
 		 border: {
-		   fontSize: 72,
-		   color: '#606060',
+		   fontSize: 30,
+		   color: '#dddddd',
 		   lineHeight: 0.64
 		 },
 		 subtitle: {
@@ -112,11 +122,16 @@ cartaParaPdf.PdfMaker = function() {
 
 	function initialDocDefinition(nome) {
 		docDefinition.content = [];
-		docDefinition.content.push({ text: 'Carta de Serviços', style: 'title'});
-		docDefinition.content.push({ text: '__________', style: 'border', margin: [ 70, -40, 90, 0 ] });
+		docDefinition.content.push({ text: nome, style: 'title'});
+		docDefinition.content.push({ text: '__________________________________', style: 'border', margin: [ 0, 30, 0, 0 ] });
 		docDefinition.content.push('\n');
 		docDefinition.content.push('\n');
-		docDefinition.content.push({ text: nome.toUpperCase(), style: 'subtitle', margin: [ 70, 0, 115, 0 ], pageBreak: 'after' });
+		docDefinition.content.push({ text: 'Carta de Serviços', style: 'subtitle', margin: [ 0, 20, 0, 0 ] });
+		docDefinition.content.push('\n');
+		docDefinition.content.push({ text: 'Carta de serviços é um documento feito para informar o cidadão sobre os serviços públicos disponíveis pelo Governo Federal. Cada carta é sobre um orgão do governo e seus serviços disponíveis.', style: 'paragraph' });
+		docDefinition.content.push({ text: 'A Carta de serviços é baseada nas informações do portal de serviços do Governo Federal (www.servicos.gov.br).', style: 'paragraph' });
+		docDefinition.content.push('\n');
+		docDefinition.content.push({ text: 'Documento impresso em ' + new cartaParaPdf.FormatterHelper().getCurrentDate(), margin: [ 0, 230, 0, 0 ], fontStyle: 50, style: 'paragraph', pageBreak: 'after' });
 	}
 
 	function capaOrgao(nome, descricao) {
@@ -133,16 +148,6 @@ cartaParaPdf.PdfMaker = function() {
 
 
 		docDefinition.content.push({ text: '', style: 'paragraph', pageBreak: 'after' });
-	}
-
-	function informacaoCartasDeServico() {
-		docDefinition.content.push({ text: 'Carta de Serviços', style: 'header'});
-		docDefinition.content.push('\n');
-		docDefinition.content.push({ text: 'O que é?', style: 'subheadermargin'});
-		docDefinition.content.push('\n');
-		docDefinition.content.push({ text: 'Carta de serviços é um documento feito para informar o cidadão sobre os serviços públicos disponíveis pelo governo federal. Cada carta é sobre um orgão do governo e seus serviços disponíveis.', style: 'paragraph' });
-		docDefinition.content.push('\n');
-		docDefinition.content.push({ text: 'A Carta de serviços é baseada nas informações do portal de serviços do governo federal (www.servicos.gov.br). Esse documento foi gerado em ' + new cartaParaPdf.FormatterHelper().getCurrentDate() + '. O portal de serviços está sempre sendo atualizado, por isso é importante imprimir a carta de serviços com frequência.', style: 'paragraph', pageBreak: 'after' });
 	}
 
 	function geraInformacoesDosServicos(servicos) {
@@ -180,7 +185,6 @@ cartaParaPdf.PdfMaker = function() {
 
 	function geraPdf(jsonResponse) {
 		initialDocDefinition(jsonResponse.nome);
-		informacaoCartasDeServico();
 		capaOrgao(jsonResponse.nome, jsonResponse.descricao);
 		indice(jsonResponse.servicos, jsonResponse.nome);
 		geraInformacoesDosServicos(jsonResponse.servicos);
@@ -193,7 +197,6 @@ cartaParaPdf.PdfMaker = function() {
 		initialDocDefinition: initialDocDefinition,
 		docDefinition: docDefinition,
 		capaOrgao: capaOrgao,
-		informacaoCartasDeServico: informacaoCartasDeServico,
 		geraInformacoesDosServicos: geraInformacoesDosServicos
 	};
 };
