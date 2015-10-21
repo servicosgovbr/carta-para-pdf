@@ -67,7 +67,7 @@ describe('Montar conteúdo do serviço', function () {
         };
         var content = [
             { text: 'Quanto tempo leva?', style: 'subheader' },
-            { text: 'Até 40 dias úteis.', style: 'paragraph' },
+            { text: 'Até 40 dias úteis é o tempo estimado para a prestação imediata deste serviço.', style: 'paragraph' },
         ];
         contentBuilder = criarContentBuilder(servico);
 
@@ -80,7 +80,7 @@ describe('Montar conteúdo do serviço', function () {
         };
         var content = [
             { text: 'Quanto tempo leva?', style: 'subheader' },
-            { text: 'Entre 10 e 15 dias corridos.', style: 'paragraph' },
+            { text: 'Entre 10 e 15 dias corridos é o tempo estimado para a prestação imediata deste serviço.', style: 'paragraph' },
         ];
         contentBuilder = criarContentBuilder(servico);
 
@@ -93,7 +93,7 @@ describe('Montar conteúdo do serviço', function () {
         };
         var content = [
             { text: 'Quanto tempo leva?', style: 'subheader' },
-            { text: 'Entre 1 e 5 meses.', style: 'paragraph' },
+            { text: 'Entre 1 e 5 meses é o tempo estimado para a prestação imediata deste serviço.', style: 'paragraph' },
         ];
         contentBuilder = criarContentBuilder(servico);
 
@@ -118,8 +118,8 @@ describe('Montar conteúdo do serviço', function () {
         };
         var content = [
             { text: 'Legislação', style: 'subheader' },
-            [ { text: 'TítuloLei nº 6.766, de 19 de Dezembro de 1979 - http://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1979-12-19;6766', style: 'text' }], 
-            [ { text: 'TítuloLei nº 6.766, de 19 de Dezembro de 1979 - http://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1979-12-19;6766', style: 'text' } ]
+            [ { text: 'TítuloLei nº 6.766, de 19 de Dezembro de 1979 (http://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1979-12-19;6766)', style: 'text' }], 
+            [ { text: 'TítuloLei nº 6.766, de 19 de Dezembro de 1979 (http://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1979-12-19;6766)', style: 'text' } ]
         ];
         contentBuilder = criarContentBuilder(servico);
 

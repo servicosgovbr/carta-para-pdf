@@ -8,7 +8,7 @@ describe('Montar objeto pdfmake', function () {
     it('parse link', function () {
         var html = '<p><a href="http://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1979-12-19;6766">TítuloLei nº 6.766, de 19 de Dezembro de 1979</a></p>';
         var container = [];
-        var result = [[{ text: 'TítuloLei nº 6.766, de 19 de Dezembro de 1979 - http://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1979-12-19;6766', style: 'text' }]];
+        var result = [[{ text: 'TítuloLei nº 6.766, de 19 de Dezembro de 1979 (http://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1979-12-19;6766)', style: 'text' }]];
 
         parseHtml.parseHtml(container, html);
 
@@ -58,7 +58,7 @@ describe('Montar objeto pdfmake', function () {
     it('parse links', function () {
         var html = '<p><a href="www.google.com">Test</a><a href="www.yahoo.com">Test 2</a></p>';
         var container = [];
-        var result = [[{ text: 'Test - www.google.com', style: 'text' }, { text: 'Test 2 - www.yahoo.com', style: 'text' }]];
+        var result = [[{ text: 'Test (www.google.com)', style: 'text' }, { text: 'Test 2 (www.yahoo.com)', style: 'text' }]];
 
         parseHtml.parseHtml(container, html);
 
@@ -130,7 +130,7 @@ describe('Montar objeto pdfmake', function () {
         var container = [];
         var result = [{ ol: [ 
             { text: 'Italic', italics: true }, 
-            { text: 'Test - www.google.com', style: 'text' }], style: 'listMargin' }];
+            { text: 'Test (www.google.com)', style: 'text' }], style: 'listMargin' }];
 
         parseHtml.parseHtml(container, html);
 
@@ -229,11 +229,11 @@ describe('Montar objeto pdfmake', function () {
         var html = markdown.toHTML(markdownString);
         var container = [];
         var result = [ [ { text: 'I get 10 times more traffic from ', style: 'text' }, 
-            { text: 'Google - http://google.com/', style: 'text' }, 
+            { text: 'Google (http://google.com/)', style: 'text' }, 
             { text: ' than from', style: 'text' }, 
-            { text: 'Yahoo - http://search.yahoo.com/', style: 'text' }, 
+            { text: 'Yahoo (http://search.yahoo.com/)', style: 'text' }, 
             { text: ' or ', style: 'text' }, 
-            { text: 'MSN - http://search.msn.com/', style: 'text' }, 
+            { text: 'MSN (http://search.msn.com/)', style: 'text' }, 
             { text: '.', style: 'text' } ] ] ;
         
         parseHtml.parseHtml(container, html);

@@ -72,7 +72,7 @@ cartaParaPdf.ParseHtml = function() {
 	            break;
 	        }
 	        case "a": {
-	            container.push({ text: $(element).html() + ' - ' + $(element).attr('href'), style: "text"});
+	            container.push({ text: $(element).html() + ' (' + $(element).attr('href') + ')', style: "text"});
 	            break;
 	        }
 			case "h6":

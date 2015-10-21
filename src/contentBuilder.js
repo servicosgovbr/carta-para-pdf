@@ -42,11 +42,18 @@ cartaParaPdf.ContentBuilder = function(servicoObject) {
 	function buildTempoTotalEstimado() {
 		addContent({ text: 'Quanto tempo leva?', style: 'subheader' });
 		addNewLine();
-		if(servico.tempoTotalEstimado.min !== undefined) {
-			addContent({ text: 'Entre ' + servico.tempoTotalEstimado.min + ' e ' + servico.tempoTotalEstimado.max + ' ' + formatterHelper.formatarTempoEstimado(servico.tempoTotalEstimado.unidade) + '.', style: 'paragraph' });
+		
+		if (servico.tempoTotalEstimado.min !== undefined) {
+			addContent({ text: 'Entre ' + servico.tempoTotalEstimado.min + ' e ' + servico.tempoTotalEstimado.max + ' ' + formatterHelper.formatarTempoEstimado(servico.tempoTotalEstimado.unidade) + ' é o tempo estimado para a prestação imediata deste serviço.', style: 'paragraph' });
 		} else {
-			addContent({ text: 'Até ' + servico.tempoTotalEstimado.max + ' ' + formatterHelper.formatarTempoEstimado(servico.tempoTotalEstimado.unidade) + '.', style: 'paragraph' });
+			addContent({ text: 'Até ' + servico.tempoTotalEstimado.max + ' ' + formatterHelper.formatarTempoEstimado(servico.tempoTotalEstimado.unidade) + ' é o tempo estimado para a prestação imediata deste serviço.', style: 'paragraph' });
 		}
+
+		if(servico.tempoTotalEstimado.descricao) {
+			addContent({ text: 'Informações adicionais ao tempo estimado' , style: 'thirdheader' });
+			addContent({ text: servico.tempoTotalEstimado.descricao, style: 'paragraph' });	
+		}
+
 		addNewLine();
 	}
 
