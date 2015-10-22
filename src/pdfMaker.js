@@ -8,7 +8,7 @@ cartaParaPdf.PdfMaker = function() {
 			return {
 			    columns: currentPage !== 1 ? [currentPage.toString()] : [''],
 			    color: '#606060',
-			    margin: [ 500, 20, 70, 0 ],
+			    margin: [ 513, 20, 70, 0 ],
 			    bold: true,
 			    fontSize: 10
 		  	};
@@ -128,10 +128,10 @@ cartaParaPdf.PdfMaker = function() {
 		docDefinition.content.push('\n');
 		docDefinition.content.push({ text: 'Carta de Serviços', style: 'subtitle', margin: [ 0, 20, 0, 0 ] });
 		docDefinition.content.push('\n');
-		docDefinition.content.push({ text: 'Carta de serviços é um documento feito para informar o cidadão sobre os serviços públicos disponíveis pelo Governo Federal. Cada carta é sobre um orgão do governo e seus serviços disponíveis.', style: 'paragraph' });
-		docDefinition.content.push({ text: 'A Carta de serviços é baseada nas informações do portal de serviços do Governo Federal (www.servicos.gov.br).', style: 'paragraph' });
+		docDefinition.content.push({ text: 'Carta de Serviços é um documento feito para informar o cidadão sobre os serviços públicos disponíveis pelo Governo Federal. Cada carta é sobre um orgão do governo e seus serviços disponíveis.', style: 'paragraph' });
+		docDefinition.content.push({ text: 'A Carta de Serviços é baseada nas informações do Portal de Serviços do Governo Federal (www.servicos.gov.br).', style: 'paragraph' });
 		docDefinition.content.push('\n');
-		docDefinition.content.push({ text: 'Documento impresso em ' + new cartaParaPdf.FormatterHelper().getCurrentDate(), margin: [ 0, 230, 0, 0 ], fontStyle: 50, style: 'paragraph', pageBreak: 'after' });
+		docDefinition.content.push({ text: 'Documento gerado em ' + new cartaParaPdf.FormatterHelper().getCurrentDate(), margin: [ 0, 230, 0, 0 ], fontStyle: 50, style: 'paragraph', pageBreak: 'after' });
 	}
 
 	function capaOrgao(nome, descricao) {

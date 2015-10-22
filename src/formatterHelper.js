@@ -17,7 +17,7 @@ cartaParaPdf.FormatterHelper = function() {
 	    var month = date.getMonth();
 	    var day = date.getDate().toString();
 
-	    return day + ' ' + months[month] + ' de ' + year;
+	    return day + ' de ' + months[month] + ' de ' + year;
 	}
 
 	function formatarCanalDeComunicacao(string) {

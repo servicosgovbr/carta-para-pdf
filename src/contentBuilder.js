@@ -18,7 +18,7 @@ cartaParaPdf.ContentBuilder = function(servicoObject) {
 	}
 
 	function buildDescricao() {
-		addContent({ text: 'O que é?', style: 'subheadermargin' });
+		addContent({ text: 'O que é?', style: 'subheader' });
 		addNewLine();
 		addContent({ text: servico.descricao, style: 'paragraph' });
 		addNewLine();
@@ -180,14 +180,14 @@ cartaParaPdf.ContentBuilder = function(servicoObject) {
 				]
 			},
 			layout: {
-	            paddingLeft: function(i, node) { return 25; },
-	            paddingRight: function(i, node) { return 25; },
-	            paddingTop: function(i, node) { return 20; },
-	            paddingBottom: function(i, node) { return 20; },
-	            hLineWidth: function(i, node) { return 1; },
-				vLineWidth: function(i, node) { return 1; },
-				hLineColor: function(i, node) { return '#ddd'; },
-				vLineColor: function(i, node) { return '#ddd'; },
+	            paddingLeft: function(i, node) { return 15; },
+	            paddingRight: function(i, node) { return 15; },
+	            paddingTop: function(i, node) { return 15; },
+	            paddingBottom: function(i, node) { return 15; },
+	            hLineWidth: function(i, node) { return 2; },
+				vLineWidth: function(i, node) { return 2; },
+				hLineColor: function(i, node) { return '#ccc'; },
+				vLineColor: function(i, node) { return '#ccc'; },
 	        }
 		});
 	}

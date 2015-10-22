@@ -34,7 +34,7 @@ describe('Montar conteúdo do serviço', function () {
 
     it('deve adicionar descrição', function () {
         var servico = { descricao: 'Descrição teste'},
-            content = [{ text: 'O que é?', style: 'subheadermargin' }, { text: 'Descrição teste', style: 'paragraph' }];
+            content = [{ text: 'O que é?', style: 'subheader' }, { text: 'Descrição teste', style: 'paragraph' }];
         contentBuilder = criarContentBuilder(servico);
 
         expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));

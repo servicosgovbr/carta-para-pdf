@@ -7,19 +7,19 @@ describe('Montar objeto pdfmake inicial', function () {
     });
 
     it('cria capa', function () {
-        pdfMaker.initialDocDefinition('Ministério da educação (MEC)');
+        pdfMaker.initialDocDefinition('Ministério da Educação (MEC)');
         expect(pdfMaker.docDefinition.content).toEqual(
           [ 
-            { text: 'Ministério da educação (MEC)', style: 'title'},
+            { text: 'Ministério da Educação (MEC)', style: 'title'},
             { text: '__________________________________', style: 'border', margin: [ 0, 30, 0, 0 ] },
             '\n',
             '\n',
             { text: 'Carta de Serviços', style: 'subtitle', margin: [ 0, 20, 0, 0 ] },
             '\n',
-            { text: 'Carta de serviços é um documento feito para informar o cidadão sobre os serviços públicos disponíveis pelo Governo Federal. Cada carta é sobre um orgão do governo e seus serviços disponíveis.', style: 'paragraph' },
-            { text: 'A Carta de serviços é baseada nas informações do portal de serviços do Governo Federal (www.servicos.gov.br).', style: 'paragraph' },
+            { text: 'Carta de Serviços é um documento feito para informar o cidadão sobre os serviços públicos disponíveis pelo Governo Federal. Cada carta é sobre um orgão do governo e seus serviços disponíveis.', style: 'paragraph' },
+            { text: 'A Carta de Serviços é baseada nas informações do Portal de Serviços do Governo Federal (www.servicos.gov.br).', style: 'paragraph' },
             '\n',
-            { text: 'Documento impresso em ' + new cartaParaPdf.FormatterHelper().getCurrentDate(), margin: [ 0, 230, 0, 0 ], fontStyle: 50, style: 'paragraph', pageBreak: 'after' }
+            { text: 'Documento gerado em ' + new cartaParaPdf.FormatterHelper().getCurrentDate(), margin: [ 0, 230, 0, 0 ], fontStyle: 50, style: 'paragraph', pageBreak: 'after' }
           ]);
     });
 
