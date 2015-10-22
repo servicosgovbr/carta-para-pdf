@@ -29,14 +29,16 @@ Aplicação para geração de um documento .pdf para impressão da Carta de Serv
 
 - Importe o arquivo cartaParaPdf.min.js para seu projeto.
 - O objeto esperado pela biblioteca é no seguinte formato:
-'var jsonResponse = {'
-    'nome: "Ministério da Educação (MEC)",'
-    'descricao: "Descrição do orgão",'
-    'servicos: ['
-      'xml1,'
-      'xml2,'
-      'xml3'
-    ']};'
+```
+var jsonResponse = {
+    nome: "Ministério da Educação (MEC)",
+    descricao: "Descrição do orgão",
+    servicos: [
+      xml1,
+      xml2,
+      xml3
+    ]};
+```
 - Os xmls devem ser no mesmo formato do repositório carta-de-serviços (https://github.com/servicosgovbr/cartas-de-servico/tree/master/cartas-servico/v3/servicos)
 - Crie um objeto pdkMaker 'var pdfMaker = new cartaParaPdf.PdfMaker();'
 - Chame o método 'pdfMaker.geraPdf(jsonResponse);'
