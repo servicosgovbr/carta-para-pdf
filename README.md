@@ -6,3 +6,21 @@
 # carta-para-pdf
 
 Aplicação para geração de um documento .pdf para impressão da Carta de Serviços de cada órgão a partir do conteúdo do Portal de Serviços.
+
+## Instalações para rodar localmente
+
+- baixe o repositório para sua máquina local
+- rode "npm install" no diretório raiz
+- abra o arquivo index.html
+
+## Como rodar os testes localmente
+
+- baixe o repositório para sua máquina local
+- rode "npm install" no diretório raiz
+- rode "gulp" no diretório raiz
+
+## Como gerar o arquivo final minificado
+
+- baixe o repositório para sua máquina local
+- rode "npm install" no diretório raiz
+- rode "gulp bundle" no diretório raiz
