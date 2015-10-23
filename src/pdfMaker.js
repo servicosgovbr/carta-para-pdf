@@ -189,7 +189,7 @@ cartaParaPdf.PdfMaker = function() {
 		indice(jsonResponse.servicos, jsonResponse.nome);
 		geraInformacoesDosServicos(jsonResponse.servicos);
 
-		pdfMake.createPdf(docDefinition).open();
+		pdfMake.createPdf(docDefinition).download(jsonResponse.nome.toLowerCase().replace(/ /g, '-'));
 	}
 
 	return {
