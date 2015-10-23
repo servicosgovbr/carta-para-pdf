@@ -5,28 +5,28 @@
 
 # Carta Para PDF
 
-Aplicação para geração de um documento .pdf para impressão da Carta de Serviços de cada órgão a partir do conteúdo do Portal de Serviços.
+Biblioteca para gerar PDF da Carta de Serviços de um órgão a partir das informações do Portal de Serviços.
 
 ### Instalações para rodar localmente
 
 - Baixe o repositório para sua máquina local
-- Rode **npm install** no diretório raiz
+- **npm install**
 - Abra o arquivo **index.html**
 
 ### Como rodar os testes localmente
 
 - Baixe o repositório para sua máquina local
-- Rode **npm install** no diretório raiz
-- Rode **gulp** no diretório raiz
+- **npm install**
+- **gulp**
 
 ### Como gerar o arquivo final minificado
 
 - Baixe o repositório para sua máquina local
-- Rode o **npm install** no diretório raiz
-- Rode **gulp bundle** no diretório raiz
+- **npm install**
+- **gulp bundle**
 
 
-### Como usar o arquivo final para gerar as cartas em DPF
+### Como usar o arquivo final para gerar as cartas em PDF
 
 - Importe o arquivo **bin/cartaParaPdf.min.js** para seu projeto.
 - O objeto esperado pela biblioteca é no seguinte formato:
