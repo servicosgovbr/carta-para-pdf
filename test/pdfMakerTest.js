@@ -16,10 +16,10 @@ describe('Montar objeto pdfmake inicial', function () {
             '\n',
             { text: 'Carta de Serviços', style: 'subtitle', margin: [ 0, 20, 0, 0 ] },
             '\n',
-            { text: 'Carta de Serviços é um documento feito para informar o cidadão sobre os serviços públicos disponíveis pelo Governo Federal. Cada carta é sobre um orgão do governo e seus serviços disponíveis.', style: 'paragraph' },
-            { text: 'A Carta de Serviços é baseada nas informações do Portal de Serviços do Governo Federal (www.servicos.gov.br).', style: 'paragraph' },
+            { text: 'A Carta de Serviços é um instrumento de gestão pública, que contém informações sobre os serviços públicos prestados de forma direta ou indireta pelos órgãos e entidades da administração pública.', style: 'paragraph' },
+            { text: 'Ela contempla as formas de acesso, padrões de qualidade e compromissos de atendimento aos usuários. Ela é baseada nas informações do Portal de Serviços do Governo Federal (www.servicos.gov.br).', style: 'paragraph' },
             '\n',
-            { text: 'Documento gerado em ' + new cartaParaPdf.FormatterHelper().getCurrentDate(), margin: [ 0, 230, 0, 0 ], fontStyle: 50, style: 'paragraph', pageBreak: 'after' }
+            { text: 'Documento gerado em ' + new cartaParaPdf.FormatterHelper().getCurrentDate(), margin: [ 0, 220, 0, 0 ], fontStyle: 50, style: 'paragraph', pageBreak: 'after' }
           ]);
     });
 
@@ -27,7 +27,7 @@ describe('Montar objeto pdfmake inicial', function () {
         pdfMaker.capaOrgao('Ministério da educação (MEC)', 'Órgão do governo federal que trata da política nacional de educação em geral.');
         expect(pdfMaker.docDefinition.content).toEqual(
           [{ text: 'Ministério da educação (MEC)', style: 'header' }, 
-          { text: 'O que é?', style: 'subheadermargin' }, 
+          { text: 'Quem somos?', style: 'subheadermargin' }, 
           '\n',
           [{ text: 'Órgão do governo federal que trata da política nacional de educação em geral.', style: 'text' }], 
           { text: '', style: 'paragraph', pageBreak: 'after' } ]);
