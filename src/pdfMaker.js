@@ -128,15 +128,15 @@ cartaParaPdf.PdfMaker = function() {
 		docDefinition.content.push('\n');
 		docDefinition.content.push({ text: 'Carta de Serviços', style: 'subtitle', margin: [ 0, 20, 0, 0 ] });
 		docDefinition.content.push('\n');
-		docDefinition.content.push({ text: 'Carta de Serviços é um documento feito para informar o cidadão sobre os serviços públicos disponíveis pelo Governo Federal. Cada carta é sobre um orgão do governo e seus serviços disponíveis.', style: 'paragraph' });
-		docDefinition.content.push({ text: 'A Carta de Serviços é baseada nas informações do Portal de Serviços do Governo Federal (www.servicos.gov.br).', style: 'paragraph' });
+		docDefinition.content.push({ text: 'A Carta de Serviços é um instrumento de gestão pública, que contém informações sobre os serviços públicos prestados de forma direta ou indireta pelos órgãos e entidades da administração pública.', style: 'paragraph' });
+		docDefinition.content.push({ text: 'Ela contempla as formas de acesso, padrões de qualidade e compromissos de atendimento aos usuários. Ela é baseada nas informações do Portal de Serviços do Governo Federal (www.servicos.gov.br).', style: 'paragraph' });
 		docDefinition.content.push('\n');
-		docDefinition.content.push({ text: 'Documento gerado em ' + new cartaParaPdf.FormatterHelper().getCurrentDate(), margin: [ 0, 230, 0, 0 ], fontStyle: 50, style: 'paragraph', pageBreak: 'after' });
+		docDefinition.content.push({ text: 'Documento gerado em ' + new cartaParaPdf.FormatterHelper().getCurrentDate(), margin: [ 0, 220, 0, 0 ], fontStyle: 50, style: 'paragraph', pageBreak: 'after' });
 	}
 
 	function capaOrgao(nome, descricao) {
 		docDefinition.content.push({ text: nome, style: 'header'});
-		docDefinition.content.push({ text: 'O que é?', style: 'subheadermargin' });
+		docDefinition.content.push({ text: 'Quem somos?', style: 'subheadermargin' });
 		docDefinition.content.push('\n');
 
 		var textoHtml = markdown.toHTML(descricao);
@@ -178,7 +178,7 @@ cartaParaPdf.PdfMaker = function() {
 
 		docDefinition.content.push({ text: orgao, style: 'header' });
 		docDefinition.content.push('\n');
-		docDefinition.content.push({ text: 'Quais os serviços disponíveis?', style: 'subheadermargin' });
+		docDefinition.content.push({ text: 'Serviços disponíveis', style: 'subheadermargin' });
 		docDefinition.content.push('\n');
 		docDefinition.content.push({ ul: nomesServicos , style: 'list', pageBreak: 'after' });
 	}
