@@ -46,12 +46,12 @@ describe('Montar conteúdo do serviço', function () {
             { tipo: 'Sem requisito', requisitos: ''}
         ]};
         var content = [
-            { text: 'Com requisito', style: 'thirdheader' },
+            { text: 'Com requisito', style: 'thirdheader', headlineLevel: 1 },
             [{
             'text': 'Requisito',
             'style': 'text'
             }],
-            { text: 'Sem requisito', style: 'thirdheader' },
+            { text: 'Sem requisito', style: 'thirdheader', headlineLevel: 1 },
             { text: '', style: 'paragraph' },
             { text: '', style: 'paragraph' }
         ];

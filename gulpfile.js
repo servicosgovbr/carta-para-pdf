@@ -33,4 +33,4 @@ gulp.task('watch', function () {
     gulp.watch(path.files, ['default']);
 });
 
-gulp.task('default', ['lint', 'test']);
+gulp.task('default', ['lint', 'bundle']);

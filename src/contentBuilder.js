@@ -29,11 +29,12 @@ cartaParaPdf.ContentBuilder = function(servicoObject) {
 		addNewLine();
 
 		$(servico.solicitantes).each(function(index, solicitante) {
-			addContent({ text: solicitante.tipo , style: 'thirdheader' });
+			addContent({ text: solicitante.tipo , style: 'thirdheader', headlineLevel: 1 });
 
 			var content = [];
 			var textoHtml = markdown.toHTML(solicitante.requisitos);
 			parseHtml.parseHtml(content, textoHtml);
+
 			docContent = docContent.concat(content);
 			addNewLine();
 		});
