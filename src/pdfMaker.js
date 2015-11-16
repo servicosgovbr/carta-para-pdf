@@ -194,6 +194,10 @@ cartaParaPdf.PdfMaker = function() {
 		output.push({ ul: nomesServicos , style: 'list' });
 	}
 
+  function count_pages(doc, capa, indice, servicos, cb) {
+		pdfMake.createPdf(docDefinition)._getPages(section, cb);
+  }
+
 	function geraPdf(jsonResponse) {
 		var doc = initialDocDefinition(jsonResponse.nome);
 		var capa = capaOrgao(jsonResponse.nome, jsonResponse.descricao);

@@ -17,7 +17,7 @@ describe('Montar objeto pdfmake inicial', function () {
           '\n',
           '\n',
           { text: 'Carta de Serviços', style: 'subtitle', margin: [ 0, 20, 0, 0 ] },
-          { margin: [ 0, 10, 0, 0 ], fontSize: 11, text: 'Documento gerado em 16 de Novembro de 2015', fontStyle: 50, style: 'paragraph' },
+          { margin: [ 0, 10, 0, 0 ], fontSize: 11, text: 'Documento gerado em ' + new cartaParaPdf.FormatterHelper().getCurrentDate(), fontStyle: 50, style: 'paragraph' },
           '\n',
           { text: 'A Carta de Serviços é um instrumento de gestão pública, que contém informações sobre os serviços públicos prestados de forma direta ou indireta pelos órgãos e entidades da administração pública.', style: 'paragraph' },
           { text: 'Ela contempla as formas de acesso, padrões de qualidade e compromissos de atendimento aos usuários.', style: 'paragraph' }
