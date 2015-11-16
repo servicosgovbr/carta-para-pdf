@@ -221,7 +221,6 @@ cartaParaPdf.PdfMaker = function() {
 		var servicos = geraInformacoesDosServicos(jsonResponse.servicos);
     async.map([doc, capa, toc].concat(servicos), countPages, function (err, results) {
       var newServicos = [];
-      console.log(results);
 		  toc = indice(jsonResponse.servicos, jsonResponse.nome, results);
       $(servicos).each(function (index, value) {
         newServicos.push([{ text: '' , pageBreak: 'after' }]);
