@@ -24,17 +24,16 @@ describe('Montar objeto pdfmake inicial', function () {
         ];
 
         pdfMaker.initialDocDefinition('Ministério da Educação (MEC)');
-        expect(pdfMaker.docDefinition.content).toEqual(arrayContaining(result));
+        expect(pdfMaker.initialDocDefinition('Ministério da Educação (MEC)')).toEqual(arrayContaining(result));
     });
 
     it('cria capa do orgão', function () {
-        pdfMaker.capaOrgao('Ministério da educação (MEC)', 'Órgão do governo federal que trata da política nacional de educação em geral.');
-        expect(pdfMaker.docDefinition.content).toEqual(
+        expect(pdfMaker.capaOrgao('Ministério da educação (MEC)', 'Órgão do governo federal que trata da política nacional de educação em geral.')).toEqual(
           [{ text: 'Ministério da educação (MEC)', style: 'header' }, 
           { text: 'Quem somos?', style: 'subheadermargin' }, 
           '\n',
-          [{ text: 'Órgão do governo federal que trata da política nacional de educação em geral.', style: 'text' }], 
-          { text: '', style: 'paragraph', pageBreak: 'after' } ]);
+          [[{ text: 'Órgão do governo federal que trata da política nacional de educação em geral.', style: 'text' }]], 
+          { text: '', style: 'paragraph' } ]);
     });
 
     it('cria info sobre serviços', function () {
@@ -46,12 +45,9 @@ describe('Montar objeto pdfmake inicial', function () {
           };
         };
 
-        pdfMaker.geraInformacoesDosServicos(['<xml>test</xml>', '<xml>test</xml>', '<xml>test</xml>']);
-        expect(pdfMaker.docDefinition.content).toEqual([ 
-          { text: 'test' }, 
-          { text: '', pageBreak: 'after' }, 
-          { text: 'test' }, 
-          { text: '', pageBreak: 'after' }, 
-          { text: 'test' } ]);
+        expect(pdfMaker.geraInformacoesDosServicos(['<xml>test</xml>', '<xml>test</xml>', '<xml>test</xml>'])).toEqual([ 
+          [[{ text: 'test' }]], 
+          [[{ text: 'test' }]], 
+          [[{ text: 'test' }]] ]);
     });
 });
