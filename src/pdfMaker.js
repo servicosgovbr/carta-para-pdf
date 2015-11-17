@@ -1,7 +1,7 @@
 cartaParaPdf.PdfMaker = function() {
 	var docDefinition = {
 		content: [],
-			defaultStyle: {
+		defaultStyle: {
 			font: 'OpenSans'
 		},
 		pageBreakBefore: function(currentNode, followingNodesOnPage, nodesOnNextPage, previousNodesOnPage) {
@@ -208,14 +208,14 @@ cartaParaPdf.PdfMaker = function() {
 		return output;
 	}
 
-	function countPages(section, cb) {
+	function countPages(section, callback) {
 		var tempDoc = docDefinition;
 
 		tempDoc.content = section;
 		pdf = pdfMake.createPdf(tempDoc);
 
 		pdf._getPages({}, function (pages) {
-			cb(null, pages.length);
+			callback(null, pages.length);
 		});
 	}
 
@@ -225,7 +225,9 @@ cartaParaPdf.PdfMaker = function() {
 		var sumario = indice(jsonResponse.servicos, jsonResponse.nome);
 		var servicos = geraInformacoesDosServicos(jsonResponse.servicos);
 
-		async.map([doc, capa, sumario].concat(servicos), countPages, function (err, results) {
+		var docs = [doc, capa, sumario].concat(servicos);
+
+		async.map(docs, countPages, function (err, results) {
 			var newServicos = [];
 
 			sumario = indice(jsonResponse.servicos, jsonResponse.nome, results);
