@@ -165,7 +165,7 @@ cartaParaPdf.PdfMaker = function() {
 		var output = [];
 
 		$(servicos).each(function(index, xml) {
-			output.push(geraInformacoesDoServico(xml));
+			output = output.concat(geraInformacoesDoServico(xml));
 		});
 
 		return output;
@@ -175,28 +175,25 @@ cartaParaPdf.PdfMaker = function() {
 		var servicoParser = new cartaParaPdf.ServicoParser();
 		var servicoObject = servicoParser.parseXml(xml);
 		var contentBuilder = new cartaParaPdf.ContentBuilder(servicoObject);
-		var output = [];
 
-		output.push(contentBuilder.buildContent());
-
-		return output;
+		return contentBuilder.buildContent();
 	}
 
-	function indice(servicos, orgao, toc) {
+	function indice(servicos, orgao, sumario) {
 		var nomesServicos = [];
 		var servicoParser = new cartaParaPdf.ServicoParser();
 		var output = [];
 		var actualPage = 0;
 
-		if (toc) {
-		  actualPage = toc[0] + toc[1] + toc[2] + 1;
+		if (sumario) {
+		  actualPage = sumario[0] + sumario[1] + sumario[2] + 1;
 		}
 
 		$(servicos).each(function(index, xml) {
 			var servicoObject = servicoParser.parseXml(xml);
-			if (toc) {
+			if (sumario) {
 				nomesServicos.push(servicoObject.nome + ' - página ' + actualPage);
-				actualPage += toc[index + 3];
+				actualPage += sumario[index + 3];
 			} else {
 				nomesServicos.push(servicoObject.nome);
 			}
@@ -223,25 +220,24 @@ cartaParaPdf.PdfMaker = function() {
 	function geraPdf(jsonResponse) {
 		var doc = initialDocDefinition(jsonResponse.nome);
 		var capa = capaOrgao(jsonResponse.nome, jsonResponse.descricao);
-		var toc = indice(jsonResponse.servicos, jsonResponse.nome);
+		var sumario = indice(jsonResponse.servicos, jsonResponse.nome);
 		var servicos = geraInformacoesDosServicos(jsonResponse.servicos);
 
-		async.map([doc, capa, toc].concat(servicos), countPages, function (err, results) {
+		async.map([doc, capa, sumario].concat(servicos), countPages, function (err, results) {
 			var newServicos = [];
-			toc = indice(jsonResponse.servicos, jsonResponse.nome, results);
+			sumario = indice(jsonResponse.servicos, jsonResponse.nome, results);
 			$(servicos).each(function (index, value) {
-				newServicos.push([{ text: '' , pageBreak: 'after' }]);
-				newServicos.push(value);
+				newServicos.push({ text: '' , pageBreak: 'after' });
+				newServicos = newServicos.concat(value);
 			});
 
-			docDefinition.content = [].concat(
+			docDefinition.content = [
 				doc,
-				[{ text: '' , pageBreak: 'after' }],
+				{ text: '' , pageBreak: 'after' },
 				capa,
-				[{ text: '' , pageBreak: 'after' }],
-				toc,
-				newServicos
-			);
+				{ text: '' , pageBreak: 'after' },
+				sumario
+			].concat(newServicos);
 
 			pdfMake.createPdf(docDefinition).download('cartadeservicos_' + jsonResponse.nome.toLowerCase().replace(/ /g, ''));
 		});

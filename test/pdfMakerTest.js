@@ -46,8 +46,9 @@ describe('Montar objeto pdfmake inicial', function () {
         };
 
         expect(pdfMaker.geraInformacoesDosServicos(['<xml>test</xml>', '<xml>test</xml>', '<xml>test</xml>'])).toEqual([ 
-          [[{ text: 'test' }]], 
-          [[{ text: 'test' }]], 
-          [[{ text: 'test' }]] ]);
+          { text: 'test' }, 
+          { text: 'test' }, 
+          { text: 'test' } 
+		]);
     });
 });
