@@ -160,12 +160,12 @@ cartaParaPdf.PdfMaker = function() {
 		return output;
 	}
 
-	function geraInformacoesDosServicos(servicos) {
+	function geraInformacoesDosServicos(servicos, pageBreak) {
 		var servicoParser = new cartaParaPdf.ServicoParser();
 		var output = [];
 
 		$(servicos).each(function(index, xml) {
-			output = output.concat(geraInformacoesDoServico(xml));
+			output.push(geraInformacoesDoServico(xml));
 		});
 
 		return output;
@@ -212,7 +212,9 @@ cartaParaPdf.PdfMaker = function() {
 		var tempDoc = docDefinition;
 
 		tempDoc.content = section;
-		pdfMake.createPdf(tempDoc)._getPages(section, function (pages) {
+		pdf = pdfMake.createPdf(tempDoc);
+
+		pdf._getPages({}, function (pages) {
 			cb(null, pages.length);
 		});
 	}
@@ -225,9 +227,10 @@ cartaParaPdf.PdfMaker = function() {
 
 		async.map([doc, capa, sumario].concat(servicos), countPages, function (err, results) {
 			var newServicos = [];
+
 			sumario = indice(jsonResponse.servicos, jsonResponse.nome, results);
 			$(servicos).each(function (index, value) {
-				newServicos.push({ text: '' , pageBreak: 'after' });
+				newServicos.push([{ text: '', pageBreak: 'after' }]);
 				newServicos = newServicos.concat(value);
 			});
 
@@ -236,10 +239,11 @@ cartaParaPdf.PdfMaker = function() {
 				{ text: '' , pageBreak: 'after' },
 				capa,
 				{ text: '' , pageBreak: 'after' },
-				sumario
-			].concat(newServicos);
+				sumario,
+				newServicos
+			];
 
-			pdfMake.createPdf(docDefinition).download('cartadeservicos_' + jsonResponse.nome.toLowerCase().replace(/ /g, ''));
+			pdfMake.createPdf(docDefinition).open('cartadeservicos_' + jsonResponse.nome.toLowerCase().replace(/ /g, ''));
 		});
 	}
 
