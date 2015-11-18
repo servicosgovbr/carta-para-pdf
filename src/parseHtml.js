@@ -41,7 +41,7 @@ cartaParaPdf.ParseHtml = function() {
 
 	    switch (element.nodeName.toLowerCase()) {
 	        case "#text": {
-	            text = { text: element.textContent.replace(/\n/g, ""), style: 'text' };
+	            text = { text: element.textContent.replace(/\n/g, ""), style: 'text', headlineLevel: 2 };
 	            container.push(text);
 	            break;
 	        }

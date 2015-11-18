@@ -32,7 +32,7 @@ describe('Montar objeto pdfmake inicial', function () {
           [{ text: 'Ministério da educação (MEC)', style: 'header' }, 
           { text: 'Quem somos?', style: 'subheadermargin' }, 
           '\n',
-          [[{ text: 'Órgão do governo federal que trata da política nacional de educação em geral.', style: 'text' }]], 
+          [[{ text: 'Órgão do governo federal que trata da política nacional de educação em geral.', style: 'text', headlineLevel: 2 }]], 
           { text: '', style: 'paragraph' } ]);
     });
 
@@ -45,10 +45,10 @@ describe('Montar objeto pdfmake inicial', function () {
           };
         };
 
-        expect(pdfMaker.geraInformacoesDosServicos(['<xml>test</xml>', '<xml>test</xml>', '<xml>test</xml>'])).toEqual([ 
-          { text: 'test' }, 
-          { text: 'test' }, 
-          { text: 'test' } 
+        expect(pdfMaker.geraInformacoesDosServicos(['<xml>test</xml>', '<xml>test</xml>', '<xml>test</xml>'])).toEqual([
+          [{ text: 'test' }], 
+          [{ text: 'test' }], 
+          [{ text: 'test' }] 
 		]);
     });
 });

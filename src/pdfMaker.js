@@ -5,7 +5,7 @@ cartaParaPdf.PdfMaker = function() {
 			font: 'OpenSans'
 		},
 		pageBreakBefore: function(currentNode, followingNodesOnPage, nodesOnNextPage, previousNodesOnPage) {
-			var twoPageParagraphs = currentNode.pageNumbers.length === 2;
+			var twoPageParagraphs = currentNode.headlineLevel === 2 && currentNode.pageNumbers.length === 2;
 			var titleFollowedByTwoPagesParagraph = currentNode.headlineLevel === 1 && followingNodesOnPage[0].pageNumbers.length === 2;
 			
 			return titleFollowedByTwoPagesParagraph || twoPageParagraphs;
