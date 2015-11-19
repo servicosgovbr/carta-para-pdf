@@ -102,8 +102,6 @@ describe('Montar conteúdo do serviço', function () {
 		};
         contentBuilder = criarContentBuilder(servico);
 
-		console.log(JSON.stringify(contentBuilder.buildContent()));
-
         expect(contentBuilder.buildContent()).not.toEqual(arrayContaining(
 			[{ text: 'O que é?', style: 'subheader' }]
 		));
