@@ -13,7 +13,11 @@ cartaParaPdf.ContentBuilder = function(servicoObject) {
 	}
 
 	function buildNome() {
-		addContent({ text: servico.nome + ' (' + servico.sigla + ')', style: 'header' });
+		if (servico.sigla) {
+			addContent({ text: servico.nome + ' (' + servico.sigla + ')', style: 'header' });
+		} else {
+			addContent({ text: servico.nome, style: 'header' });
+		}
 		addNewLine();
 	}
 
