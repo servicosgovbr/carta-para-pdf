@@ -49,12 +49,9 @@ describe('Montar conteúdo do serviço', function () {
             { text: 'Com requisito', style: 'thirdheader', headlineLevel: 1 },
             [{ text: 'Requisito', style: 'text', headlineLevel: 2 }],
             { text: 'Sem requisito', style: 'thirdheader', headlineLevel: 1 },
-            { text: '', style: 'paragraph' },
-            { text: '', style: 'paragraph' }
         ];
 
         contentBuilder = criarContentBuilder(servico);
-
         expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));
     });
 
@@ -95,6 +92,36 @@ describe('Montar conteúdo do serviço', function () {
         contentBuilder = criarContentBuilder(servico);
 
         expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));
+    });
+
+    it('deveria omitir blocos de informação vazios', function () {
+        var servico = {
+			solicitantes: [],
+			legislacoes: [],
+			nomesPopulares: []
+		};
+        contentBuilder = criarContentBuilder(servico);
+
+		console.log(JSON.stringify(contentBuilder.buildContent()));
+
+        expect(contentBuilder.buildContent()).not.toEqual(arrayContaining(
+			[{ text: 'O que é?', style: 'subheader' }]
+		));
+        expect(contentBuilder.buildContent()).not.toEqual(arrayContaining(
+			[{ text: 'Quem pode utilizar este serviço?', style: 'subheader' }]
+		));
+        expect(contentBuilder.buildContent()).not.toEqual(arrayContaining(
+			[{ text: 'Quanto tempo leva?', style: 'subheader' }]
+		));
+        expect(contentBuilder.buildContent()).not.toEqual(arrayContaining(
+			[{ text: 'Legislacão', style: 'subheader' }]
+		));
+        expect(contentBuilder.buildContent()).not.toEqual(arrayContaining(
+			[{ text: 'Você também pode conhecer este serviço como: ' + servico.nomesPopulares.join(', ') + '.', style: 'paragraph' }]
+		));
+        expect(contentBuilder.buildContent()).not.toEqual(arrayContaining(
+			[{ text: 'Este serviço é gratuito para o cidadão.', style: 'paragraph' }]
+		));
     });
 
     it('deve adicionar legislações', function () {

@@ -18,66 +18,76 @@ cartaParaPdf.ContentBuilder = function(servicoObject) {
 	}
 
 	function buildDescricao() {
-		addContent({ text: 'O que é?', style: 'subheader' });
-		addNewLine();
-		addContent({ text: servico.descricao, style: 'paragraph' });
-		addNewLine();
+		if (servico.descricao) {
+			addContent({ text: 'O que é?', style: 'subheader' });
+			addNewLine();
+			addContent({ text: servico.descricao, style: 'paragraph' });
+			addNewLine();
+		}
 	}
 
 	function buildSolicitantes() {
-		addContent({ text: 'Quem pode utilizar este serviço?', style: 'subheader' });
-		addNewLine();
-
-		$(servico.solicitantes).each(function(index, solicitante) {
-			addContent({ text: solicitante.tipo , style: 'thirdheader', headlineLevel: 1 });
-
-			var content = [];
-			var textoHtml = markdown.toHTML(solicitante.requisitos);
-			parseHtml.parseHtml(content, textoHtml);
-
-			docContent = docContent.concat(content);
+		if (servico.solicitantes.length) {
+			addContent({ text: 'Quem pode utilizar este serviço?', style: 'subheader' });
 			addNewLine();
-		});
+
+			$(servico.solicitantes).each(function(index, solicitante) {
+				addContent({ text: solicitante.tipo , style: 'thirdheader', headlineLevel: 1 });
+
+				var content = [];
+				var textoHtml = markdown.toHTML(solicitante.requisitos);
+				parseHtml.parseHtml(content, textoHtml);
+
+				docContent = docContent.concat(content);
+				addNewLine();
+			});
+		}
 	}
 
 	function buildTempoTotalEstimado() {
-		addContent({ text: 'Quanto tempo leva?', style: 'subheader' });
-		addNewLine();
-		
-		if (servico.tempoTotalEstimado.min !== undefined) {
-			addContent({ text: 'Entre ' + servico.tempoTotalEstimado.min + ' e ' + servico.tempoTotalEstimado.max + ' ' + formatterHelper.formatarTempoEstimado(servico.tempoTotalEstimado.unidade) + ' é o tempo estimado para a prestação imediata deste serviço.', style: 'paragraph' });
-		} else {
-			addContent({ text: 'Até ' + servico.tempoTotalEstimado.max + ' ' + formatterHelper.formatarTempoEstimado(servico.tempoTotalEstimado.unidade) + ' é o tempo estimado para a prestação imediata deste serviço.', style: 'paragraph' });
-		}
+		if (servico.tempoTotalEstimado.min || servico.tempoTotalEstimado.max) {
+			addContent({ text: 'Quanto tempo leva?', style: 'subheader' });
+			addNewLine();
+			
+			if (servico.tempoTotalEstimado.min !== undefined) {
+				addContent({ text: 'Entre ' + servico.tempoTotalEstimado.min + ' e ' + servico.tempoTotalEstimado.max + ' ' + formatterHelper.formatarTempoEstimado(servico.tempoTotalEstimado.unidade) + ' é o tempo estimado para a prestação imediata deste serviço.', style: 'paragraph' });
+			} else {
+				addContent({ text: 'Até ' + servico.tempoTotalEstimado.max + ' ' + formatterHelper.formatarTempoEstimado(servico.tempoTotalEstimado.unidade) + ' é o tempo estimado para a prestação imediata deste serviço.', style: 'paragraph' });
+			}
 
-		if(servico.tempoTotalEstimado.descricao) {
-			addContent({ text: 'Informações adicionais ao tempo estimado' , style: 'thirdheader' });
-			addContent({ text: servico.tempoTotalEstimado.descricao, style: 'paragraph' });	
-		}
+			if(servico.tempoTotalEstimado.descricao) {
+				addContent({ text: 'Informações adicionais ao tempo estimado' , style: 'thirdheader' });
+				addContent({ text: servico.tempoTotalEstimado.descricao, style: 'paragraph' });	
+			}
 
-		addNewLine();
+			addNewLine();
+		}
 	}
 
 	function buildLegislacoes() {
-		var content = [];
+		if (servico.legislacoes.length) {
+			var content = [];
 
-		addContent({ text: 'Legislação', style: 'subheader' });
-		addNewLine();
+			addContent({ text: 'Legislação', style: 'subheader' });
+			addNewLine();
 
-		$(servico.legislacoes).each(function(index, item) {
-			var textoHtml = markdown.toHTML(servico.legislacoes[index]);
-			parseHtml.parseHtml(content, textoHtml);
-		});
+			$(servico.legislacoes).each(function(index, item) {
+				var textoHtml = markdown.toHTML(servico.legislacoes[index]);
+				parseHtml.parseHtml(content, textoHtml);
+			});
 
-		docContent = docContent.concat(content);
-		addNewLine();
+			docContent = docContent.concat(content);
+			addNewLine();
+		}
 	}
 
 	function buildNomesPopulares() {
-		addContent({ text: 'Você também pode conhecer este serviço como: ' + servico.nomesPopulares.join(', ') + '.', style: 'paragraph' });
-		
-		if(servico.gratuito) {
-			addNewLine();
+		if (servico.nomesPopulares.length) {
+			addContent({ text: 'Você também pode conhecer este serviço como: ' + servico.nomesPopulares.join(', ') + '.', style: 'paragraph' });
+			
+			if(servico.gratuito) {
+				addNewLine();
+			}
 		}
 	}
 
@@ -88,21 +98,31 @@ cartaParaPdf.ContentBuilder = function(servicoObject) {
 	}
 
 	function buildOutrasInformacoes() {
-		addContent({ text: 'Outras informações', style: 'subheader' });
-		addNewLine();
-		buildNomesPopulares();
-		buildGratuidade();
+		if (servico.nomesPopulares.length || servico.gratuito) {
+			addContent({ text: 'Outras informações', style: 'subheader' });
+			addNewLine();
+			buildNomesPopulares();
+			buildGratuidade();
+		}
 	}
 
 	function buildEtapa(index, etapa) {
-		addContent({ text: 'Etapa ' + (index + 1) + ' - ' + etapa.titulo, style: 'thirdheader' });
-		addNewLine();
-		addContent({ text: etapa.descricao, style: 'paragraph' });
-		addNewLine();
+		if (etapa.documentos.items.length > 0 || etapa.custos.items.length > 0 || etapa.canaisDePrestacao.items.length > 0) { 
 
-		if(etapa.documentos.items.length > 0) { buildDocumentos(etapa.documentos); }
-		if(etapa.custos.items.length > 0) { buildCustos(etapa.custos); }
-		if(etapa.canaisDePrestacao.items.length > 0) { buildCanais(etapa.canaisDePrestacao); }
+			if (etapa.descricao) {
+				addContent({ text: 'Etapa ' + (index + 1) + ' - ' + etapa.titulo, style: 'thirdheader' });
+				addNewLine();
+				addContent({ text: etapa.descricao, style: 'paragraph' });
+				addNewLine();
+			} else {
+				addContent({ text: 'Etapa ' + (index + 1), style: 'thirdheader' });
+				addNewLine();
+			}
+
+			if(etapa.documentos.items.length > 0) { buildDocumentos(etapa.documentos); }
+			if(etapa.custos.items.length > 0) { buildCustos(etapa.custos); }
+			if(etapa.canaisDePrestacao.items.length > 0) { buildCanais(etapa.canaisDePrestacao); }
+		}
 	}
 
 	function buildDocumentos (documentos) {
