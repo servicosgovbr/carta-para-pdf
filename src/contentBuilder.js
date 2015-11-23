@@ -23,9 +23,16 @@ cartaParaPdf.ContentBuilder = function(servicoObject) {
 
 	function buildDescricao() {
 		if (servico.descricao) {
+			var content = [];
+
 			addContent({ text: 'O que é?', style: 'subheader' });
 			addNewLine();
-			addContent({ text: servico.descricao, style: 'paragraph' });
+
+			var textoHtml = markdown.toHTML(servico.descricao);
+			parseHtml.parseHtml(content, textoHtml);
+			
+			docContent = docContent.concat(content);
+			
 			addNewLine();
 		}
 	}
@@ -101,12 +108,26 @@ cartaParaPdf.ContentBuilder = function(servicoObject) {
 		}
 	}
 
+	function buildContato() {
+		if(servico.contato) {
+			var content = [];
+
+			addContent({ text: 'Para mais informações ou dúvidas sobre este serviço, entre em contato:', style: 'paragraph' });
+
+			var textoHtml = markdown.toHTML(servico.contato);
+			parseHtml.parseHtml(content, textoHtml);
+			
+			docContent = docContent.concat(content);
+		}
+	}
+
 	function buildOutrasInformacoes() {
 		if (servico.nomesPopulares.length || servico.gratuito) {
 			addContent({ text: 'Outras informações', style: 'subheader' });
 			addNewLine();
 			buildNomesPopulares();
 			buildGratuidade();
+			buildContato();
 		}
 	}
 

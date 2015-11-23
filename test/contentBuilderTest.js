@@ -34,7 +34,9 @@ describe('Montar conteúdo do serviço', function () {
 
     it('deve adicionar descrição', function () {
         var servico = { descricao: 'Descrição teste'},
-            content = [{ text: 'O que é?', style: 'subheader' }, { text: 'Descrição teste', style: 'paragraph' }];
+            content = [{ text: 'O que é?', style: 'subheader' }, 
+                       [{ text: 'Descrição teste', style: 'text', headlineLevel: 2  }]];
+        
         contentBuilder = criarContentBuilder(servico);
 
         expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));
@@ -166,6 +168,18 @@ describe('Montar conteúdo do serviço', function () {
         };
         var content = [
             { text: 'Este serviço é gratuito para o cidadão.', style: 'paragraph' }
+        ];
+        contentBuilder = criarContentBuilder(servico);
+
+        expect(contentBuilder.buildContent()).toEqual(arrayContaining(content));
+    });
+
+    it('deve adicionar contato', function () {
+        var servico = {
+            contato: 'seuhfuisefhs'
+        };
+        var content = [
+            { text: 'Para mais informações ou dúvidas sobre este serviço, entre em contato:', style: 'paragraph' }
         ];
         contentBuilder = criarContentBuilder(servico);
 

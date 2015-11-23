@@ -19,6 +19,10 @@ cartaParaPdf.ServicoParser = function() {
 		return $(xmlDoc).find('sigla').html();
 	};
 
+	api.parseContato = function (xmlDoc) {
+		return $(xmlDoc).find('contato').html();
+	}
+
 	api.parseDescricao = function (xmlDoc) {
 		return $(xmlDoc).find('descricao').html();
 	};
@@ -168,8 +172,7 @@ cartaParaPdf.ServicoParser = function() {
 
 	api.parseOrgao = function (xmlDoc) {
 		return {
-			id: $(xmlDoc).find('orgao').attr('id'),
-			contato: $(xmlDoc).find('orgao contato').html()
+			id: $(xmlDoc).find('orgao').attr('id')
 		};
 	};
 
@@ -178,6 +181,7 @@ cartaParaPdf.ServicoParser = function() {
 			servico = {
 		  		nome: api.parseNome(xmlDoc),
 		  		descricao: api.parseDescricao(xmlDoc),
+		  		contato: api.parseContato(xmlDoc),
 			  	sigla: api.parseSigla(xmlDoc),
 			  	gratuito: api.parseGratuito(xmlDoc),
 			  	nomesPopulares: api.parseNomesPopulares(xmlDoc),
