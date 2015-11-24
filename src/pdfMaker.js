@@ -160,7 +160,7 @@ cartaParaPdf.PdfMaker = function() {
 		return output;
 	}
 
-	function geraInformacoesDosServicos(servicos, pageBreak) {
+	function geraInformacoesDosServicos(servicos) {
 		var servicoParser = new cartaParaPdf.ServicoParser();
 		var output = [];
 
@@ -179,7 +179,7 @@ cartaParaPdf.PdfMaker = function() {
 		return contentBuilder.buildContent();
 	}
 
-	function indice(servicos, orgao, sumario) {
+	function indice(servicos, orgaoNome, sumario) {
 		var nomesServicos = [];
 		var servicoParser = new cartaParaPdf.ServicoParser();
 		var output = [];
@@ -199,7 +199,7 @@ cartaParaPdf.PdfMaker = function() {
 			}
 		});
 
-		output.push({ text: orgao, style: 'header' });
+		output.push({ text: orgaoNome, style: 'header' });
 		output.push('\n');
 		output.push({ text: 'Serviços disponíveis', style: 'subheadermargin' });
 		output.push('\n');
@@ -219,18 +219,19 @@ cartaParaPdf.PdfMaker = function() {
 		});
 	}
 
-	function geraPdf(jsonResponse) {
-		var doc = initialDocDefinition(jsonResponse.nome);
-		var capa = capaOrgao(jsonResponse.nome, jsonResponse.descricao);
-		var sumario = indice(jsonResponse.servicos, jsonResponse.nome);
-		var servicos = geraInformacoesDosServicos(jsonResponse.servicos);
-
+	function geraPdf(xmlOrgao, xmlServicos) {
+		var orgaoParser = new cartaParaPdf.OrgaoParser();
+		var orgao = { nome: orgaoParser.parseNome(xmlOrgao), descricao: orgaoParser.parseDescricao(xmlOrgao) };
+		var doc = initialDocDefinition(orgao.nome);
+		var capa = capaOrgao(orgao.nome, orgao.descricao);
+		var sumario = indice(xmlServicos, orgao.nome);
+		var servicos = geraInformacoesDosServicos(xmlServicos, orgao.nome);
 		var docs = [doc, capa, sumario].concat(servicos);
 
 		async.map(docs, countPages, function (err, results) {
 			var newServicos = [];
 
-			sumario = indice(jsonResponse.servicos, jsonResponse.nome, results);
+			sumario = indice(xmlServicos, orgao.nome, results);
 			$(servicos).each(function (index, value) {
 				newServicos.push([{ text: '', pageBreak: 'after' }]);
 				newServicos = newServicos.concat(value);
@@ -245,7 +246,7 @@ cartaParaPdf.PdfMaker = function() {
 				newServicos
 			];
 
-			pdfMake.createPdf(docDefinition).open('cartadeservicos_' + jsonResponse.nome.toLowerCase().replace(/ /g, ''));
+			pdfMake.createPdf(docDefinition).download('cartadeservicos_' + orgao.nome.toLowerCase().replace(/ /g, ''));
 		});
 	}
 
