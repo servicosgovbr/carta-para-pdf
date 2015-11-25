@@ -16,7 +16,11 @@ cartaParaPdf.OrgaoParser = function() {
 	};
 
 	api.parseDescricao = function (xmlDoc) {
-		return $(xmlDoc).find('conteudo').html().replace('<!--[CDATA[', '').replace(']]-->', '');
+		return $(xmlDoc).find('conteudo').html().replace('<![CDATA[', '').replace(']]>', '');
+	};
+
+	api.parseContato = function (xmlDoc) {
+		return $(xmlDoc).find('contato').html().replace('<![CDATA[', '').replace(']]>', '');
 	};
 
 	api.parseXml = function (data) {

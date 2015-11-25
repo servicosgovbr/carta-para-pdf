@@ -143,7 +143,7 @@ cartaParaPdf.PdfMaker = function() {
 	return output;
 	}
 
-	function capaOrgao(nome, descricao) {
+	function capaOrgao(nome, descricao, contato) {
 		var output = [];
 		var textoHtml = markdown.toHTML(descricao);
 		var parseHtml = new cartaParaPdf.ParseHtml();
@@ -156,6 +156,11 @@ cartaParaPdf.PdfMaker = function() {
 		output.push('\n');
 		output.push(content);
 		output.push({ text: '', style: 'paragraph' });
+		if (contato) {
+			output.push({ text: 'Contato', style: 'subheadermargin' });
+			output.push({ text: contato, style: 'paragraph' });
+			output.push({ text: '', style: 'paragraph' });
+		}
 
 		return output;
 	}
