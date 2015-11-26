@@ -28,6 +28,7 @@ cartaParaPdf.OrgaoParser = function() {
 			orgao = {
 		  		nome: api.parseNome(xmlDoc),
 		  		descricao: api.parseDescricao(xmlDoc),
+		  		contato: api.parseContato(xmlDoc)
 			};
 
 		return orgao;

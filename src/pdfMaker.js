@@ -143,24 +143,28 @@ cartaParaPdf.PdfMaker = function() {
 	return output;
 	}
 
-	function capaOrgao(nome, descricao, contato) {
+	function capaOrgao(orgao) {
 		var output = [];
-		var textoHtml = markdown.toHTML(descricao);
-		var parseHtml = new cartaParaPdf.ParseHtml();
-		var content = [];
+    var parseHtml = new cartaParaPdf.ParseHtml();
+    var parser = parseHtml.parseHtml;
+    var descricaoObject = [];
+    var contatoObject = [];
 
-		parseHtml.parseHtml(content, textoHtml);
+    parser(descricaoObject, markdown.toHTML(orgao.descricao))
+    parser(contatoObject, markdown.toHTML(orgao.contato))
 
-		output.push({ text: nome, style: 'header'});
+		output.push({ text: orgao.nome, style: 'header'});
 		output.push({ text: 'Quem somos?', style: 'subheadermargin' });
 		output.push('\n');
-		output.push(content);
+    output.push(descricaoObject);
+		output.push();
+    if (orgao.contato) {
+      output.push({ text: 'Contato', style: 'subheadermargin' });
+      output.push('\n');
+      output.push(contatoObject);
+      output.push({ text: '', style: 'paragraph' });
+    }
 		output.push({ text: '', style: 'paragraph' });
-		if (contato) {
-			output.push({ text: 'Contato', style: 'subheadermargin' });
-			output.push({ text: contato, style: 'paragraph' });
-			output.push({ text: '', style: 'paragraph' });
-		}
 
 		return output;
 	}
@@ -226,9 +230,9 @@ cartaParaPdf.PdfMaker = function() {
 
 	function geraPdf(xmlOrgao, xmlServicos) {
 		var orgaoParser = new cartaParaPdf.OrgaoParser();
-		var orgao = { nome: orgaoParser.parseNome(xmlOrgao), descricao: orgaoParser.parseDescricao(xmlOrgao) };
+		var orgao = orgaoParser.parseXml(xmlOrgao);
 		var doc = initialDocDefinition(orgao.nome);
-		var capa = capaOrgao(orgao.nome, orgao.descricao);
+		var capa = capaOrgao(orgao);
 		var sumario = indice(xmlServicos, orgao.nome);
 		var servicos = geraInformacoesDosServicos(xmlServicos, orgao.nome);
 		var docs = [doc, capa, sumario].concat(servicos);
