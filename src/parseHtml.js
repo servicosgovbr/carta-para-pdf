@@ -38,11 +38,14 @@ cartaParaPdf.ParseHtml = function() {
 		var content,
 			stack,
 			text;
-
 	    switch (element.nodeName.toLowerCase()) {
 	        case "#text": {
-	            text = { text: element.textContent.replace(/\n/g, ""), style: 'text', headlineLevel: 2 };
-	            container.push(text);
+              if (container.length) {
+                container[container.length - 1].text = container[container.length - 1].text + element.textContent.replace(/\n/g, "");
+              } else {
+	              text = { text: element.textContent.replace(/\n/g, ""), style: 'text', headlineLevel: 2 };
+	              container.push(text);
+              }
 	            break;
 	        }
 	        case "b":
@@ -72,7 +75,7 @@ cartaParaPdf.ParseHtml = function() {
 	            break;
 	        }
 	        case "a": {
-	            container.push({ text: $(element).html() + ' (' + $(element).attr('href') + ')', style: "text"});
+              container[container.length - 1].text = container[container.length - 1].text + $(element).html();
 	            break;
 	        }
 			case "h6":
@@ -108,7 +111,7 @@ cartaParaPdf.ParseHtml = function() {
 	            break;
 	        }
 	        default: {
-	            container.push({ text: $(element).html(), style: 'text' });
+              container[container.length - 1].text = container[container.length - 1].text + $(element).html();
 	            break;
 	        }
 	    }
