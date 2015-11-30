@@ -75,8 +75,12 @@ cartaParaPdf.ParseHtml = function() {
 	            break;
 	        }
 	        case "a": {
+            if (container.length) {
               container[container.length - 1].text = container[container.length - 1].text + $(element).html();
-	            break;
+            } else {
+	            container.push({ text: $(element).html(), style: 'text' });
+            }
+	          break;
 	        }
 			case "h6":
 			case "h5":
