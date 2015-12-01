@@ -125,7 +125,6 @@ cartaParaPdf.ContentBuilder = function(servicoObject) {
 		if (servico.nomesPopulares.length || servico.gratuito) {
 			addContent({ text: 'Outras informações', style: 'subheader' });
 			addNewLine();
-			buildNomesPopulares();
 			buildGratuidade();
 			buildContato();
 		}
@@ -250,6 +249,7 @@ cartaParaPdf.ContentBuilder = function(servicoObject) {
 	return {
 		buildContent: function () {
 			buildNome();
+			buildNomesPopulares();
 			buildDescricao();
 			buildSolicitantes();
 			buildEtapas();

@@ -142,8 +142,8 @@ describe('Montar conteúdo do serviço', function () {
         };
         var content = [
             { text: 'Legislação', style: 'subheader' },
-            [ { text: 'TítuloLei nº 6.766, de 19 de Dezembro de 1979 (http://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1979-12-19;6766)', style: 'text' }], 
-            [ { text: 'TítuloLei nº 6.766, de 19 de Dezembro de 1979 (http://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1979-12-19;6766)', style: 'text' } ]
+            [ { text: 'TítuloLei nº 6.766, de 19 de Dezembro de 1979', style: 'text' }], 
+            [ { text: 'TítuloLei nº 6.766, de 19 de Dezembro de 1979', style: 'text' } ]
         ];
         contentBuilder = criarContentBuilder(servico);
 

@@ -23,8 +23,8 @@ cartaParaPdf.ServicoParser = function() {
     if ($(xmlDoc).find('contato').html()) {
 		  return $(xmlDoc).find('contato').html().replace('<![CDATA[', '').replace(']]>', '');
     }
-    return $(xmlDoc).find('contato').html()
-	}
+    return $(xmlDoc).find('contato').html();
+	};
 
 	api.parseDescricao = function (xmlDoc) {
 		return $(xmlDoc).find('descricao').html().replace('<![CDATA[', '').replace(']]>', '');

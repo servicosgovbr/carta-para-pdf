@@ -28,7 +28,10 @@ describe('Montar objeto pdfmake inicial', function () {
     });
 
     it('cria capa do orgão', function () {
-        expect(pdfMaker.capaOrgao('Ministério da educação (MEC)', 'Órgão do governo federal que trata da política nacional de educação em geral.')).toEqual(
+        expect(pdfMaker.capaOrgao({
+            nome: 'Ministério da educação (MEC)'
+            descricao: 'Órgão do governo federal que trata da política nacional de educação em geral.'
+        })).toEqual(
           [{ text: 'Ministério da educação (MEC)', style: 'header' }, 
           { text: 'Quem somos?', style: 'subheadermargin' }, 
           '\n',
