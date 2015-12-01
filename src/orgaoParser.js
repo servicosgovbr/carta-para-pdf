@@ -5,22 +5,22 @@ cartaParaPdf.OrgaoParser = function() {
 		var values = [];
 
 		$(xmlDoc).find(selector).each(function(index, item) {
-			values.push($(item).html());
+			values.push($(item).html().replace('<![CDATA[', '').replace(']]>', ''));
 		});
 
 		return values;
 	}
 
 	api.parseNome = function (xmlDoc) {
-		return $(xmlDoc).find('nome').text().replace('<![CDATA[', '').replace(']]>', '');
+		return $(xmlDoc).find('nome').html().replace('<![CDATA[', '').replace(']]>', '');
 	};
 
 	api.parseDescricao = function (xmlDoc) {
-		return $(xmlDoc).find('conteudo').text().replace('<![CDATA[', '').replace(']]>', '');
+		return $(xmlDoc).find('conteudo').html().replace('<![CDATA[', '').replace(']]>', '');
 	};
 
 	api.parseContato = function (xmlDoc) {
-		return $(xmlDoc).find('contato').text().replace('<![CDATA[', '').replace(']]>', '');
+		return $(xmlDoc).find('contato').html().replace('<![CDATA[', '').replace(']]>', '');
 	};
 
 	api.parseXml = function (data) {

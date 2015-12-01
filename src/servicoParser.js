@@ -5,7 +5,7 @@ cartaParaPdf.ServicoParser = function() {
 		var values = [];
 
 		$(xmlDoc).find(selector).each(function(index, item) {
-			values.push($(item).html());
+			values.push($(item).html().replace('<![CDATA[', '').replace(']]>', ''));
 		});
 
 		return values;
@@ -103,8 +103,8 @@ cartaParaPdf.ServicoParser = function() {
 
 		$(xmlDoc).find('etapa').each(function(index, etapa) {
 			etapas.push({
-				titulo: $(etapa).find('titulo').html(),
-				descricao: $(etapa).find('descricao').html(),
+				titulo: $(etapa).find('titulo').html().replace('<![CDATA[', '').replace(']]>', ''),
+				descricao: $(etapa).find('descricao').html().replace('<![CDATA[', '').replace(']]>', ''),
 				documentos: api.parseDocumentos(etapa),
 				custos: api.parseCustos(etapa),
 				canaisDePrestacao: api.parseCanaisDePrestacao(etapa)
