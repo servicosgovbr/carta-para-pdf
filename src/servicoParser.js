@@ -12,19 +12,22 @@ cartaParaPdf.ServicoParser = function() {
 	}
 
 	api.parseNome = function (xmlDoc) {
-		return $(xmlDoc).find('nome').html();
+		return $(xmlDoc).find('nome').html().replace('<![CDATA[', '').replace(']]>', '');
 	};
 
 	api.parseSigla = function (xmlDoc) {
-		return $(xmlDoc).find('sigla').html();
+		return $(xmlDoc).find('sigla').html().replace('<![CDATA[', '').replace(']]>', '');
 	};
 
 	api.parseContato = function (xmlDoc) {
-		return $(xmlDoc).find('contato').html();
+    if ($(xmlDoc).find('contato').html()) {
+		  return $(xmlDoc).find('contato').html().replace('<![CDATA[', '').replace(']]>', '');
+    }
+    return $(xmlDoc).find('contato').html()
 	}
 
 	api.parseDescricao = function (xmlDoc) {
-		return $(xmlDoc).find('descricao').html();
+		return $(xmlDoc).find('descricao').html().replace('<![CDATA[', '').replace(']]>', '');
 	};
 
 	api.parseNomesPopulares = function (xmlDoc) {
@@ -52,8 +55,8 @@ cartaParaPdf.ServicoParser = function() {
 
 		$(xmlDoc).find('solicitantes solicitante').each(function(index, item) {
 			solicitantes.push({
-				tipo: $(item).find('tipo').html(),
-				requisitos: $(item).find('requisitos').html()
+				tipo: $(item).find('tipo').html().replace('<![CDATA[', '').replace(']]>', ''),
+				requisitos: $(item).find('requisitos').html().replace('<![CDATA[', '').replace(']]>', '')
 			});
 		});
 
@@ -65,7 +68,7 @@ cartaParaPdf.ServicoParser = function() {
 			min: $(xmlDoc).find('tempo-total-estimado').children(0).attr('min'),
 			max: $(xmlDoc).find('tempo-total-estimado').children(0).attr('max'),
 			unidade: $(xmlDoc).find('tempo-total-estimado').children(0).attr('unidade'),
-			descricao: $(xmlDoc).find('tempo-total-estimado descricao').html()
+			descricao: $(xmlDoc).find('tempo-total-estimado descricao').html().replace('<![CDATA[', '').replace(']]>', '')
 		};
 	};
 
@@ -79,14 +82,14 @@ cartaParaPdf.ServicoParser = function() {
 		documentos.casos = [];
 
 		$(etapa).find('documentos default item').each(function(index, item) {
-			documentos.items.push($(item).html());
+			documentos.items.push($(item).html().replace('<![CDATA[', '').replace(']]>', ''));
 		});
 
 		$(etapa).find('documentos caso').each(function(index, caso) {
 			var casoObj = { descricao: $(caso).attr('descricao'), items: [] };
 
 			$(caso).find('item').each(function(index, item) {
-				casoObj.items.push($(item).html());
+				casoObj.items.push($(item).html().replace('<![CDATA[', '').replace(']]>', ''));
 			});
 
 			documentos.casos.push(casoObj);
@@ -118,8 +121,8 @@ cartaParaPdf.ServicoParser = function() {
 
 		$(etapa).find('custos default custo').each(function(index, item) {
 			var custo = {
-				descricao: $(item).find('descricao').html(),
-				valor: $(item).find('valor').html()
+				descricao: $(item).find('descricao').html().replace('<![CDATA[', '').replace(']]>', ''),
+				valor: $(item).find('valor').html().replace('<![CDATA[', '').replace(']]>', '')
 			};
 			custos.items.push(custo);
 		});
@@ -129,8 +132,8 @@ cartaParaPdf.ServicoParser = function() {
 
 			$(caso).find('custo').each(function(index, item) {
 				var custoObj = {
-					descricao: $(item).find('descricao').html(),
-					valor: $(item).find('valor').html()
+					descricao: $(item).find('descricao').html().replace('<![CDATA[', '').replace(']]>', ''),
+					valor: $(item).find('valor').html().replace('<![CDATA[', '').replace(']]>', '')
 				};
 				casoObj.items.push(custoObj);
 			});
@@ -149,7 +152,7 @@ cartaParaPdf.ServicoParser = function() {
 		$(etapa).find('canais-de-prestacao default canal-de-prestacao').each(function(index, item) {
 			canaisDePrestacao.items.push({
 				tipo: $(item).attr('tipo'),
-				descricao: $(item).find('descricao').html()
+				descricao: $(item).find('descricao').html().replace('<![CDATA[', '').replace(']]>', '')
 			});
 		});
 
@@ -159,7 +162,7 @@ cartaParaPdf.ServicoParser = function() {
 			$(caso).find('canal-de-prestacao').each(function(index, item) {
 				var canalDePrestacaoObj = {
 					tipo: $(item).attr('tipo'),
-					descricao: $(item).find('descricao').html()
+					descricao: $(item).find('descricao').html().replace('<![CDATA[', '').replace(']]>', '')
 				};
 				casoObj.items.push(canalDePrestacaoObj);
 			});

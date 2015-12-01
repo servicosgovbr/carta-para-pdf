@@ -12,7 +12,7 @@ cartaParaPdf.OrgaoParser = function() {
 	}
 
 	api.parseNome = function (xmlDoc) {
-		return $(xmlDoc).find('nome').text();
+		return $(xmlDoc).find('nome').text().replace('<![CDATA[', '').replace(']]>', '');
 	};
 
 	api.parseDescricao = function (xmlDoc) {
