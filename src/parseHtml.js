@@ -1,11 +1,11 @@
 cartaParaPdf.ParseHtml = function() {
-	function parseContainer(container, element, docDefinition) {
+	function parseContainer(container, element, docDefinition, contact) {
 	    var elements = [];
 	    var children = element.childNodes;
 
 	    if (children.length !== 0) {
 	        for (i = 0; i < children.length; i++) {
-	        	docDefinition = parseElement(elements, children[i], docDefinition);
+	        	docDefinition = parseElement(elements, children[i], docDefinition, contact);
 	        }
 	    }
 
@@ -34,7 +34,7 @@ cartaParaPdf.ParseHtml = function() {
         container.push(content);
 	}
 
-	function parseElement(container, element, docDefinition) {
+	function parseElement(container, element, docDefinition, contact) {
 		var content,
 			stack,
 			text;
@@ -75,10 +75,14 @@ cartaParaPdf.ParseHtml = function() {
 	            break;
 	        }
 	        case "a": {
-            if (container.length) {
-              container[container.length - 1].text = container[container.length - 1].text + ' ' + $(element).html();
+            if (contact) {
+	            container.push({ text: $(element).html() + ': ' + $(element).attr('href'), style: 'text' });
             } else {
-	            container.push({ text: $(element).html(), style: 'text' });
+              if (container.length) {
+                container[container.length - 1].text = container[container.length - 1].text + ' ' + $(element).html();
+              } else {
+                container.push({ text: $(element).html(), style: 'text' });
+              }
             }
 	          break;
 	        }
@@ -110,7 +114,7 @@ cartaParaPdf.ParseHtml = function() {
 	        case "blockquote":
 	        case "p": {
 	            stack = [];
-	            parseContainer(stack, element, docDefinition);
+	            parseContainer(stack, element, docDefinition, contact);
 	            container.push(stack);
 	            break;
 	        }
@@ -123,12 +127,11 @@ cartaParaPdf.ParseHtml = function() {
 	    return docDefinition;
 	}
 
-	function parseHtml(container, htmlText) {
+	function parseHtml(container, htmlText, contact) {
 	    var html = $(htmlText.replace(/\t/g, "").replace(/\n/g, ""));
 	    var docDefinition = CreateDocument();
-
 	    for (var i = 0; i < html.length; i++) {
-	    	parseElement(container, html[i], docDefinition);	
+	    	parseElement(container, html[i], docDefinition, contact);	
 	    }
 	}
 

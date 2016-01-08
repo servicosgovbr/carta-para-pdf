@@ -150,9 +150,8 @@ cartaParaPdf.PdfMaker = function() {
     var parser = parseHtml.parseHtml;
     var descricaoObject = [];
     var contatoObject = [];
-
     parser(descricaoObject, markdown.toHTML(orgao.descricao));
-    parser(contatoObject, markdown.toHTML(orgao.contato));
+    parser(contatoObject, markdown.toHTML(orgao.contato), true);
 
 		output.push({ text: orgao.nome, style: 'header'});
 		output.push({ text: 'Quem somos?', style: 'subheadermargin' });
