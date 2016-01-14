@@ -1,38 +1,36 @@
 cartaParaPdf.OrgaoParser = function() {
-	var api = {};
+  var api = {};
 
-	function parseArray(xmlDoc, selector) {
-		var values = [];
+  api.parseNome = function (xmlDoc) {
+    return $(xmlDoc).find('nome').html().replace('<![CDATA[', '').replace(']]>', '');
+  };
 
-		$(xmlDoc).find(selector).each(function(index, item) {
-			values.push($(item).html().replace('<![CDATA[', '').replace(']]>', ''));
-		});
+  api.parseDescricao = function (xmlDoc) {
+    var descricao = $(xmlDoc).find('conteudo').html() || '';
+    return descricao.replace('<![CDATA[', '')
+                    .replace('<!--[CDATA[', '')
+                    .replace(']]>', '')
+                    .replace(']]-->', '');
+  };
 
-		return values;
-	}
+  api.parseContato = function (xmlDoc) {
+    var contato = $(xmlDoc).find('contato').html() || '';
+    return contato.replace('<![CDATA[', '')
+                  .replace('<!--[CDATA[', '')
+                  .replace(']]>', '')
+                  .replace(']]-->', '');
+  };
 
-	api.parseNome = function (xmlDoc) {
-		return $(xmlDoc).find('nome').html().replace('<![CDATA[', '').replace(']]>', '');
-	};
+  api.parseXml = function (data) {
+    var xmlDoc = $.parseXML(data),
+      orgao = {
+        nome: api.parseNome(xmlDoc),
+        descricao: api.parseDescricao(xmlDoc),
+        contato: api.parseContato(xmlDoc)
+      };
 
-	api.parseDescricao = function (xmlDoc) {
-		return $(xmlDoc).find('conteudo').html().replace('<![CDATA[', '').replace(']]>', '');
-	};
+      return orgao;
+  };
 
-	api.parseContato = function (xmlDoc) {
-		return $(xmlDoc).find('contato').html().replace('<![CDATA[', '').replace(']]>', '');
-	};
-
-	api.parseXml = function (data) {
-		var xmlDoc = $.parseXML(data),
-			orgao = {
-		  		nome: api.parseNome(xmlDoc),
-		  		descricao: api.parseDescricao(xmlDoc),
-		  		contato: api.parseContato(xmlDoc)
-			};
-
-		return orgao;
-	};
-
-	return api;
+  return api;
 };
