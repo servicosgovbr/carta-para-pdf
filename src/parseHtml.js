@@ -1,38 +1,38 @@
 cartaParaPdf.ParseHtml = function() {
-	function parseContainer(container, element, docDefinition, contact) {
-	    var elements = [];
-	    var children = element.childNodes;
+  function parseContainer(container, element, docDefinition, contact) {
+    var elements = [];
+    var children = element.childNodes;
 
-	    if (children.length !== 0) {
-	        for (i = 0; i < children.length; i++) {
-	        	docDefinition = parseElement(elements, children[i], docDefinition, contact);
-	        }
-	    }
+    if (children.length !== 0) {
+      for (i = 0; i < children.length; i++) {
+        docDefinition = parseElement(elements, children[i], docDefinition, contact);
+      }
+    }
 
-	    if (elements.length !== 0) {
-	        for (i = 0; i < elements.length; i++) {
-	        	container.push(elements[i]);
-	        }
-	    }
-	}
+    if (elements.length !== 0) {
+      for (i = 0; i < elements.length; i++) {
+        container.push(elements[i]);
+      }
+    }
+  }
 
-	function parseItem(container, element, docDefinition, listType) {
-		var list = [],
-			content = {};
+  function parseItem(container, element, docDefinition, listType, contact) {
+    var list = [],
+      content = {};
 
-        $(element).find('li').each(function(index, listItem) {
-			if (listItem.children.length !== 0) {
-	            parseContainer(list, listItem, docDefinition);
-			} else {
-        		list.push($(listItem).html());
-			}
-        });
+      $(element).find('li').each(function(index, listItem) {
+        if (listItem.children.length !== 0) {
+          parseContainer(list, listItem, docDefinition, contact);
+        } else {
+          list.push($(listItem).html());
+        }
+      });
 
-        content = { style: 'listMargin' };
-		content[listType] = list;
+      content = { style: 'listMargin' };
+      content[listType] = list;
 
-        container.push(content);
-	}
+      container.push(content);
+  }
 
 	function parseElement(container, element, docDefinition, contact) {
 		var content,
@@ -103,11 +103,11 @@ cartaParaPdf.ParseHtml = function() {
 	            break;
 	        }
 	        case "ul": {
-				parseItem(container, element, docDefinition, 'ul');
+            parseItem(container, element, docDefinition, 'ul', contact);
 	            break;
 	        }
 	        case "ol": {
-				parseItem(container, element, docDefinition, 'ol');
+            parseItem(container, element, docDefinition, 'ol', contact);
 	            break;
 	        }
 	        case "div":
