@@ -91,7 +91,7 @@ cartaParaPdf.ServicoParser = function () {
         items: []
       };
 
-      $(caso).find('item').each(function (index, item) {
+      $(caso).find('item').each(function (i, item) {
         casoObj.items.push($(item).html().replace('<![CDATA[', '').replace(']]>', ''));
       });
 
@@ -136,7 +136,7 @@ cartaParaPdf.ServicoParser = function () {
         items: []
       };
 
-      $(caso).find('custo').each(function (index, item) {
+      $(caso).find('custo').each(function (i, item) {
         var custoObj = {
           descricao: $(item).find('descricao').html().replace('<![CDATA[', '').replace(']]>', ''),
           valor: $(item).find('valor').html().replace('<![CDATA[', '').replace(']]>', '')
@@ -168,7 +168,7 @@ cartaParaPdf.ServicoParser = function () {
         items: []
       };
 
-      $(caso).find('canal-de-prestacao').each(function (index, item) {
+      $(caso).find('canal-de-prestacao').each(function (i, item) {
         var canalDePrestacaoObj = {
           tipo: $(item).attr('tipo'),
           descricao: $(item).find('descricao').html().replace('<![CDATA[', '').replace(']]>', '')

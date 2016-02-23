@@ -4,14 +4,14 @@ cartaParaPdf.ParseHtml = function () {
     var children = element.childNodes;
 
     if (children.length !== 0) {
-      for (i = 0; i < children.length; i++) {
+      for (var i = 0; i < children.length; i++) {
         docDefinition = parseElement(elements, children[i], docDefinition, contact);
       }
     }
 
     if (elements.length !== 0) {
-      for (i = 0; i < elements.length; i++) {
-        container.push(elements[i]);
+      for (var j = 0; j < elements.length; j++) {
+        container.push(elements[j]);
       }
     }
   }
@@ -37,17 +37,16 @@ cartaParaPdf.ParseHtml = function () {
   }
 
   function parseElement(container, element, docDefinition, contact) {
-    var content,
-      stack,
+    var stack,
       text;
     switch (element.nodeName.toLowerCase()) {
-    case "#text":
+    case '#text':
       {
         if (container.length) {
-          container[container.length - 1].text = container[container.length - 1].text + element.textContent.replace(/\n/g, "");
+          container[container.length - 1].text = container[container.length - 1].text + element.textContent.replace(/\n/g, '');
         } else {
           text = {
-            text: element.textContent.replace(/\n/g, ""),
+            text: element.textContent.replace(/\n/g, ''),
             style: 'text',
             headlineLevel: 2
           };
@@ -55,8 +54,8 @@ cartaParaPdf.ParseHtml = function () {
         }
         break;
       }
-    case "b":
-    case "strong":
+    case 'b':
+    case 'strong':
       {
         container.push({
           text: $(element).html(),
@@ -64,7 +63,7 @@ cartaParaPdf.ParseHtml = function () {
         });
         break;
       }
-    case "u":
+    case 'u':
       {
         container.push({
           text: $(element).html(),
@@ -72,7 +71,7 @@ cartaParaPdf.ParseHtml = function () {
         });
         break;
       }
-    case "i":
+    case 'i':
       {
         container.push({
           text: $(element).html(),
@@ -80,12 +79,12 @@ cartaParaPdf.ParseHtml = function () {
         });
         break;
       }
-    case "span":
+    case 'span':
       {
         parseContainer(container, element, docDefinition);
         break;
       }
-    case "code":
+    case 'code':
       {
         container.push({
           text: $(element).html(),
@@ -93,13 +92,13 @@ cartaParaPdf.ParseHtml = function () {
         });
         break;
       }
-    case "br":
+    case 'br':
       {
-        docDefinition = createDocument();
+        docDefinition = window.createDocument();
         container.push(docDefinition);
         break;
       }
-    case "a":
+    case 'a':
       {
         if (contact) {
           container.push({
@@ -118,11 +117,11 @@ cartaParaPdf.ParseHtml = function () {
         }
         break;
       }
-    case "h6":
-    case "h5":
-    case "h4":
-    case "h3":
-    case "h2":
+    case 'h6':
+    case 'h5':
+    case 'h4':
+    case 'h3':
+    case 'h2':
       {
         container.push({
           text: $(element).html(),
@@ -130,7 +129,7 @@ cartaParaPdf.ParseHtml = function () {
         });
         break;
       }
-    case "h1":
+    case 'h1':
       {
         container.push({
           text: $(element).html(),
@@ -138,7 +137,7 @@ cartaParaPdf.ParseHtml = function () {
         });
         break;
       }
-    case "em":
+    case 'em':
       {
         container.push({
           text: $(element).html(),
@@ -146,19 +145,19 @@ cartaParaPdf.ParseHtml = function () {
         });
         break;
       }
-    case "ul":
+    case 'ul':
       {
         parseItem(container, element, docDefinition, 'ul', contact);
         break;
       }
-    case "ol":
+    case 'ol':
       {
         parseItem(container, element, docDefinition, 'ol', contact);
         break;
       }
-    case "div":
-    case "blockquote":
-    case "p":
+    case 'div':
+    case 'blockquote':
+    case 'p':
       {
         stack = [];
         parseContainer(stack, element, docDefinition, contact);
@@ -176,8 +175,8 @@ cartaParaPdf.ParseHtml = function () {
   }
 
   function parseHtml(container, htmlText, contact) {
-    var html = $(htmlText.replace(/\t/g, "").replace(/\n/g, ""));
-    var docDefinition = CreateDocument();
+    var html = $(htmlText.replace(/\t/g, '').replace(/\n/g, ''));
+    var docDefinition = new CreateDocument();
     for (var i = 0; i < html.length; i++) {
       parseElement(container, html[i], docDefinition, contact);
     }

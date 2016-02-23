@@ -271,7 +271,7 @@ cartaParaPdf.ContentBuilder = function (servicoObject) {
         text: caso.descricao,
         style: 'thirdheaderTable'
       });
-      $(caso.items).each(function (index, custo) {
+      $(caso.items).each(function (i, custo) {
         custosDoc.push({
           ul: [custo.descricao + ': ' + custo.valor],
           style: 'list'
@@ -310,7 +310,7 @@ cartaParaPdf.ContentBuilder = function (servicoObject) {
         text: caso.descricao,
         style: 'thirdheaderTable'
       });
-      $(caso.items).each(function (index, canal) {
+      $(caso.items).each(function (i, canal) {
         canaisDoc.push({
           ul: [formatterHelper.formatarCanalDeComunicacao(canal.tipo) + ': ' + canal.descricao],
           style: 'list'

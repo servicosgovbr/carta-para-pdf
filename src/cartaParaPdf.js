@@ -1,1 +1,1 @@
-cartaParaPdf = {};
+window.cartaParaPdf = {};

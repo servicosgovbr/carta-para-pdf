@@ -212,7 +212,6 @@ cartaParaPdf.PdfMaker = function () {
   }
 
   function geraInformacoesDosServicos(servicos) {
-    var servicoParser = new cartaParaPdf.ServicoParser();
     var output = [];
 
     $(servicos).each(function (index, xml) {
@@ -272,7 +271,7 @@ cartaParaPdf.PdfMaker = function () {
     var tempDoc = docDefinition;
 
     tempDoc.content = section;
-    pdf = pdfMake.createPdf(tempDoc);
+    var pdf = pdfMake.createPdf(tempDoc);
 
     pdf._getPages({}, function (pages) {
       callback(null, pages.length);
