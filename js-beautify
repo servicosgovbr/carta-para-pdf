@@ -1,0 +1,10 @@
+#!/bin/sh
+
+which npm > /dev/null || (echo 'npm não instalado!' && exit 1)
+npm install
+
+JS_BEAUTIFY='./node_modules/.bin/js-beautify -n -s 2 -j --good-stuff -r -f'
+
+git ls-files 'src/*.js' | xargs $JS_BEAUTIFY
+git ls-files 'test/*.js' | xargs $JS_BEAUTIFY
+echo 'gulpfile.js' 'main.js' 'karma.conf.js' | xargs $JS_BEAUTIFY
