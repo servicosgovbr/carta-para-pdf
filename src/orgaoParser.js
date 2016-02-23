@@ -1,4 +1,4 @@
-cartaParaPdf.OrgaoParser = function() {
+cartaParaPdf.OrgaoParser = function () {
   var api = {};
 
   api.parseNome = function (xmlDoc) {
@@ -8,17 +8,17 @@ cartaParaPdf.OrgaoParser = function() {
   api.parseDescricao = function (xmlDoc) {
     var descricao = $(xmlDoc).find('conteudo').html() || '';
     return descricao.replace('<![CDATA[', '')
-                    .replace('<!--[CDATA[', '')
-                    .replace(']]>', '')
-                    .replace(']]-->', '');
+      .replace('<!--[CDATA[', '')
+      .replace(']]>', '')
+      .replace(']]-->', '');
   };
 
   api.parseContato = function (xmlDoc) {
     var contato = $(xmlDoc).find('contato').html() || '';
     return contato.replace('<![CDATA[', '')
-                  .replace('<!--[CDATA[', '')
-                  .replace(']]>', '')
-                  .replace(']]-->', '');
+      .replace('<!--[CDATA[', '')
+      .replace(']]>', '')
+      .replace(']]-->', '');
   };
 
   api.parseXml = function (data) {
@@ -29,7 +29,7 @@ cartaParaPdf.OrgaoParser = function() {
         contato: api.parseContato(xmlDoc)
       };
 
-      return orgao;
+    return orgao;
   };
 
   return api;

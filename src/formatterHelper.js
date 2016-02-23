@@ -1,6 +1,6 @@
-cartaParaPdf.FormatterHelper = function() {
-	function formatDate(date) {
-		var months = [
+cartaParaPdf.FormatterHelper = function () {
+  function formatDate(date) {
+    var months = [
 			'Janeiro',
 			'Fevereiro',
 			'Março',
@@ -13,41 +13,41 @@ cartaParaPdf.FormatterHelper = function() {
 			'Outubro',
 			'Novembro',
 			'Dezembro'];
-	    var year = date.getFullYear().toString();
-	    var month = date.getMonth();
-	    var day = date.getDate().toString();
+    var year = date.getFullYear().toString();
+    var month = date.getMonth();
+    var day = date.getDate().toString();
 
-	    return day + ' de ' + months[month] + ' de ' + year;
-	}
+    return day + ' de ' + months[month] + ' de ' + year;
+  }
 
-	function formatarCanalDeComunicacao(string) {
-		if(string === 'web-agendar') {
-			return 'Web';
-		} else {
-			return string.replace(string.charAt(0), function(letter) {
-			    return letter.toUpperCase();
-			});
-		}
-	}
+  function formatarCanalDeComunicacao(string) {
+    if (string === 'web-agendar') {
+      return 'Web';
+    } else {
+      return string.replace(string.charAt(0), function (letter) {
+        return letter.toUpperCase();
+      });
+    }
+  }
 
-	function formatarTempoEstimado(tempo) {
-		if(tempo === 'dias-uteis') {
-			return 'dias úteis';
-		} else if (tempo === 'dias-corridos') {
-			return 'dias corridos';
-		} else {
-			return tempo;
-		}
-	}
+  function formatarTempoEstimado(tempo) {
+    if (tempo === 'dias-uteis') {
+      return 'dias úteis';
+    } else if (tempo === 'dias-corridos') {
+      return 'dias corridos';
+    } else {
+      return tempo;
+    }
+  }
 
-	function getCurrentDate() {
-		return formatDate(new Date());
-	}
+  function getCurrentDate() {
+    return formatDate(new Date());
+  }
 
-	return {
-		getCurrentDate: getCurrentDate,
-		formatDate: formatDate,
-		formatarCanalDeComunicacao: formatarCanalDeComunicacao,
-		formatarTempoEstimado: formatarTempoEstimado
-	};
+  return {
+    getCurrentDate: getCurrentDate,
+    formatDate: formatDate,
+    formatarCanalDeComunicacao: formatarCanalDeComunicacao,
+    formatarTempoEstimado: formatarTempoEstimado
+  };
 };
