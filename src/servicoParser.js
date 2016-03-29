@@ -68,7 +68,7 @@ cartaParaPdf.ServicoParser = function () {
       min: $(xmlDoc).find('tempo-total-estimado').children(0).attr('min'),
       max: $(xmlDoc).find('tempo-total-estimado').children(0).attr('max'),
       unidade: $(xmlDoc).find('tempo-total-estimado').children(0).attr('unidade'),
-      descricao: $(xmlDoc).find('tempo-total-estimado descricao').html().replace('<![CDATA[', '').replace(']]>', '')
+      descricao: ($(xmlDoc).find('tempo-total-estimado descricao').html() || '').replace('<![CDATA[', '').replace(']]>', '')
     };
   };
 
